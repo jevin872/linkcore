@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Linkcore Technologies</title>
+    <meta name="description" content="Get a free consultation quote. Contact our IT systems technicians for structured network audits, IP cameras installation support, or AMC SLA proposal negotiations.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loader-wrapper">
+        <div class="loader">
+            <span class="loader-circle"></span>
+            <span class="loader-circle"></span>
+            <span class="loader-circle"></span>
+        </div>
+    </div>
+
+    <!-- STICKY NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" fill="none" stroke="url(#logo-grad)" stroke-width="8" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="15" fill="none" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="50" y1="15" x2="50" y2="35" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="20" y1="67.5" x2="37" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="80" y1="67.5" x2="63" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>LINKCORE</span>
+            </a>
+
+            <nav class="nav-links-wrapper">
+                <ul class="nav-menu" id="navigation-menu">
+                    <li><a href="index.html" class="nav-link" id="link-home">Home</a></li>
+                    <li><a href="about.html" class="nav-link" id="link-about">About Us</a></li>
+                    <li><a href="services.html" class="nav-link" id="link-services">Services</a></li>
+                    <li><a href="amc.html" class="nav-link" id="link-amc">AMC Plans</a></li>
+                    <li><a href="portfolio.html" class="nav-link" id="link-portfolio">Portfolio</a></li>
+                    <li><a href="careers.html" class="nav-link" id="link-careers">Careers</a></li>
+                    <li><a href="contact.html" class="nav-link active" id="link-contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Proposal</a>
+                <button class="hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" style="min-height: 50vh; padding-top: 10rem; padding-bottom: 4rem;" id="contact-hero">
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="container">
+            <div class="hero-content fade-in appear">
+                <span class="hero-tag">Reach Us</span>
+                <h1 class="hero-title" style="font-size: 3.5rem;">Let's Align On <span>Your Solutions</span></h1>
+                <p class="hero-desc" style="max-width: 800px;">Get in touch directly with our IT support desks, call us for quick emergency SLA dispatching, or draft an infrastructure proposal using the form below.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT GRID SECTION -->
+    <section class="section" id="contact-grid-section">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <!-- Contact Direct Details Cards -->
+                <div class="contact-info-cards fade-in">
+                    <div class="glass-card contact-info-card" id="contact-page-phone">
+                        <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <span class="contact-info-title">Telephone Hotline</span>
+                            <div class="contact-info-detail">+1 (555) 234-5678</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">Mon-Sat, 8 AM - 8 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card" id="contact-page-email">
+                        <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <span class="contact-info-title">Direct Email Contact</span>
+                            <div class="contact-info-detail">support@linkcore.com</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">Sales, AMCs, Careers</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card" id="contact-page-address">
+                        <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <span class="contact-info-title">Office Headquarters</span>
+                            <div class="contact-info-detail">100 Cyber Heights, Tech District</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">Suite 404, Building Core</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary whatsapp-btn-static" style="width:100%; border-color:#25d366; background: rgba(37,211,102,0.05); color:#25d366;" onclick="document.querySelector('.whatsapp-btn').click();" id="whatsapp-click-btn-static">
+                        <i class="fa-brands fa-whatsapp"></i> Chat instantly on WhatsApp
+                    </button>
+                </div>
+
+                <!-- Verified Inquiry Form -->
+                <div class="glass-card contact-form-card fade-in" id="contact-page-form-container">
+                    <div class="glass-card-inner">
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-name">Your Name *</label>
+                                    <input type="text" id="contact-name" class="form-input" placeholder="e.g. John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-email">Email Address *</label>
+                                    <input type="email" id="contact-email" class="form-input" placeholder="e.g. john@company.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-phone">Phone Number *</label>
+                                    <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +1 (555) 000-0000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-interest">Interest Area *</label>
+                                    <select id="contact-interest" class="form-input" style="background: rgba(3,7,18,0.8); color:var(--text-primary);" required>
+                                        <option value="networking">Structured Cabling & Networking</option>
+                                        <option value="cctv">IP CCTV Surveillance Setup</option>
+                                        <option value="firewall">Firewall & Security Configuration</option>
+                                        <option value="servers">Dell/HP Server Setup</option>
+                                        <option value="amc">IT AMC Maintenance Contract</option>
+                                        <option value="support">IT Support / Emergency diagnostics</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-message">Inquiry Details *</label>
+                                <textarea id="contact-message" class="form-input" placeholder="Explain your networking or security requirements..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="contact-form-submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Dark Map iframe integration -->
+            <div class="map-wrapper fade-in" id="contact-page-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.241263496582!2d-73.98656448459371!3d40.74844047932822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1621873155799!5m2!1sen!2sus" allowfullscreen="" loading="lazy" aria-label="Google Map location of Linkcore Office"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" id="footer-logo">
+                        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" fill="none" stroke="url(#foot-logo-grad)" stroke-width="8" stroke-linejoin="round"/>
+                            <circle cx="50" cy="50" r="15" fill="none" stroke="url(#foot-logo-grad)" stroke-width="6"/>
+                            <defs>
+                                <linearGradient id="foot-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#3b82f6"/>
+                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>LINKCORE</span>
+                    </a>
+                    <p class="footer-desc">Enterprise IT solutions, certified structured cabling, security firewalls, and premium CCTV system integrations. Ensuring secure network uptimes for companies worldwide.</p>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" class="social-icon" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://facebook.com" class="social-icon" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://youtube.com" class="social-icon" target="_blank" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Core Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html" class="footer-link">Network Cabling</a></li>
+                        <li><a href="services.html" class="footer-link">CCTV Surveillance</a></li>
+                        <li><a href="services.html" class="footer-link">Firewall Protection</a></li>
+                        <li><a href="services.html" class="footer-link">Server Configurations</a></li>
+                        <li><a href="services.html" class="footer-link">IT AMC Contracts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">Our Company</a></li>
+                        <li><a href="portfolio.html" class="footer-link">Case Studies</a></li>
+                        <li><a href="careers.html" class="footer-link">Careers</a></li>
+                        <li><a href="amc.html" class="footer-link">AMC Pricing</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Stay informed about cybersecurity updates and network infrastructure solutions.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" class="form-input" placeholder="Your work email" required aria-label="Subscribe Newsletter Email">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;" id="newsletter-submit-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Connecting Businesses Securely.</p>
+                <div class="footer-bottom-links">
+                    <a href="contact.html">Privacy Policy</a>
+                    <a href="contact.html">Terms of Service</a>
+                    <a href="contact.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING ELEMENTS -->
+    <div class="whatsapp-btn" id="floating-whatsapp-trigger" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></div>
+    <div class="back-to-top" id="scroll-to-top-trigger" aria-label="Back to Top"><i class="fa-solid fa-chevron-up"></i></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

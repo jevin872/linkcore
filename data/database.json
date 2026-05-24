@@ -1,0 +1,25 @@
+{
+  "contacts": [],
+  "serviceRequests": [],
+  "amcProposals": [],
+  "applications": [],
+  "newsletter": [],
+  "tickets": [
+    {
+      "id": 1,
+      "title": "Switch Port Loop Diagnostics",
+      "description": "Nexus Logistics Hub reports VLAN loop bottlenecking on Switch SW02.",
+      "priority": "High",
+      "status": "Open",
+      "timestamp": "2026-05-24T16:44:25.269Z"
+    },
+    {
+      "id": 2,
+      "title": "CCTV Angle Readjustment",
+      "description": "Apex Warehousing requests angle readjustment for Camera 04 in Aisle B.",
+      "priority": "Low",
+      "status": "Open",
+      "timestamp": "2026-05-24T16:44:25.270Z"
+    }
+  ]
+}

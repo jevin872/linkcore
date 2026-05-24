@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Linkcore | Smart IT Infrastructure & Security Solutions</title>
+    <meta name="description" content="Linkcore provides enterprise-grade IT infrastructure, structured cabling, IP CCTV setups, network security firewalls, cloud backups, and Annual Maintenance Contracts (AMC).">
+    <meta name="keywords" content="IT Infrastructure, Structured Cabling, CCTV Installation, AMC Contract, Network Security, Server Setup, WiFi Solutions, Router Config, Data Center">
+    <meta name="author" content="Linkcore Team">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. LOADING SCREEN -->
+    <div id="loader-wrapper">
+        <div class="loader">
+            <span class="loader-circle"></span>
+            <span class="loader-circle"></span>
+            <span class="loader-circle"></span>
+        </div>
+    </div>
+
+    <!-- 2. STICKY NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                <!-- Inline Custom Hexagon Logo Concept -->
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" fill="none" stroke="url(#logo-grad)" stroke-width="8" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="15" fill="none" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="50" y1="15" x2="50" y2="35" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="20" y1="67.5" x2="37" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <line x1="80" y1="67.5" x2="63" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>LINKCORE</span>
+            </a>
+
+            <nav class="nav-links-wrapper">
+                <ul class="nav-menu" id="navigation-menu">
+                    <li><a href="index.html" class="nav-link active" id="link-home">Home</a></li>
+                    <li><a href="about.html" class="nav-link" id="link-about">About Us</a></li>
+                    <li><a href="services.html" class="nav-link" id="link-services">Services</a></li>
+                    <li><a href="amc.html" class="nav-link" id="link-amc">AMC Plans</a></li>
+                    <li><a href="portfolio.html" class="nav-link" id="link-portfolio">Portfolio</a></li>
+                    <li><a href="careers.html" class="nav-link" id="link-careers">Careers</a></li>
+                    <li><a href="contact.html" class="nav-link" id="link-contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Proposal</a>
+                <button class="hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. HERO SECTION -->
+    <section class="hero" id="hero-section">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+        
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content fade-in appear">
+                    <div class="hero-tag">Enterprise Systems Integration</div>
+                    <h1 class="hero-title">LINKCORE</h1>
+                    <div class="hero-subtitle">Smart IT Infrastructure & Security Solutions</div>
+                    <p class="hero-desc">Connecting Businesses Securely. We architect, install, and protect cutting-edge IT deployments, security cabling, automated server clusters, and comprehensive surveillance systems for modern enterprises.</p>
+                    <div class="hero-btns">
+                        <a href="contact.html" class="btn btn-primary" id="hero-cta-consultation"><i class="fa-solid fa-calendar-check"></i> Free Consultation</a>
+                        <a href="services.html" class="btn btn-secondary" id="hero-cta-services">Explore Services <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- 3D Float Server Cabinet Graphics -->
+                <div class="hero-visual fade-in appear">
+                    <div class="hero-visual-3d" id="hero-3d-cabinet">
+                        <div class="rack-header">
+                            <div class="rack-header-dots">
+                                <span class="rack-dot rack-dot-red"></span>
+                                <span class="rack-dot rack-dot-yellow"></span>
+                                <span class="rack-dot rack-dot-green"></span>
+                            </div>
+                            <div class="rack-header-text">LCORE-NET-SW01</div>
+                        </div>
+
+                        <!-- Core Switch Shelf -->
+                        <div class="rack-shelf">
+                            <div class="rack-shelf-lights">
+                                <span class="rack-light blink"></span>
+                                <span class="rack-light blue"></span>
+                                <span class="rack-light"></span>
+                            </div>
+                            <div class="rack-shelf-ports">
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                            </div>
+                        </div>
+
+                        <!-- Firewall Security Shelf -->
+                        <div class="rack-shelf">
+                            <div class="rack-shelf-lights">
+                                <span class="rack-light blue blink"></span>
+                                <span class="rack-light blue"></span>
+                                <span class="rack-light blink"></span>
+                            </div>
+                            <div class="rack-shelf-ports">
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                            </div>
+                        </div>
+
+                        <!-- Server Nodes Shelf -->
+                        <div class="rack-shelf">
+                            <div class="rack-shelf-lights">
+                                <span class="rack-light blink"></span>
+                                <span class="rack-light"></span>
+                                <span class="rack-light"></span>
+                            </div>
+                            <div class="rack-shelf-ports">
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port"></span>
+                            </div>
+                        </div>
+
+                        <!-- Storage SAN Shelf -->
+                        <div class="rack-shelf">
+                            <div class="rack-shelf-lights">
+                                <span class="rack-light blue blink"></span>
+                                <span class="rack-light blink"></span>
+                                <span class="rack-light alert blink"></span>
+                            </div>
+                            <div class="rack-shelf-ports">
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port connected"></span>
+                            </div>
+                        </div>
+
+                        <!-- Backup Power Unit -->
+                        <div class="rack-shelf">
+                            <div class="rack-shelf-lights">
+                                <span class="rack-light"></span>
+                                <span class="rack-light blink"></span>
+                                <span class="rack-light"></span>
+                            </div>
+                            <div class="rack-shelf-ports">
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port"></span>
+                                <span class="rack-port connected"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ABOUT PREVIEW SECTION -->
+    <section class="section" id="about-preview">
+        <div class="container">
+            <div class="about-grid">
+                <div class="fade-in">
+                    <span class="section-tag">Enterprise Reliability</span>
+                    <h2 class="section-title">Innovating IT Infrastructure & CCTV Systems</h2>
+                    <p class="section-desc">At Linkcore, we provide end-to-end IT architecture design and security integration. With over a decade of deployment experience, our engineers connect businesses securely through resilient networks, firewalls, and certified surveillance hardware.</p>
+                    
+                    <div class="about-features">
+                        <div class="about-feat-item">
+                            <div class="about-feat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div>
+                                <h4 class="about-feat-title">Zero Trust Security</h4>
+                                <p class="about-feat-desc">Advanced firewall provisioning and automated network segmentation policies.</p>
+                            </div>
+                        </div>
+                        <div class="about-feat-item">
+                            <div class="about-feat-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div>
+                                <h4 class="about-feat-title">Structured Design</h4>
+                                <p class="about-feat-desc">Certified network cabling layouts ensuring clean server room racks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <a href="about.html" class="btn btn-secondary" id="about-readmore-btn">Read Our Story <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Decorative Glass Card detailing Vision/Mission -->
+                <div class="glass-card fade-in" id="about-vision-card">
+                    <div class="glass-card-inner">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-eye" style="color: var(--secondary); margin-right: 0.5rem;"></i> Dedicated Partnership</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Our mission is to empower companies with scalable technology backbones. We handle network monitoring, routine server health checks, and emergency backup recoveries so you can focus on building your brand.</p>
+                        
+                        <div style="border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
+                            <blockquote style="font-style: italic; color: var(--text-muted);">
+                                "Linkcore has completely transformed our retail network across 14 branches. Clean layouts, excellent CCTV analytics, and proactive AMC support."
+                            </blockquote>
+                            <div style="margin-top: 1rem; font-weight: 700; font-size: 0.9rem; color: var(--secondary);">— CTO, Zenith Retail Group</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Counters Bar -->
+            <div class="counters-bar">
+                <div class="counter-box fade-in" id="counter-projects">
+                    <div class="counter-val" data-target="1500" data-suffix="+">0</div>
+                    <div class="counter-label">Projects Completed</div>
+                </div>
+                <div class="counter-box fade-in" id="counter-clients">
+                    <div class="counter-val" data-target="98" data-suffix="%">0</div>
+                    <div class="counter-label">Happy Clients</div>
+                </div>
+                <div class="counter-box fade-in" id="counter-support">
+                    <div class="counter-val" data-target="24" data-suffix="/7">0</div>
+                    <div class="counter-label">Support Availability</div>
+                </div>
+                <div class="counter-box fade-in" id="counter-networks">
+                    <div class="counter-val" data-target="450" data-suffix="+">0</div>
+                    <div class="counter-label">Network Deployments</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FEATURED SERVICES SECTION -->
+    <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="services-preview">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Service Portfolio</span>
+                <h2 class="section-title">Core IT Solutions We Deliver</h2>
+                <p class="section-desc">From clean structured cabling runs to hybrid cloud architectures, we craft systems that scale with enterprise growth.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Network Installation -->
+                <div class="glass-card service-card fade-in" id="srv-network">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-network-wired"></i></div>
+                        <h3 class="service-title">Network Installation</h3>
+                        <p class="service-desc">Architecting robust copper/fiber network configurations, router setups, and corporate switch backbones.</p>
+                        <a href="services.html" class="service-link" id="link-srv-network">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Structured Cabling -->
+                <div class="glass-card service-card fade-in" id="srv-cabling">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-lines-leaning"></i></div>
+                        <h3 class="service-title">Structured Cabling</h3>
+                        <p class="service-desc">Certified Cat6/Cat6A cabling layouts, professional patch panel setups, and complete clean-ups of messy server racks.</p>
+                        <a href="services.html" class="service-link" id="link-srv-cabling">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Firewall Configuration -->
+                <div class="glass-card service-card fade-in" id="srv-firewall">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3 class="service-title">Firewall & Security</h3>
+                        <p class="service-desc">Installation and policy design for Sophos, Fortinet, and Cisco Meraki firewalls to block external cyberthreats.</p>
+                        <a href="services.html" class="service-link" id="link-srv-firewall">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- CCTV Surveillance Setup -->
+                <div class="glass-card service-card fade-in" id="srv-cctv">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>
+                        <h3 class="service-title">IP CCTV Systems</h3>
+                        <p class="service-desc">Strategic setup of high-def NVR/IP cameras with remote mobile monitoring access and AI-powered smart security analytics.</p>
+                        <a href="services.html" class="service-link" id="link-srv-cctv">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Server Room Setup -->
+                <div class="glass-card service-card fade-in" id="srv-server">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-server"></i></div>
+                        <h3 class="service-title">Server Setup</h3>
+                        <p class="service-desc">Installation of physical enterprise servers (Dell/HP), hypervisors virtualization setups, and active directory systems.</p>
+                        <a href="services.html" class="service-link" id="link-srv-server">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- IT AMC Services -->
+                <div class="glass-card service-card fade-in" id="srv-amc">
+                    <div class="glass-card-inner">
+                        <div class="service-icon-box"><i class="fa-solid fa-handshake-angle"></i></div>
+                        <h3 class="service-title">IT AMC Services</h3>
+                        <p class="service-desc">Corporate Annual Maintenance Contracts providing preventive upkeep, quick remote assistance, and priority on-site support.</p>
+                        <a href="services.html" class="service-link" id="link-srv-amc">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3.5rem;" class="fade-in">
+                <a href="services.html" class="btn btn-primary" id="view-all-services-btn">View All 15 Services <i class="fa-solid fa-th-list"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. AMC OVERVIEW SECTION -->
+    <section class="section" id="amc-preview-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Proactive Operations</span>
+                <h2 class="section-title">Annual Maintenance Contract (AMC)</h2>
+                <p class="section-desc">Ensure operational runtime. Our custom AMC contracts keep networking hardware updated, server environments monitored, and cameras fully functional.</p>
+            </div>
+
+            <!-- AMC Key Elements -->
+            <div class="amc-benefits">
+                <div class="glass-card benefit-card fade-in" id="amc-pref-preventive">
+                    <div class="benefit-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="benefit-details">
+                        <h4>Preventive Auditing</h4>
+                        <p>Routine onsite checks to inspect cabling integrity, clean servers, and audit device temperatures.</p>
+                    </div>
+                </div>
+                <div class="glass-card benefit-card fade-in" id="amc-pref-monitor">
+                    <div class="benefit-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="benefit-details">
+                        <h4>Network Monitoring</h4>
+                        <p>24/7 scanning of firewalls and switches to catch anomalies before they interrupt business operations.</p>
+                    </div>
+                </div>
+                <div class="glass-card benefit-card fade-in" id="amc-pref-priority">
+                    <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div class="benefit-details">
+                        <h4>Priority SLA Support</h4>
+                        <p>On-site engineers dispatched with guaranteed emergency response times under 2 to 4 hours.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic AMC Cost Estimator Card -->
+            <div class="glass-card amc-calc-card fade-in" id="amc-calculator-card">
+                <div class="glass-card-inner">
+                    <h3 style="margin-bottom: 2rem; text-align: center;">Estimate Your Custom AMC Plan</h3>
+                    
+                    <div class="calc-grid">
+                        <div class="calc-inputs">
+                            <div class="calc-group">
+                                <label class="calc-label" for="calc-pc">
+                                    <span>Workstations / PCs</span>
+                                    <span id="calc-pc-val" class="calc-value">25</span>
+                                </label>
+                                <input type="range" id="calc-pc" class="calc-slider" min="5" max="100" value="25">
+                            </div>
+
+                            <div class="calc-group">
+                                <label class="calc-label" for="calc-server">
+                                    <span>Enterprise Servers</span>
+                                    <span id="calc-server-val" class="calc-value">2</span>
+                                </label>
+                                <input type="range" id="calc-server" class="calc-slider" min="0" max="15" value="2">
+                            </div>
+
+                            <div class="calc-group">
+                                <label class="calc-label" for="calc-cctv">
+                                    <span>IP Security Cameras</span>
+                                    <span id="calc-cctv-val" class="calc-value">16</span>
+                                </label>
+                                <input type="range" id="calc-cctv" class="calc-slider" min="4" max="80" value="16">
+                            </div>
+                        </div>
+
+                        <div class="calc-results">
+                            <h4 style="color: var(--text-secondary);">Estimated Contract Cost</h4>
+                            <div class="calc-result-price">$<span id="calc-total-price">560</span><span>/mo</span></div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Estimate includes scheduled updates, remote support, and on-site emergency SLA visits.</p>
+                            <a href="amc.html" class="btn btn-primary" style="width: 100%;" id="calc-request-proposal-btn">Get Detailed AMC Proposal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. INDUSTRIES WE SERVE -->
+    <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="industries-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Target Ecosystems</span>
+                <h2 class="section-title">Industries We Serve</h2>
+                <p class="section-desc">Custom configurations built to match the regulatory and architectural demands of different workspaces.</p>
+            </div>
+
+            <div class="industries-grid">
+                <div class="glass-card industry-card fade-in" id="ind-offices">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-building"></i></div>
+                        <h4 class="industry-name">Corporate Offices</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-apartments">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-city"></i></div>
+                        <h4 class="industry-name">Apartments</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-villas">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <h4 class="industry-name">Luxury Villas</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-retail">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-store"></i></div>
+                        <h4 class="industry-name">Retail Shops</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-warehouses">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-warehouse"></i></div>
+                        <h4 class="industry-name">Warehouses</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-schools">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-school"></i></div>
+                        <h4 class="industry-name">Schools</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-hospitals">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-hospital"></i></div>
+                        <h4 class="industry-name">Hospitals</h4>
+                    </div>
+                </div>
+                <div class="glass-card industry-card fade-in" id="ind-hotels">
+                    <div class="glass-card-inner">
+                        <div class="industry-icon"><i class="fa-solid fa-hotel"></i></div>
+                        <h4 class="industry-name">Hotels</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. PORTFOLIO HIGHLIGHTS SECTION -->
+    <section class="section" id="portfolio-preview-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Recent Work</span>
+                <h2 class="section-title">Case Studies & Deployments</h2>
+                <p class="section-desc">Examine some of our actual configurations and clean cable server rack room setups.</p>
+            </div>
+
+            <!-- Portfolio filter buttons -->
+            <div class="portfolio-filter fade-in" id="home-portfolio-filters">
+                <button class="filter-btn active" data-filter="all" id="btn-filter-all">All Projects</button>
+                <button class="filter-btn" data-filter="cabling" id="btn-filter-cabling">Structured Cabling</button>
+                <button class="filter-btn" data-filter="security" id="btn-filter-security">Security/CCTV</button>
+                <button class="filter-btn" data-filter="systems" id="btn-filter-systems">Systems/Server Rooms</button>
+            </div>
+
+            <div class="portfolio-grid" id="home-portfolio-grid">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item glass-card fade-in" data-category="systems" data-tags="Datacenter, Racks, Dell Servers" data-full-desc="A full high-density server rack room integration featuring clean power routing, patch cabling, hardware installation of Dell PowerEdge nodes, and Hyper-V cluster installations with firewalls." id="port-item-server-room">
+                    <div class="portfolio-img-container">
+                        <!-- Custom Inline Vector SVG graphic instead of raster placeholders -->
+                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#0a0f1d"/>
+                            <g stroke="#1e293b" stroke-width="2">
+                                <line x1="50" y1="20" x2="50" y2="280" />
+                                <line x1="350" y1="20" x2="350" y2="280" />
+                            </g>
+                            <g stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.4">
+                                <rect x="80" y="40" width="240" height="40" rx="4"/>
+                                <rect x="80" y="95" width="240" height="40" rx="4"/>
+                                <rect x="80" y="150" width="240" height="40" rx="4"/>
+                                <rect x="80" y="205" width="240" height="40" rx="4"/>
+                            </g>
+                            <!-- Glowing servers led dots -->
+                            <circle cx="100" cy="60" r="4" fill="#10b981"/>
+                            <circle cx="115" cy="60" r="4" fill="#10b981"/>
+                            <circle cx="130" cy="60" r="4" fill="#06b6d4"/>
+                            
+                            <circle cx="100" cy="115" r="4" fill="#10b981"/>
+                            <circle cx="115" cy="115" r="4" fill="#ef4444" opacity="0.8"/>
+                            <circle cx="130" cy="115" r="4" fill="#10b981"/>
+                            
+                            <circle cx="100" cy="170" r="4" fill="#10b981"/>
+                            <circle cx="115" cy="170" r="4" fill="#10b981"/>
+                            
+                            <circle cx="100" cy="225" r="4" fill="#06b6d4"/>
+                            <circle cx="115" cy="225" r="4" fill="#10b981"/>
+                        </svg>
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-cat">Systems / Server Rooms</span>
+                            <h3 class="portfolio-title">Enterprise Rack Cluster</h3>
+                            <p class="portfolio-desc">High-density computing node setup with custom cooling paths.</p>
+                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Cat6A, Fluke Testing, Racks" data-full-desc="A full restructuring of corporate headquarter network rack cables. Sorted, labeled, and certified over 300+ ethernet lines using Fluke testing techniques." id="port-item-cabling">
+                    <div class="portfolio-img-container">
+                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#0a0f1d"/>
+                            <path d="M 50,50 Q 150,150 200,250" fill="none" stroke="#3b82f6" stroke-width="4"/>
+                            <path d="M 100,50 Q 180,100 250,250" fill="none" stroke="#06b6d4" stroke-width="4"/>
+                            <path d="M 150,50 Q 220,130 300,250" fill="none" stroke="#8b5cf6" stroke-width="4"/>
+                            <path d="M 200,50 Q 260,80 350,150" fill="none" stroke="#10b981" stroke-width="3"/>
+                            
+                            <g stroke="#ffffff" stroke-width="1" opacity="0.1">
+                                <line x1="0" y1="50" x2="400" y2="50"/>
+                                <line x1="0" y1="150" x2="400" y2="150"/>
+                                <line x1="0" y1="250" x2="400" y2="250"/>
+                            </g>
+                        </svg>
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-cat">Structured Cabling</span>
+                            <h3 class="portfolio-title">Cat6A Cabling Infrastructure</h3>
+                            <p class="portfolio-desc">Complete reorganization and sorting of 300+ network drops.</p>
+                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item glass-card fade-in" data-category="security" data-tags="IP Cameras, AI Analytics, Access Control" data-full-desc="Integration of 48 IP dome and bullet surveillance cameras across 4 warehouse locations, complete with smart intrusion detection alerts and centralized network video recorders (NVR)." id="port-item-cctv">
+                    <div class="portfolio-img-container">
+                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#0a0f1d"/>
+                            <circle cx="200" cy="150" r="60" fill="none" stroke="#1e293b" stroke-width="6"/>
+                            <circle cx="200" cy="150" r="40" fill="none" stroke="#06b6d4" stroke-width="4"/>
+                            <path d="M 200,90 A 60,60 0 0,1 260,150" fill="none" stroke="#3b82f6" stroke-width="6"/>
+                            <!-- Targeting lines -->
+                            <line x1="200" y1="40" x2="200" y2="260" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
+                            <line x1="90" y1="150" x2="310" y2="150" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
+                        </svg>
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-cat">Security / CCTV</span>
+                            <h3 class="portfolio-title">Warehouse Smart Surveillance</h3>
+                            <p class="portfolio-desc">High-def IP cameras with intelligent movement warning systems.</p>
+                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3.5rem;" class="fade-in">
+                <a href="portfolio.html" class="btn btn-secondary" id="view-all-portfolio-btn">Launch Full Gallery <i class="fa-solid fa-images"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. TESTIMONIALS SLIDER SECTION -->
+    <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="testimonials-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Client Feedback</span>
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-desc">Read reviews from company owners and CTOs who trust Linkcore with their day-to-day operations.</p>
+            </div>
+
+            <div class="testimonials-slider-container fade-in">
+                <div class="testimonials-slider">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide">
+                        <div class="glass-card testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="testimonial-quote">"The structured cabling team cleaned up our messy IT rack room over a weekend, reducing cable clutter and identifying slow connections. We signed an AMC immediately."</p>
+                            <div class="testimonial-client">
+                                <div class="client-avatar-placeholder">MR</div>
+                                <span class="client-name">Marcus Reynolds</span>
+                                <span class="client-role">IT Manager, Nexus Logistic Hub</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide">
+                        <div class="glass-card testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="testimonial-quote">"Their remote firewall team resolved a security breach in minutes. Linkcore's quick emergency response times and cybersecurity focus are truly top tier."</p>
+                            <div class="testimonial-client">
+                                <div class="client-avatar-placeholder">SA</div>
+                                <span class="client-name">Sarah Al-Mansoori</span>
+                                <span class="client-role">Director of Operations, Falcon Financial</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide">
+                        <div class="glass-card testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="testimonial-quote">"We deployed IP CCTV surveillance across all four warehouse areas. The remote setup allows us to monitor our storage items directly from our phones with crisp quality."</p>
+                            <div class="testimonial-client">
+                                <div class="client-avatar-placeholder">DK</div>
+                                <span class="client-name">David Kovic</span>
+                                <span class="client-role">Security Director, Apex Warehousing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Dots -->
+                <div class="slider-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. CONTACT SECTION -->
+    <section class="section" id="contact-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Get in Touch</span>
+                <h2 class="section-title">Schedule A Free Consultation</h2>
+                <p class="section-desc">Our networking experts are ready to audit your current systems and design a secure solution.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact info details -->
+                <div class="contact-info-cards fade-in">
+                    <div class="glass-card contact-info-card" id="contact-card-phone">
+                        <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <span class="contact-info-title">Call Us</span>
+                            <div class="contact-info-detail">+1 (555) 234-5678</div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card" id="contact-card-email">
+                        <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <span class="contact-info-title">Email Us</span>
+                            <div class="contact-info-detail">support@linkcore.com</div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card" id="contact-card-address">
+                        <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <span class="contact-info-title">Visit Office</span>
+                            <div class="contact-info-detail">100 Cyber Heights, Suite 404, Tech District</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary whatsapp-btn-static" style="width:100%; border-color:#25d366; background: rgba(37,211,102,0.05); color:#25d366;" onclick="document.querySelector('.whatsapp-btn').click();" id="whatsapp-call-btn">
+                        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                    </button>
+                </div>
+
+                <!-- Contact form -->
+                <div class="glass-card contact-form-card fade-in" id="contact-form-container">
+                    <div class="glass-card-inner">
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-name">Your Name *</label>
+                                    <input type="text" id="contact-name" class="form-input" placeholder="e.g. John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-email">Email Address *</label>
+                                    <input type="email" id="contact-email" class="form-input" placeholder="e.g. john@company.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-phone">Phone Number</label>
+                                    <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +1 (555) 000-0000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-interest">Interest Area</label>
+                                    <input type="text" id="contact-interest" class="form-input" placeholder="e.g. Structured Cabling, AMC">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-message">Inquiry Details *</label>
+                                <textarea id="contact-message" class="form-input" placeholder="Explain your networking or security requirements..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="contact-form-submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Inquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Dark Map iframe integration -->
+            <div class="map-wrapper fade-in" id="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.241263496582!2d-73.98656448459371!3d40.74844047932822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1621873155799!5m2!1sen!2sus" allowfullscreen="" loading="lazy" aria-label="Google Map location of Linkcore Office"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" id="footer-logo">
+                        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" fill="none" stroke="url(#foot-logo-grad)" stroke-width="8" stroke-linejoin="round"/>
+                            <circle cx="50" cy="50" r="15" fill="none" stroke="url(#foot-logo-grad)" stroke-width="6"/>
+                            <defs>
+                                <linearGradient id="foot-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#3b82f6"/>
+                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>LINKCORE</span>
+                    </a>
+                    <p class="footer-desc">Enterprise IT solutions, certified structured cabling, security firewalls, and premium CCTV system integrations. Ensuring secure network uptimes for companies worldwide.</p>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" class="social-icon" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://facebook.com" class="social-icon" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://youtube.com" class="social-icon" target="_blank" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Core Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html" class="footer-link">Network Cabling</a></li>
+                        <li><a href="services.html" class="footer-link">CCTV Surveillance</a></li>
+                        <li><a href="services.html" class="footer-link">Firewall Protection</a></li>
+                        <li><a href="services.html" class="footer-link">Server Configurations</a></li>
+                        <li><a href="services.html" class="footer-link">IT AMC Contracts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">Our Company</a></li>
+                        <li><a href="portfolio.html" class="footer-link">Case Studies</a></li>
+                        <li><a href="careers.html" class="footer-link">Careers</a></li>
+                        <li><a href="amc.html" class="footer-link">AMC Pricing</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Stay informed about cybersecurity updates and network infrastructure solutions.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" class="form-input" placeholder="Your work email" required aria-label="Subscribe Newsletter Email">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;" id="newsletter-submit-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Connecting Businesses Securely.</p>
+                <div class="footer-bottom-links">
+                    <a href="contact.html">Privacy Policy</a>
+                    <a href="contact.html">Terms of Service</a>
+                    <a href="contact.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 12. FLOATING & MODAL ELEMENTS -->
+    <div class="whatsapp-btn" id="floating-whatsapp-trigger" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></div>
+    <div class="back-to-top" id="scroll-to-top-trigger" aria-label="Back to Top"><i class="fa-solid fa-chevron-up"></i></div>
+
+    <!-- Lightbox Modal for Portfolio Details -->
+    <div class="lightbox" id="portfolio-lightbox">
+        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-body">
+                <div class="lightbox-img-area">
+                    <!-- SVG gets dynamically loaded here -->
+                </div>
+                <div class="lightbox-info-area">
+                    <div>
+                        <span class="lightbox-info-cat">Structured Cabling</span>
+                        <h2 class="lightbox-info-title">Server Rack Cleanup</h2>
+                        <p class="lightbox-info-desc">Detailed descriptions of the problem and security solution deployed.</p>
+                    </div>
+                    <div>
+                        <div class="lightbox-info-tags">
+                            <span class="lightbox-tag">Network</span>
+                            <span class="lightbox-tag">Cabling</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script imports -->
+    <script src="script.js"></script>
+</body>
+</html>

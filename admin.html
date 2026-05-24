@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Linkcore Control Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-cols: 240px 1fr;
+            min-height: 100vh;
+            background-color: var(--bg-main);
+        }
+        .admin-sidebar {
+            background-color: rgba(11, 19, 41, 0.95);
+            border-right: 1px solid var(--border-glass);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+        .admin-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .admin-nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--secondary);
+            border-left: 3px solid var(--secondary);
+        }
+        .admin-main {
+            padding: 2.5rem;
+            overflow-y: auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 1.5rem;
+        }
+        .admin-table-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+            background: var(--bg-surface-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+        }
+        table.admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        table.admin-table th, table.admin-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        table.admin-table th {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            background-color: rgba(3, 7, 18, 0.4);
+            color: var(--text-primary);
+        }
+        table.admin-table td {
+            color: var(--text-secondary);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-pending { background-color: rgba(234, 179, 8, 0.1); color: #eab308; }
+        .status-processed { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-review { background-color: rgba(59, 130, 246, 0.1); color: var(--primary); }
+
+        .btn-table-action {
+            background: none;
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            padding: 0.35rem 0.6rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+        .btn-table-action:hover {
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.08);
+            color: var(--secondary);
+        }
+
+        .console-logs-box {
+            background-color: #01040a;
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            height: 180px;
+            overflow-y: auto;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--success);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .log-entry {
+            display: flex;
+            gap: 1rem;
+        }
+        .log-time { color: var(--text-muted); }
+        .log-msg { color: var(--text-primary); }
+
+        .admin-content-section {
+            display: none;
+        }
+        .admin-content-section.active {
+            display: block;
+        }
+        
+        .ticket-card {
+            background: rgba(3, 7, 18, 0.4);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .ticket-info h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1.05rem;
+        }
+        .ticket-priority-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .priority-high { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .priority-medium { background-color: rgba(234, 179, 8, 0.1); color: #eab308; }
+        .priority-low { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+
+        @media (max-width: 768px) {
+            .admin-layout { grid-template-cols: 1fr; }
+            .admin-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body style="overflow-y:auto;">
+
+    <div class="admin-layout">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo" id="admin-brand-logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" fill="none" stroke="url(#logo-grad)" stroke-width="8" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="15" fill="none" stroke="url(#logo-grad)" stroke-width="6"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>LINKCORE</span>
+            </a>
+            
+            <ul class="admin-nav">
+                <li class="admin-nav-item active" data-target="dashboard-sect"><i class="fa-solid fa-gauge"></i> Dashboard</li>
+                <li class="admin-nav-item" data-target="contacts-sect"><i class="fa-solid fa-envelope-open-text"></i> Contact Leads</li>
+                <li class="admin-nav-item" data-target="services-sect"><i class="fa-solid fa-screwdriver-wrench"></i> Service Bookings</li>
+                <li class="admin-nav-item" data-target="proposals-sect"><i class="fa-solid fa-file-contract"></i> AMC Proposals</li>
+                <li class="admin-nav-item" data-target="careers-sect"><i class="fa-solid fa-id-card-clip"></i> Careers Applicants</li>
+                <li class="admin-nav-item" data-target="tickets-sect"><i class="fa-solid fa-ticket"></i> Support Tickets</li>
+            </ul>
+
+            <div style="margin-top:auto; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
+                <button class="theme-toggle" id="theme-toggle" style="width:100%; border-radius:var(--radius-sm);">
+                    <i class="fa-solid fa-moon"></i> Theme Toggle
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN DASHBOARD CONTENT -->
+        <main class="admin-main">
+            <!-- HEADER -->
+            <div class="admin-header">
+                <div>
+                    <span class="section-tag">System Operations</span>
+                    <h1 style="font-size: 2.25rem;">Control Center</h1>
+                </div>
+                <div style="display:flex; gap:1rem; align-items:center;">
+                    <span id="server-status-led" class="status-badge status-processed" style="font-size:0.7rem;"><i class="fa-solid fa-circle-nodes"></i> SERVER ONLINE</span>
+                    <a href="index.html" class="btn btn-secondary" style="padding:0.5rem 1rem; font-size:0.85rem;"><i class="fa-solid fa-globe"></i> View Site</a>
+                </div>
+            </div>
+
+            <!-- SECTION: DASHBOARD -->
+            <div class="admin-content-section active" id="dashboard-sect">
+                <!-- Stat Cards Grid -->
+                <div class="counters-bar" style="margin-top:0; margin-bottom: 3rem;">
+                    <div class="counter-box" id="stat-contacts">
+                        <div class="counter-val" id="stat-contacts-val">0</div>
+                        <div class="counter-label">Total Leads</div>
+                    </div>
+                    <div class="counter-box" id="stat-services">
+                        <div class="counter-val" id="stat-services-val">0</div>
+                        <div class="counter-label">Bookings</div>
+                    </div>
+                    <div class="counter-box" id="stat-amc">
+                        <div class="counter-val" id="stat-amc-val">0</div>
+                        <div class="counter-label">AMC Enquiries</div>
+                    </div>
+                    <div class="counter-box" id="stat-careers">
+                        <div class="counter-val" id="stat-careers-val">0</div>
+                        <div class="counter-label">Applicants</div>
+                    </div>
+                </div>
+
+                <!-- Live Chat/Network Event Log Simulator -->
+                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-terminal" style="color:var(--secondary);"></i> Live Network Console Logs</h3>
+                <div class="console-logs-box" id="admin-console-box">
+                    <div class="log-entry"><span class="log-time">[20:15:33]</span> <span class="log-msg">Linkcore Control Center Daemon initialized.</span></div>
+                    <div class="log-entry"><span class="log-time">[20:15:34]</span> <span class="log-msg">Loading JSON database.json flatfile store... Success.</span></div>
+                </div>
+            </div>
+
+            <!-- SECTION: CONTACT LEADS -->
+            <div class="admin-content-section" id="contacts-sect">
+                <h3>Contact Form Leads</h3>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Interest</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contacts-table-body">
+                            <tr><td colspan="8" style="text-align:center;">Loading Leads...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION: SERVICE BOOKINGS -->
+            <div class="admin-content-section" id="services-sect">
+                <h3>Service Consultation Bookings</h3>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Target Service</th>
+                                <th>Specifications</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-table-body">
+                            <tr><td colspan="8" style="text-align:center;">Loading Bookings...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION: AMC PROPOSALS -->
+            <div class="admin-content-section" id="proposals-sect">
+                <h3>Annual Maintenance Contract Enquiries</h3>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Plan</th>
+                                <th>Assets</th>
+                                <th>Est. Cost</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proposals-table-body">
+                            <tr><td colspan="8" style="text-align:center;">Loading Proposals...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION: CAREERS -->
+            <div class="admin-content-section" id="careers-sect">
+                <h3>Job Vacancy Applications</h3>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Position</th>
+                                <th>Applicant</th>
+                                <th>Email</th>
+                                <th>Major Certs</th>
+                                <th>Resume Attachment</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="careers-table-body">
+                            <tr><td colspan="8" style="text-align:center;">Loading Applications...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION: SUPPORT TICKETS -->
+            <div class="admin-content-section" id="tickets-sect">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
+                    <h3>IT Support Tickets Board</h3>
+                    <button class="btn btn-primary" onclick="document.getElementById('new-ticket-modal').style.display='flex';" id="btn-raise-ticket-modal"><i class="fa-solid fa-circle-plus"></i> Raise System Ticket</button>
+                </div>
+                
+                <div id="tickets-board-list">
+                    <!-- Tickets generated dynamically -->
+                    <div style="text-align:center; padding: 2rem; color:var(--text-secondary);">Loading Active Support Tickets...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: RAISE NEW TICKET -->
+    <div class="modal-overlay" id="new-ticket-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="document.getElementById('new-ticket-modal').style.display='none';">&times;</button>
+            <h2 style="margin-bottom:1.5rem; text-align:center;">Raise IT Support Ticket</h2>
+            
+            <form id="admin-create-ticket-form" class="contact-form">
+                <div class="form-group">
+                    <label class="form-label" for="ticket-title">Ticket Issue Title *</label>
+                    <input type="text" id="ticket-title" class="form-input" required placeholder="e.g. SW03 Switch Overheating">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="ticket-priority">Priority Level *</label>
+                        <select id="ticket-priority" class="form-input" style="background: rgba(3,7,18,0.8); color:var(--text-primary);" required>
+                            <option value="Low">Low Priority</option>
+                            <option value="Medium" selected>Medium Priority</option>
+                            <option value="High">High Priority</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="ticket-desc">Technical Description *</label>
+                    <textarea id="ticket-desc" class="form-input" required placeholder="Describe switch ports loops, diagnostic codes, or CCTV offline camera IDs..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="ticket-submit-btn"><i class="fa-solid fa-bug"></i> File Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC FOR admin.html -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Sidebar tab routing
+            const navItems = document.querySelectorAll(".admin-nav-item");
+            const sections = document.querySelectorAll(".admin-content-section");
+
+            navItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    navItems.forEach(i => i.classList.remove("active"));
+                    item.classList.add("active");
+
+                    const target = item.getAttribute("data-target");
+                    sections.forEach(sect => {
+                        if (sect.id === target) {
+                            sect.classList.add("active");
+                        } else {
+                            sect.classList.remove("active");
+                        }
+                    });
+                });
+            });
+
+            // Theme toggle hookup
+            const themeBtn = document.getElementById("theme-toggle");
+            if (themeBtn) {
+                themeBtn.addEventListener("click", () => {
+                    document.body.classList.toggle("light-theme");
+                    const currentTheme = document.body.classList.contains("light-theme") ? "light" : "dark";
+                    localStorage.setItem("theme", currentTheme);
+                });
+                if (localStorage.getItem("theme") === "light") {
+                    document.body.classList.add("light-theme");
+                }
+            }
+
+            // Load all database data
+            loadDashboardData();
+
+            // Setup Ticket Form submit
+            const ticketForm = document.getElementById("admin-create-ticket-form");
+            if(ticketForm) {
+                ticketForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const title = document.getElementById("ticket-title").value;
+                    const description = document.getElementById("ticket-desc").value;
+                    const priority = document.getElementById("ticket-priority").value;
+
+                    fetch('/api/admin/tickets', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ title, description, priority })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            addConsoleLog(`New Ticket Raised: "${title}" - [Priority: ${priority}]`);
+                            document.getElementById('new-ticket-modal').style.display = 'none';
+                            ticketForm.reset();
+                            loadDashboardData();
+                        }
+                    })
+                    .catch(err => console.error(err));
+                });
+            }
+
+            // Simulate incoming network logs
+            setInterval(simulateLogs, 15000);
+        });
+
+        // Add dynamically updated log line to terminal box
+        function addConsoleLog(message) {
+            const consoleBox = document.getElementById("admin-console-box");
+            if (!consoleBox) return;
+            const time = new Date().toTimeString().split(' ')[0];
+            const div = document.createElement("div");
+            div.classList.add("log-entry");
+            div.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-msg">${message}</span>`;
+            consoleBox.appendChild(div);
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        // Mock simulation log generator
+        function simulateLogs() {
+            const logs = [
+                "Switch SW01 interface Gig1/0/1 - Port up state detected.",
+                "SLA check completed for basic AMC configurations: 100% stable.",
+                "Intrusion alarm test: fortigate firewall segment report - 0 threats.",
+                "NAS Backup sync successful: Synology Node 01 synced to AWS.",
+                "VLAN 20 routing QoS limits verified - bandwidth balanced."
+            ];
+            const randomLog = logs[Math.floor(Math.random() * logs.length)];
+            addConsoleLog(randomLog);
+        }
+
+        // Load all database details and update tables
+        function loadDashboardData() {
+            fetch('/api/admin/data')
+            .then(res => res.json())
+            .then(data => {
+                // Update metrics totals
+                document.getElementById("stat-contacts-val").textContent = data.contacts.length;
+                document.getElementById("stat-services-val").textContent = data.serviceRequests.length;
+                document.getElementById("stat-amc-val").textContent = data.amcProposals.length;
+                document.getElementById("stat-careers-val").textContent = data.applications.length;
+
+                // Populate Tables
+                renderContacts(data.contacts);
+                renderServices(data.serviceRequests);
+                renderProposals(data.amcProposals);
+                renderCareers(data.applications);
+                renderTickets(data.tickets);
+            })
+            .catch(err => console.error("Error loading dashboard data:", err));
+        }
+
+        function updateRecordStatus(category, id, nextStatus) {
+            fetch('/api/admin/status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ category, id, status: nextStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    addConsoleLog(`Record ID ${id} in ${category} updated to: "${nextStatus}"`);
+                    loadDashboardData();
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        function updateTicketStatus(id, nextStatus) {
+            fetch('/api/admin/tickets/status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status: nextStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    addConsoleLog(`Ticket ID ${id} set to status: "${nextStatus}"`);
+                    loadDashboardData();
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        // Render functions
+        function renderContacts(items) {
+            const tbody = document.getElementById("contacts-table-body");
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No Contact Leads registered.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map(item => {
+                const badgeClass = item.status === 'Processed' ? 'status-processed' : 'status-pending';
+                const actionBtn = item.status === 'Pending' 
+                    ? `<button class="btn-body-action btn-table-action" onclick="updateRecordStatus('contacts', ${item.id}, 'Processed')">Mark Processed</button>`
+                    : `Closed`;
+
+                return `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.email}</td>
+                        <td>${item.phone}</td>
+                        <td>${item.interest}</td>
+                        <td style="max-width:200px; word-break:break-all;">${item.message}</td>
+                        <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderServices(items) {
+            const tbody = document.getElementById("services-table-body");
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No Service Bookings recorded.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map(item => {
+                const badgeClass = item.status === 'Processed' ? 'status-processed' : 'status-pending';
+                const actionBtn = item.status === 'Pending' 
+                    ? `<button class="btn-body-action btn-table-action" onclick="updateRecordStatus('serviceRequests', ${item.id}, 'Processed')">Mark Processed</button>`
+                    : `Closed`;
+
+                return `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.email}</td>
+                        <td>${item.phone}</td>
+                        <td><span style="color:var(--secondary); font-weight:700;">${item.service}</span></td>
+                        <td style="max-width:200px; word-break:break-all;">${item.details}</td>
+                        <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderProposals(items) {
+            const tbody = document.getElementById("proposals-table-body");
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No AMC proposal requests.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map(item => {
+                const badgeClass = item.status === 'Processed' ? 'status-processed' : 'status-pending';
+                const actionBtn = item.status === 'Pending' 
+                    ? `<button class="btn-body-action btn-table-action" onclick="updateRecordStatus('amcProposals', ${item.id}, 'Processed')">Send Draft Proposal</button>`
+                    : `Draft Sent`;
+
+                return `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.email}</td>
+                        <td><span style="color:var(--accent); font-weight:700; text-transform:uppercase;">${item.plan}</span></td>
+                        <td>Workstations: ${item.assets.pcs}, Servers: ${item.assets.servers}, Cameras: ${item.assets.cctvs}</td>
+                        <td><strong style="color:var(--secondary); font-size:1.05rem;">$${item.estimatedCost}/mo</strong></td>
+                        <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderCareers(items) {
+            const tbody = document.getElementById("careers-table-body");
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No Career applications received.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map(item => {
+                const badgeClass = item.status === 'Interview Scheduled' ? 'status-processed' : 'status-pending';
+                const actionBtn = item.status === 'Pending Review' 
+                    ? `<button class="btn-body-action btn-table-action" onclick="updateRecordStatus('applications', ${item.id}, 'Interview Scheduled')">Schedule Interview</button>`
+                    : `Closed`;
+                
+                const fileLink = item.resumePath 
+                    ? `<a href="${item.resumePath}" target="_blank" style="color:var(--secondary); text-decoration:underline;"><i class="fa-solid fa-file-pdf"></i> ${item.resumeOriginalName}</a>`
+                    : `No Resume`;
+
+                return `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td><strong>${item.jobTitle}</strong></td>
+                        <td>${item.name} (ph: ${item.phone})</td>
+                        <td>${item.email}</td>
+                        <td>${item.certifications}</td>
+                        <td>${fileLink}</td>
+                        <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderTickets(items) {
+            const board = document.getElementById("tickets-board-list");
+            if (items.length === 0) {
+                board.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-secondary);">All IT Support Tickets closed. Good job!</div>`;
+                return;
+            }
+            
+            board.innerHTML = items.map(ticket => {
+                const prioClass = `priority-${ticket.priority.toLowerCase()}`;
+                const statusClass = ticket.status === 'Resolved' ? 'status-processed' : 'status-pending';
+                
+                const actionBtn = ticket.status === 'Open'
+                    ? `<button class="btn btn-primary" style="padding:0.4rem 1rem; font-size:0.8rem;" onclick="updateTicketStatus(${ticket.id}, 'Resolved')"><i class="fa-solid fa-circle-check"></i> Resolve Issue</button>`
+                    : `Resolved <i class="fa-solid fa-check-double" style="color:var(--success);"></i>`;
+
+                return `
+                    <div class="ticket-card">
+                        <div class="ticket-info">
+                            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.4rem;">
+                                <span class="ticket-priority-badge ${prioClass}">${ticket.priority}</span>
+                                <h4 style="margin:0;">#TKT-${ticket.id}: ${ticket.title}</h4>
+                            </div>
+                            <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:0.25rem;">${ticket.description}</p>
+                            <span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-regular fa-clock"></i> Filed: ${new Date(ticket.timestamp).toLocaleString()}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:1.5rem;">
+                            <span class="status-badge ${statusClass}">${ticket.status}</span>
+                            ${actionBtn}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
