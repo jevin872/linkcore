@@ -10,9 +10,14 @@
     <meta name="keywords" content="IT Infrastructure, Structured Cabling, CCTV Installation, AMC Contract, Network Security, Server Setup, WiFi Solutions, Router Config, Data Center">
     <meta name="author" content="Linkcore Team">
     
-    <!-- Fonts -->
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Three.js WebGL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -38,8 +43,8 @@
                     <line x1="80" y1="67.5" x2="63" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
                     <defs>
                         <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3b82f6"/>
-                            <stop offset="100%" stop-color="#06b6d4"/>
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="100%" stop-color="#38bdf8"/>
                         </linearGradient>
                     </defs>
                 </svg>
@@ -73,124 +78,36 @@
         </div>
     </header>
 
-    <!-- 3. HERO SECTION -->
+    <!-- 3. HERO SECTION — Full-viewport Three.js WebGL -->
     <section class="hero" id="hero-section">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-glow hero-glow-1"></div>
-        <div class="hero-glow hero-glow-2"></div>
-        
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content fade-in appear">
-                    <div class="hero-tag">Enterprise Systems Integration</div>
-                    <h1 class="hero-title">LINKCORE</h1>
-                    <div class="hero-subtitle">Smart IT Infrastructure & Security Solutions</div>
-                    <p class="hero-desc">Connecting Businesses Securely. We architect, install, and protect cutting-edge IT deployments, security cabling, automated server clusters, and comprehensive surveillance systems for modern enterprises.</p>
-                    <div class="hero-btns">
-                        <a href="contact.html" class="btn btn-primary" id="hero-cta-consultation"><i class="fa-solid fa-calendar-check"></i> Free Consultation</a>
-                        <a href="services.html" class="btn btn-secondary" id="hero-cta-services">Explore Services <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
+        <!-- Three.js WebGL canvas fills entire hero -->
+        <canvas id="threejs-canvas"></canvas>
+        <!-- Legacy 2D canvas kept for compatibility but hidden -->
+        <canvas id="hero-canvas" style="display:none"></canvas>
 
-                <!-- 3D Float Server Cabinet Graphics -->
-                <div class="hero-visual fade-in appear">
-                    <div class="hero-visual-3d" id="hero-3d-cabinet">
-                        <div class="rack-header">
-                            <div class="rack-header-dots">
-                                <span class="rack-dot rack-dot-red"></span>
-                                <span class="rack-dot rack-dot-yellow"></span>
-                                <span class="rack-dot rack-dot-green"></span>
-                            </div>
-                            <div class="rack-header-text">LCORE-NET-SW01</div>
-                        </div>
-
-                        <!-- Core Switch Shelf -->
-                        <div class="rack-shelf">
-                            <div class="rack-shelf-lights">
-                                <span class="rack-light blink"></span>
-                                <span class="rack-light blue"></span>
-                                <span class="rack-light"></span>
-                            </div>
-                            <div class="rack-shelf-ports">
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                            </div>
-                        </div>
-
-                        <!-- Firewall Security Shelf -->
-                        <div class="rack-shelf">
-                            <div class="rack-shelf-lights">
-                                <span class="rack-light blue blink"></span>
-                                <span class="rack-light blue"></span>
-                                <span class="rack-light blink"></span>
-                            </div>
-                            <div class="rack-shelf-ports">
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                            </div>
-                        </div>
-
-                        <!-- Server Nodes Shelf -->
-                        <div class="rack-shelf">
-                            <div class="rack-shelf-lights">
-                                <span class="rack-light blink"></span>
-                                <span class="rack-light"></span>
-                                <span class="rack-light"></span>
-                            </div>
-                            <div class="rack-shelf-ports">
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port"></span>
-                            </div>
-                        </div>
-
-                        <!-- Storage SAN Shelf -->
-                        <div class="rack-shelf">
-                            <div class="rack-shelf-lights">
-                                <span class="rack-light blue blink"></span>
-                                <span class="rack-light blink"></span>
-                                <span class="rack-light alert blink"></span>
-                            </div>
-                            <div class="rack-shelf-ports">
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port connected"></span>
-                            </div>
-                        </div>
-
-                        <!-- Backup Power Unit -->
-                        <div class="rack-shelf">
-                            <div class="rack-shelf-lights">
-                                <span class="rack-light"></span>
-                                <span class="rack-light blink"></span>
-                                <span class="rack-light"></span>
-                            </div>
-                            <div class="rack-shelf-ports">
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port"></span>
-                                <span class="rack-port connected"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Cinematic hero content — centered, large -->
+        <div class="hero-inner">
+            <div class="hero-eyebrow" id="hero-eyebrow">Enterprise IT Infrastructure</div>
+            <h1 class="hero-title" id="hero-title">
+                <span class="hero-title-line" id="htl-1">CONNECT.</span>
+                <span class="hero-title-line hero-title-gradient" id="htl-2">SECURE.</span>
+                <span class="hero-title-line" id="htl-3">SCALE.</span>
+            </h1>
+            <p class="hero-desc" id="hero-desc">Smart IT Infrastructure &amp; Security Solutions for modern enterprises.</p>
+            <div class="hero-btns" id="hero-btns">
+                <a href="contact.html" class="btn btn-primary" id="hero-cta-consultation">
+                    <i class="fa-solid fa-calendar-check"></i> Free Consultation
+                </a>
+                <a href="services.html" class="btn btn-ghost" id="hero-cta-services">
+                    Explore Services <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-scroll-hint" id="hero-scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
@@ -263,7 +180,7 @@
     </section>
 
     <!-- 5. FEATURED SERVICES SECTION -->
-    <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="services-preview">
+    <section class="section section-alt" id="services-preview">
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-tag">Service Portfolio</span>
@@ -407,7 +324,7 @@
 
                         <div class="calc-results">
                             <h4 style="color: var(--text-secondary);">Estimated Contract Cost</h4>
-                            <div class="calc-result-price">$<span id="calc-total-price">560</span><span>/mo</span></div>
+                            <div class="calc-result-price">₹<span id="calc-total-price">560</span><span>/mo</span></div>
                             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Estimate includes scheduled updates, remote support, and on-site emergency SLA visits.</p>
                             <a href="amc.html" class="btn btn-primary" style="width: 100%;" id="calc-request-proposal-btn">Get Detailed AMC Proposal</a>
                         </div>
@@ -418,7 +335,7 @@
     </section>
 
     <!-- 7. INDUSTRIES WE SERVE -->
-    <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="industries-section">
+    <section class="section section-alt" id="industries-section">
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-tag">Target Ecosystems</span>

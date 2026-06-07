@@ -104,214 +104,368 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 12. SERVICE REQUEST & JOB APPLICATION MODALS
     initModalsAndForms();
+
+    // 13. FLOATING HERO PARTICLES & 3D ORB
+    initFloatingParticles();
+    // inject3dOrbs() — handled by Three.js scene now
 });
 
 /* ========================================================
-   5. 3D CANVAS NETWORK PARTICLE ANIMATION
+   5. THREE.JS WEBGL HERO SCENE — Immersive 3D Network
    ======================================================== */
 function initHeroNetworkCanvas() {
-    const canvas = document.getElementById("hero-canvas");
-    if (!canvas) return;
+    const canvas = document.getElementById("threejs-canvas");
+    if (!canvas || typeof THREE === 'undefined') return;
 
-    const ctx = canvas.getContext("2d");
-    let animationId;
-    let width = (canvas.width = canvas.offsetWidth);
-    let height = (canvas.height = canvas.offsetHeight);
+    // --- Scene setup ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 28);
 
-    const particles = [];
-    const maxParticles = window.innerWidth < 768 ? 40 : 80;
-    const connectionDist = 120;
-    const mouse = { x: null, y: null, radius: 150 };
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
 
-    // Handle window resize
-    window.addEventListener("resize", () => {
-        if (!canvas) return;
-        width = canvas.width = canvas.offsetWidth;
-        height = canvas.height = canvas.offsetHeight;
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    window.addEventListener("mousemove", (e) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-    });
+    // --- Color palette ---
+    const PALETTE = [0x7c3aed, 0xa78bfa, 0x38bdf8, 0xe879f9, 0x6366f1];
 
-    window.addEventListener("mouseleave", () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
+    // --- Floating 3D nodes ---
+    const NODE_COUNT = window.innerWidth < 768 ? 30 : 60;
+    const nodes = [];
+    const nodeGroup = new THREE.Group();
+    scene.add(nodeGroup);
 
-    // Particle constructor with 3D depth variables
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            // Simulated Z-axis for 3D depth perspective
-            this.z = Math.random() * 200 + 50; 
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
-            this.vz = (Math.random() - 0.5) * 0.3;
-            this.baseSize = Math.random() * 2 + 1;
-        }
+    const geoms = [
+        new THREE.IcosahedronGeometry(0.18, 0),
+        new THREE.OctahedronGeometry(0.22, 0),
+        new THREE.TetrahedronGeometry(0.2, 0),
+        new THREE.SphereGeometry(0.14, 8, 8),
+    ];
 
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            this.z += this.vz;
+    for (let i = 0; i < NODE_COUNT; i++) {
+        const geom = geoms[Math.floor(Math.random() * geoms.length)];
+        const color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+        const mat = new THREE.MeshPhongMaterial({
+            color,
+            emissive: color,
+            emissiveIntensity: 0.4,
+            transparent: true,
+            opacity: 0.75 + Math.random() * 0.25,
+            wireframe: Math.random() < 0.35,
+        });
+        const mesh = new THREE.Mesh(geom, mat);
 
-            // Constrain nodes in simulated 3D bounds
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-            if (this.z < 10 || this.z > 300) this.vz *= -1;
+        const spread = 22;
+        mesh.position.set(
+            (Math.random() - 0.5) * spread,
+            (Math.random() - 0.5) * spread * 0.7,
+            (Math.random() - 0.5) * spread * 0.5
+        );
+        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
 
-            // Interactive mouse repelling
-            if (mouse.x !== null && mouse.y !== null) {
-                const dx = this.x - mouse.x;
-                const dy = this.y - mouse.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouse.radius) {
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    this.x += (dx / distance) * force * 3;
-                    this.y += (dy / distance) * force * 3;
+        const speed = {
+            x: (Math.random() - 0.5) * 0.004,
+            y: (Math.random() - 0.5) * 0.004,
+            z: (Math.random() - 0.5) * 0.003,
+            rx: (Math.random() - 0.5) * 0.012,
+            ry: (Math.random() - 0.5) * 0.012,
+        };
+        nodes.push({ mesh, speed, basePos: mesh.position.clone(), phase: Math.random() * Math.PI * 2 });
+        nodeGroup.add(mesh);
+    }
+
+    // --- Connection lines between nearby nodes ---
+    const linesMat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.25 });
+    let linesGeom = new THREE.BufferGeometry();
+    const linesObj = new THREE.LineSegments(linesGeom, linesMat);
+    scene.add(linesObj);
+
+    function updateLines() {
+        const positions = [];
+        const colors = [];
+        const CONNECT_DIST = 7;
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const d = nodes[i].mesh.position.distanceTo(nodes[j].mesh.position);
+                if (d < CONNECT_DIST) {
+                    const alpha = 1 - d / CONNECT_DIST;
+                    const c1 = new THREE.Color(nodes[i].mesh.material.color);
+                    const c2 = new THREE.Color(nodes[j].mesh.material.color);
+                    positions.push(...nodes[i].mesh.position.toArray(), ...nodes[j].mesh.position.toArray());
+                    colors.push(c1.r * alpha, c1.g * alpha, c1.b * alpha, c2.r * alpha, c2.g * alpha, c2.b * alpha);
                 }
             }
         }
 
-        draw() {
-            // Perspective projection calculations
-            const perspective = 250 / (250 + this.z);
-            const drawX = width / 2 + (this.x - width / 2) * perspective;
-            const drawY = height / 2 + (this.y - height / 2) * perspective;
-            const size = this.baseSize * perspective * 2.5;
-
-            // Node coloring with depth opacity
-            const alpha = (300 - this.z) / 300;
-            const isLightTheme = document.body.classList.contains("light-theme");
-            ctx.fillStyle = isLightTheme 
-                ? `rgba(37, 99, 235, ${alpha * 0.7})` 
-                : `rgba(6, 182, 212, ${alpha * 0.75})`;
-
-            ctx.beginPath();
-            ctx.arc(drawX, drawY, size, 0, Math.PI * 2);
-            ctx.fill();
-        }
+        linesGeom.dispose();
+        linesGeom = new THREE.BufferGeometry();
+        linesGeom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        linesGeom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        linesObj.geometry = linesGeom;
     }
 
-    // Initialize particles array
-    for (let i = 0; i < maxParticles; i++) {
-        particles.push(new Particle());
-    }
+    // --- Large background wireframe sphere ---
+    const bgSphere = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(18, 2),
+        new THREE.MeshBasicMaterial({ color: 0x7c3aed, wireframe: true, transparent: true, opacity: 0.04 })
+    );
+    scene.add(bgSphere);
 
+    // --- Central glowing core ---
+    const coreMat = new THREE.MeshPhongMaterial({
+        color: 0xa78bfa, emissive: 0x7c3aed, emissiveIntensity: 1,
+        transparent: true, opacity: 0.9, wireframe: false
+    });
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), coreMat);
+    scene.add(core);
+
+    // Core glow rings
+    const ringColors = [0x7c3aed, 0x38bdf8, 0xe879f9];
+    const rings = ringColors.map((c, i) => {
+        const r = new THREE.Mesh(
+            new THREE.TorusGeometry(2.2 + i * 0.9, 0.025, 8, 80),
+            new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.5 - i * 0.1 })
+        );
+        r.rotation.x = Math.PI / 2 + i * 0.5;
+        scene.add(r);
+        return r;
+    });
+
+    // --- Lights ---
+    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+    const pLight1 = new THREE.PointLight(0x7c3aed, 2, 40);
+    pLight1.position.set(5, 5, 5);
+    scene.add(pLight1);
+    const pLight2 = new THREE.PointLight(0x38bdf8, 1.5, 40);
+    pLight2.position.set(-5, -5, 5);
+    scene.add(pLight2);
+    const pLight3 = new THREE.PointLight(0xe879f9, 1, 30);
+    pLight3.position.set(0, 8, -5);
+    scene.add(pLight3);
+
+    // --- Mouse parallax ---
+    const mouse = { x: 0, y: 0 };
+    const targetRot = { x: 0, y: 0 };
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    // --- Scroll-based camera zoom ---
+    let scrollY = 0;
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+    // --- Animation loop ---
+    let frame = 0;
     function animate() {
-        const isLightTheme = document.body.classList.contains("light-theme");
-        ctx.clearRect(0, 0, width, height);
+        requestAnimationFrame(animate);
+        frame++;
 
-        // Update and draw nodes
-        particles.forEach(p => {
-            p.update();
-            p.draw();
+        const t = frame * 0.01;
+
+        // Smooth mouse parallax on scene
+        targetRot.x += (mouse.y * 0.15 - targetRot.x) * 0.05;
+        targetRot.y += (mouse.x * 0.25 - targetRot.y) * 0.05;
+        nodeGroup.rotation.x = targetRot.x;
+        nodeGroup.rotation.y = targetRot.y;
+
+        // Camera scroll parallax
+        camera.position.z = 28 + scrollY * 0.015;
+        camera.position.y = -scrollY * 0.005;
+
+        // Animate nodes
+        nodes.forEach((n, i) => {
+            n.mesh.rotation.x += n.speed.rx;
+            n.mesh.rotation.y += n.speed.ry;
+            n.mesh.position.x = n.basePos.x + Math.sin(t + n.phase) * 0.8;
+            n.mesh.position.y = n.basePos.y + Math.cos(t * 0.7 + n.phase) * 0.6;
+            n.mesh.position.z = n.basePos.z + Math.sin(t * 0.5 + n.phase) * 0.4;
         });
 
-        // Draw connections linking nearby nodes
-        for (let i = 0; i < particles.length; i++) {
-            const p1 = particles[i];
-            const p1ProjX = width / 2 + (p1.x - width / 2) * (250 / (250 + p1.z));
-            const p1ProjY = height / 2 + (p1.y - height / 2) * (250 / (250 + p1.z));
+        // Update connection lines every 3 frames for perf
+        if (frame % 3 === 0) updateLines();
 
-            for (let j = i + 1; j < particles.length; j++) {
-                const p2 = particles[j];
-                const p2ProjX = width / 2 + (p2.x - width / 2) * (250 / (250 + p2.z));
-                const p2ProjY = height / 2 + (p2.y - height / 2) * (250 / (250 + p2.z));
+        // Rotate background sphere slowly
+        bgSphere.rotation.y += 0.0008;
+        bgSphere.rotation.x += 0.0003;
 
-                const dx = p1ProjX - p2ProjX;
-                const dy = p1ProjY - p2ProjY;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+        // Pulse core
+        const pulse = 1 + Math.sin(t * 2) * 0.08;
+        core.scale.setScalar(pulse);
+        core.rotation.y += 0.008;
+        core.rotation.x += 0.005;
+        coreMat.emissiveIntensity = 0.8 + Math.sin(t * 3) * 0.4;
 
-                if (dist < connectionDist) {
-                    const avgZ = (p1.z + p2.z) / 2;
-                    const alpha = (1 - dist / connectionDist) * ((300 - avgZ) / 300) * 0.35;
-                    ctx.strokeStyle = isLightTheme 
-                        ? `rgba(37, 99, 235, ${alpha})` 
-                        : `rgba(6, 182, 212, ${alpha})`;
-                    ctx.lineWidth = 0.5 * (250 / (250 + avgZ));
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(p1ProjX, p1ProjY);
-                    ctx.lineTo(p2ProjX, p2ProjY);
-                    ctx.stroke();
-                }
-            }
-        }
-        animationId = requestAnimationFrame(animate);
+        // Spin rings
+        rings[0].rotation.z += 0.006;
+        rings[1].rotation.x += 0.004;
+        rings[2].rotation.y += 0.005;
+
+        // Pulse lights
+        pLight1.intensity = 2 + Math.sin(t * 2.5) * 0.8;
+        pLight2.intensity = 1.5 + Math.cos(t * 2) * 0.6;
+
+        renderer.render(scene, camera);
     }
     animate();
 }
 
 /* ========================================================
-   6. 3D CARD TILT EFFECT (SPECULAR LIGHT GLOW ON CARD HOVER)
+   6. 3D CARD TILT EFFECT — HOLOGRAPHIC SPECULAR GLOW
    ======================================================== */
 function init3dTiltEffect() {
     const cards = document.querySelectorAll(".glass-card");
 
     cards.forEach(card => {
+        // Shimmer overlay
+        const shimmer = document.createElement("div");
+        shimmer.style.cssText = `
+            position:absolute; inset:0; border-radius:inherit;
+            pointer-events:none; opacity:0; transition:opacity 0.3s ease;
+            z-index:1;
+        `;
+        card.style.position = "relative";
+        card.appendChild(shimmer);
+
         card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // Mouse relative X inside card
-            const y = e.clientY - rect.top;  // Mouse relative Y inside card
-            
-            const cardWidth = rect.width;
-            const cardHeight = rect.height;
-            const centerX = cardWidth / 2;
-            const centerY = cardHeight / 2;
-            
-            // Tilt strength (angles of rotation)
-            const maxTilt = 12; 
-            const rotateX = ((centerY - y) / centerY) * maxTilt;
-            const rotateY = ((x - centerX) / centerX) * maxTilt;
-            
-            // Render 3D tilt transform
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            
-            // Add custom gradient lighting center for glass glare styling
-            const glowX = (x / cardWidth) * 100;
-            const glowY = (y / cardHeight) * 100;
-            card.style.backgroundImage = `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(6, 182, 212, 0.12) 0%, transparent 60%), var(--bg-surface-glass)`;
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+
+            const maxTilt = 14;
+            const rotateX = ((cy - y) / cy) * maxTilt;
+            const rotateY = ((x - cx) / cx) * maxTilt;
+
+            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03,1.03,1.03)`;
+
+            const gx = (x / rect.width) * 100;
+            const gy = (y / rect.height) * 100;
+            shimmer.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(167,139,250,0.22) 0%, rgba(56,189,248,0.1) 40%, transparent 70%)`;
+            shimmer.style.opacity = "1";
+
+            card.style.borderColor = `rgba(167,139,250,0.6)`;
+            card.style.boxShadow = `
+                0 20px 60px rgba(0,0,0,0.6),
+                0 0 30px rgba(124,58,237,0.4),
+                0 0 60px rgba(56,189,248,0.15),
+                inset 0 1px 0 rgba(167,139,250,0.3)
+            `;
         });
 
         card.addEventListener("mouseleave", () => {
-            // Restore cards layout to initial coordinates
-            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-            card.style.backgroundImage = "";
-            card.style.transition = "transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)";
+            card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
+            card.style.transition = "all 0.5s cubic-bezier(0.25,0.8,0.25,1)";
+            card.style.borderColor = "";
+            card.style.boxShadow = "";
+            shimmer.style.opacity = "0";
         });
 
         card.addEventListener("mouseenter", () => {
-            card.style.transition = "transform 0.1s ease"; // Quick feedback on hover enter
+            card.style.transition = "transform 0.08s ease, box-shadow 0.2s ease, border-color 0.2s ease";
         });
     });
 }
 
 /* ========================================================
-   7. SCROLL-BASED IN-VIEW ANIMATIONS
+   7. GSAP SCROLL ANIMATIONS + HERO ENTRANCE
    ======================================================== */
 function initScrollAnimations() {
-    const fadeElements = document.querySelectorAll(".fade-in");
-    
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
+    // --- Hero entrance (GSAP timeline) ---
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
 
-    const scrollObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("appear");
-                observer.unobserve(entry.target);
+        const heroTl = gsap.timeline({ delay: 0.4 });
+        heroTl
+            .to("#hero-eyebrow",    { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
+            .to("#htl-1",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.3")
+            .to("#htl-2",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
+            .to("#htl-3",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
+            .to("#hero-desc",       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
+            .to("#hero-btns",       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+
+        // --- Section scroll reveals ---
+        // Batch fade-in for cards/grid items
+        ScrollTrigger.batch(".fade-in:not(.appear)", {
+            onEnter: batch => gsap.to(batch, {
+                opacity: 1, y: 0, scale: 1,
+                duration: 0.7, stagger: 0.1, ease: "power3.out",
+                onComplete: () => batch.forEach(el => el.classList.add("appear"))
+            }),
+            start: "top 88%",
+        });
+
+        // Section headers — slide up
+        document.querySelectorAll(".section-header").forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 85%", once: true },
+                opacity: 0, y: 40, duration: 0.8, ease: "power3.out"
+            });
+        });
+
+        // About grid — split left/right
+        const aboutLeft = document.querySelector(".about-grid > *:first-child");
+        const aboutRight = document.querySelector(".about-grid > *:last-child");
+        if (aboutLeft) gsap.from(aboutLeft, { scrollTrigger: { trigger: aboutLeft, start: "top 80%", once: true }, opacity: 0, x: -60, duration: 0.9, ease: "power3.out" });
+        if (aboutRight) gsap.from(aboutRight, { scrollTrigger: { trigger: aboutRight, start: "top 80%", once: true }, opacity: 0, x: 60, duration: 0.9, ease: "power3.out" });
+
+        // Counter boxes — scale in
+        document.querySelectorAll(".counter-box").forEach((el, i) => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 85%", once: true },
+                opacity: 0, scale: 0.8, y: 30,
+                duration: 0.6, delay: i * 0.1, ease: "back.out(1.4)"
+            });
+        });
+
+        // Service cards — stagger up
+        gsap.from(".service-card", {
+            scrollTrigger: { trigger: ".services-grid", start: "top 80%", once: true },
+            opacity: 0, y: 50, duration: 0.6, stagger: 0.1, ease: "power3.out"
+        });
+
+        // Portfolio items — stagger scale
+        gsap.from(".portfolio-item", {
+            scrollTrigger: { trigger: ".portfolio-grid", start: "top 80%", once: true },
+            opacity: 0, scale: 0.9, duration: 0.6, stagger: 0.12, ease: "power2.out"
+        });
+
+        // Industry cards — stagger
+        gsap.from(".industry-card", {
+            scrollTrigger: { trigger: ".industries-grid", start: "top 80%", once: true },
+            opacity: 0, y: 30, duration: 0.5, stagger: 0.08, ease: "power2.out"
+        });
+
+        // Navbar parallax tint on scroll
+        ScrollTrigger.create({
+            start: "top -80",
+            onUpdate: self => {
+                const nav = document.querySelector(".navbar");
+                if (nav) nav.classList.toggle("sticky", self.progress > 0);
             }
         });
-    }, observerOptions);
 
-    fadeElements.forEach(el => scrollObserver.observe(el));
+    } else {
+        // Fallback: IntersectionObserver if GSAP not loaded
+        const obs = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("appear");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
+    }
 }
 
 /* ========================================================
@@ -721,7 +875,7 @@ function initModalsAndForms() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(`AMC request submitted successfully! Customized estimate rate calculated: $${data.estimatedCost}/month. We will send the comprehensive SLA draft to your email.`);
+                    alert(`AMC request submitted successfully! Customized estimate rate calculated: ₹${data.estimatedCost}/month. We will send the comprehensive SLA draft to your email.`);
                     proposalForm.reset();
                 } else {
                     alert("AMC request error: " + data.error);
@@ -806,4 +960,83 @@ function initModalsAndForms() {
             .catch(err => console.error("Newsletter post error:", err));
         });
     }
+}
+
+/* ========================================================
+   13. FLOATING HERO PARTICLES (CSS-driven, JS-spawned)
+   ======================================================== */
+function initFloatingParticles() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const COLORS = ["rgba(124,58,237,", "rgba(167,139,250,", "rgba(56,189,248,", "rgba(232,121,249,"];
+    const COUNT = window.innerWidth < 768 ? 10 : 20;
+
+    for (let i = 0; i < COUNT; i++) {
+        const p = document.createElement("div");
+        p.className = "hero-particle";
+        const size = Math.random() * 4 + 2;
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        const left = Math.random() * 100;
+        const duration = 8 + Math.random() * 12;
+        const delay = Math.random() * 10;
+        const opacity = 0.3 + Math.random() * 0.5;
+
+        p.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${left}%;
+            bottom: -10px;
+            background: ${color}${opacity});
+            box-shadow: 0 0 ${size * 3}px ${color}0.6);
+            animation-duration: ${duration}s;
+            animation-delay: -${delay}s;
+        `;
+        hero.appendChild(p);
+    }
+}
+
+/* ========================================================
+   14. INJECT 3D NETWORK ORBS INTO SECTIONS
+   ======================================================== */
+function inject3dOrbs() {
+    // Add a 3D orb to the about preview section
+    const aboutSection = document.getElementById("about-preview");
+    if (aboutSection) {
+        aboutSection.style.position = "relative";
+        aboutSection.style.overflow = "hidden";
+        const orb = buildOrb();
+        orb.style.cssText += "right:-60px; top:50%; transform:translateY(-50%); opacity:0.6;";
+        aboutSection.appendChild(orb);
+    }
+
+    // Add a smaller orb to the industries section
+    const indSection = document.getElementById("industries-section");
+    if (indSection) {
+        indSection.style.position = "relative";
+        indSection.style.overflow = "hidden";
+        const orb2 = buildOrb("180px");
+        orb2.style.cssText += "left:-40px; top:20%; opacity:0.4;";
+        indSection.appendChild(orb2);
+    }
+}
+
+function buildOrb(size = "260px") {
+    const wrapper = document.createElement("div");
+    wrapper.className = "net-orb-wrapper";
+    wrapper.style.width = size;
+    wrapper.style.height = size;
+    wrapper.style.position = "absolute";
+    wrapper.style.pointerEvents = "none";
+    wrapper.style.zIndex = "0";
+
+    wrapper.innerHTML = `
+        <div class="net-orb">
+            <div class="orb-ring orb-ring-1"></div>
+            <div class="orb-ring orb-ring-2"></div>
+            <div class="orb-ring orb-ring-3"></div>
+            <div class="orb-core"></div>
+        </div>
+    `;
+    return wrapper;
 }
