@@ -57,8 +57,6 @@
                     <li><a href="about.html" class="nav-link" id="link-about">About Us</a></li>
                     <li><a href="services.html" class="nav-link" id="link-services">Services</a></li>
                     <li><a href="amc.html" class="nav-link" id="link-amc">AMC Plans</a></li>
-                    <li><a href="portfolio.html" class="nav-link" id="link-portfolio">Portfolio</a></li>
-                    <li><a href="careers.html" class="nav-link" id="link-careers">Careers</a></li>
                     <li><a href="contact.html" class="nav-link" id="link-contact">Contact</a></li>
                 </ul>
             </nav>
@@ -144,14 +142,14 @@
                 <!-- Decorative Glass Card detailing Vision/Mission -->
                 <div class="glass-card fade-in" id="about-vision-card">
                     <div class="glass-card-inner">
-                        <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-eye" style="color: var(--secondary); margin-right: 0.5rem;"></i> Dedicated Partnership</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Our mission is to empower companies with scalable technology backbones. We handle network monitoring, routine server health checks, and emergency backup recoveries so you can focus on building your brand.</p>
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-handshake" style="color: var(--secondary); margin-right: 0.5rem;"></i> Dedicated Partnership</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">At Linkcore, we don't just install systems — we build the digital backbone your business runs on. Every cable we lay, every camera we mount, and every firewall we configure is backed by a commitment to precision, reliability, and long-term partnership.</p>
                         
                         <div style="border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
                             <blockquote style="font-style: italic; color: var(--text-muted);">
-                                "Linkcore has completely transformed our retail network across 14 branches. Clean layouts, excellent CCTV analytics, and proactive AMC support."
+                                "Technology should never be a barrier — it should be the bridge. At Linkcore, we make sure every business we touch is connected securely, efficiently, and built to last."
                             </blockquote>
-                            <div style="margin-top: 1rem; font-weight: 700; font-size: 0.9rem; color: var(--secondary);">— CTO, Zenith Retail Group</div>
+                            <div style="margin-top: 1rem; font-weight: 700; font-size: 0.9rem; color: var(--secondary);">— Saju Raj T, Founder & CEO, Linkcore Technologies</div>
                         </div>
                     </div>
                 </div>
@@ -160,7 +158,7 @@
             <!-- Counters Bar -->
             <div class="counters-bar">
                 <div class="counter-box fade-in" id="counter-projects">
-                    <div class="counter-val" data-target="1500" data-suffix="+">0</div>
+                    <div class="counter-val" data-target="85" data-suffix="+">0</div>
                     <div class="counter-label">Projects Completed</div>
                 </div>
                 <div class="counter-box fade-in" id="counter-clients">
@@ -172,7 +170,7 @@
                     <div class="counter-label">Support Availability</div>
                 </div>
                 <div class="counter-box fade-in" id="counter-networks">
-                    <div class="counter-val" data-target="450" data-suffix="+">0</div>
+                    <div class="counter-val" data-target="25" data-suffix="+">0</div>
                     <div class="counter-label">Network Deployments</div>
                 </div>
             </div>
@@ -290,47 +288,7 @@
                 </div>
             </div>
 
-            <!-- Dynamic AMC Cost Estimator Card -->
-            <div class="glass-card amc-calc-card fade-in" id="amc-calculator-card">
-                <div class="glass-card-inner">
-                    <h3 style="margin-bottom: 2rem; text-align: center;">Estimate Your Custom AMC Plan</h3>
-                    
-                    <div class="calc-grid">
-                        <div class="calc-inputs">
-                            <div class="calc-group">
-                                <label class="calc-label" for="calc-pc">
-                                    <span>Workstations / PCs</span>
-                                    <span id="calc-pc-val" class="calc-value">25</span>
-                                </label>
-                                <input type="range" id="calc-pc" class="calc-slider" min="5" max="100" value="25">
-                            </div>
-
-                            <div class="calc-group">
-                                <label class="calc-label" for="calc-server">
-                                    <span>Enterprise Servers</span>
-                                    <span id="calc-server-val" class="calc-value">2</span>
-                                </label>
-                                <input type="range" id="calc-server" class="calc-slider" min="0" max="15" value="2">
-                            </div>
-
-                            <div class="calc-group">
-                                <label class="calc-label" for="calc-cctv">
-                                    <span>IP Security Cameras</span>
-                                    <span id="calc-cctv-val" class="calc-value">16</span>
-                                </label>
-                                <input type="range" id="calc-cctv" class="calc-slider" min="4" max="80" value="16">
-                            </div>
-                        </div>
-
-                        <div class="calc-results">
-                            <h4 style="color: var(--text-secondary);">Estimated Contract Cost</h4>
-                            <div class="calc-result-price">₹<span id="calc-total-price">560</span><span>/mo</span></div>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Estimate includes scheduled updates, remote support, and on-site emergency SLA visits.</p>
-                            <a href="amc.html" class="btn btn-primary" style="width: 100%;" id="calc-request-proposal-btn">Get Detailed AMC Proposal</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- AMC Calculator removed -->
         </div>
     </section>
 
@@ -396,116 +354,7 @@
         </div>
     </section>
 
-    <!-- 8. PORTFOLIO HIGHLIGHTS SECTION -->
-    <section class="section" id="portfolio-preview-section">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag">Recent Work</span>
-                <h2 class="section-title">Case Studies & Deployments</h2>
-                <p class="section-desc">Examine some of our actual configurations and clean cable server rack room setups.</p>
-            </div>
-
-            <!-- Portfolio filter buttons -->
-            <div class="portfolio-filter fade-in" id="home-portfolio-filters">
-                <button class="filter-btn active" data-filter="all" id="btn-filter-all">All Projects</button>
-                <button class="filter-btn" data-filter="cabling" id="btn-filter-cabling">Structured Cabling</button>
-                <button class="filter-btn" data-filter="security" id="btn-filter-security">Security/CCTV</button>
-                <button class="filter-btn" data-filter="systems" id="btn-filter-systems">Systems/Server Rooms</button>
-            </div>
-
-            <div class="portfolio-grid" id="home-portfolio-grid">
-                <!-- Portfolio Item 1 -->
-                <div class="portfolio-item glass-card fade-in" data-category="systems" data-tags="Datacenter, Racks, Dell Servers" data-full-desc="A full high-density server rack room integration featuring clean power routing, patch cabling, hardware installation of Dell PowerEdge nodes, and Hyper-V cluster installations with firewalls." id="port-item-server-room">
-                    <div class="portfolio-img-container">
-                        <!-- Custom Inline Vector SVG graphic instead of raster placeholders -->
-                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <g stroke="#1e293b" stroke-width="2">
-                                <line x1="50" y1="20" x2="50" y2="280" />
-                                <line x1="350" y1="20" x2="350" y2="280" />
-                            </g>
-                            <g stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.4">
-                                <rect x="80" y="40" width="240" height="40" rx="4"/>
-                                <rect x="80" y="95" width="240" height="40" rx="4"/>
-                                <rect x="80" y="150" width="240" height="40" rx="4"/>
-                                <rect x="80" y="205" width="240" height="40" rx="4"/>
-                            </g>
-                            <!-- Glowing servers led dots -->
-                            <circle cx="100" cy="60" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="60" r="4" fill="#10b981"/>
-                            <circle cx="130" cy="60" r="4" fill="#06b6d4"/>
-                            
-                            <circle cx="100" cy="115" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="115" r="4" fill="#ef4444" opacity="0.8"/>
-                            <circle cx="130" cy="115" r="4" fill="#10b981"/>
-                            
-                            <circle cx="100" cy="170" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="170" r="4" fill="#10b981"/>
-                            
-                            <circle cx="100" cy="225" r="4" fill="#06b6d4"/>
-                            <circle cx="115" cy="225" r="4" fill="#10b981"/>
-                        </svg>
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Systems / Server Rooms</span>
-                            <h3 class="portfolio-title">Enterprise Rack Cluster</h3>
-                            <p class="portfolio-desc">High-density computing node setup with custom cooling paths.</p>
-                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 2 -->
-                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Cat6A, Fluke Testing, Racks" data-full-desc="A full restructuring of corporate headquarter network rack cables. Sorted, labeled, and certified over 300+ ethernet lines using Fluke testing techniques." id="port-item-cabling">
-                    <div class="portfolio-img-container">
-                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <path d="M 50,50 Q 150,150 200,250" fill="none" stroke="#3b82f6" stroke-width="4"/>
-                            <path d="M 100,50 Q 180,100 250,250" fill="none" stroke="#06b6d4" stroke-width="4"/>
-                            <path d="M 150,50 Q 220,130 300,250" fill="none" stroke="#8b5cf6" stroke-width="4"/>
-                            <path d="M 200,50 Q 260,80 350,150" fill="none" stroke="#10b981" stroke-width="3"/>
-                            
-                            <g stroke="#ffffff" stroke-width="1" opacity="0.1">
-                                <line x1="0" y1="50" x2="400" y2="50"/>
-                                <line x1="0" y1="150" x2="400" y2="150"/>
-                                <line x1="0" y1="250" x2="400" y2="250"/>
-                            </g>
-                        </svg>
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Structured Cabling</span>
-                            <h3 class="portfolio-title">Cat6A Cabling Infrastructure</h3>
-                            <p class="portfolio-desc">Complete reorganization and sorting of 300+ network drops.</p>
-                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 3 -->
-                <div class="portfolio-item glass-card fade-in" data-category="security" data-tags="IP Cameras, AI Analytics, Access Control" data-full-desc="Integration of 48 IP dome and bullet surveillance cameras across 4 warehouse locations, complete with smart intrusion detection alerts and centralized network video recorders (NVR)." id="port-item-cctv">
-                    <div class="portfolio-img-container">
-                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <circle cx="200" cy="150" r="60" fill="none" stroke="#1e293b" stroke-width="6"/>
-                            <circle cx="200" cy="150" r="40" fill="none" stroke="#06b6d4" stroke-width="4"/>
-                            <path d="M 200,90 A 60,60 0 0,1 260,150" fill="none" stroke="#3b82f6" stroke-width="6"/>
-                            <!-- Targeting lines -->
-                            <line x1="200" y1="40" x2="200" y2="260" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
-                            <line x1="90" y1="150" x2="310" y2="150" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
-                        </svg>
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Security / CCTV</span>
-                            <h3 class="portfolio-title">Warehouse Smart Surveillance</h3>
-                            <p class="portfolio-desc">High-def IP cameras with intelligent movement warning systems.</p>
-                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 3.5rem;" class="fade-in">
-                <a href="portfolio.html" class="btn btn-secondary" id="view-all-portfolio-btn">Launch Full Gallery <i class="fa-solid fa-images"></i></a>
-            </div>
-        </div>
-    </section>
+    <!-- Portfolio section removed -->
 
     <!-- 9. TESTIMONIALS SLIDER SECTION -->
     <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="testimonials-section">
@@ -598,7 +447,7 @@
                         <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
                         <div>
                             <span class="contact-info-title">Call Us</span>
-                            <div class="contact-info-detail">+1 (555) 234-5678</div>
+                            <div class="contact-info-detail">+91 96117 24319</div>
                         </div>
                     </div>
 
@@ -614,7 +463,7 @@
                         <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
                             <span class="contact-info-title">Visit Office</span>
-                            <div class="contact-info-detail">100 Cyber Heights, Suite 404, Tech District</div>
+                            <div class="contact-info-detail">Linkcore, Ruby Street, New Vellanur, Chennai — 600062</div>
                         </div>
                     </div>
                     
@@ -641,7 +490,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label class="form-label" for="contact-phone">Phone Number</label>
-                                    <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +1 (555) 000-0000">
+                                    <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +91 98765 43210">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="contact-interest">Interest Area</label>

@@ -584,22 +584,30 @@ body.light-theme .theme-toggle .fa-sun { display: block; }
 }
 
 /* --- SCROLL-REVEAL BASE (GSAP handles the animation) --- */
+/* All hidden elements auto-reveal via CSS fallback if GSAP CDN is unavailable */
 .gsap-reveal {
     opacity: 0;
     transform: translateY(50px);
+    animation: fallback-reveal 0.6s ease 1.5s forwards;
 }
 .gsap-reveal-left {
     opacity: 0;
     transform: translateX(-60px);
+    animation: fallback-reveal-x 0.6s ease 1.5s forwards;
 }
 .gsap-reveal-right {
     opacity: 0;
     transform: translateX(60px);
+    animation: fallback-reveal-xr 0.6s ease 1.5s forwards;
 }
 .gsap-reveal-scale {
     opacity: 0;
     transform: scale(0.85);
+    animation: fallback-reveal-s 0.6s ease 1.5s forwards;
 }
+@keyframes fallback-reveal-x  { to { opacity: 1; transform: translateX(0); } }
+@keyframes fallback-reveal-xr { to { opacity: 1; transform: translateX(0); } }
+@keyframes fallback-reveal-s  { to { opacity: 1; transform: scale(1); } }
 .hero-desc {
     font-size: 1.1rem;
     color: var(--text-secondary);
@@ -2148,7 +2156,92 @@ body.light-theme .footer-bottom {
 }
 
 /* Ensure fade-in elements start hidden for GSAP */
+/* FALLBACK: if GSAP doesn't run, show everything after 1s */
 .fade-in:not(.appear) {
     opacity: 0;
     transform: translateY(30px);
+    animation: fallback-reveal 0.6s ease 1.2s forwards;
 }
+@keyframes fallback-reveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   GAP FIXES — reduce excess blank space on all pages
+   ============================================================ */
+
+/* Tighten section vertical padding globally */
+.section { padding: 4rem 0; }
+
+/* About preview — tighter gap between grid and counters */
+#about-preview .counters-bar { margin-top: 3rem; }
+
+/* Counter boxes — always 2-col on mobile, never 1-col stack */
+@media (max-width: 600px) {
+    .counters-bar {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem;
+    }
+    .counter-val { font-size: 2.2rem; }
+}
+
+/* Services section — reduce gap between header and cards */
+.section-header { margin-bottom: 2.5rem; }
+
+/* AMC benefits grid — tighter */
+.amc-benefits { margin-bottom: 3rem; }
+
+/* Remove the large top gap on inner-page heroes */
+.hero[style*="min-height: 50vh"] {
+    padding-top: 7rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* Portfolio grid — no orphan space below */
+.portfolio-grid { margin-bottom: 0; }
+
+/* Industries grid — tighter */
+#industries-section .section-header { margin-bottom: 2rem; }
+
+/* Services page list gap fix */
+.services-list-item + .services-list-item { margin-top: 0; }
+
+/* ============================================================
+   FINAL GAP KILLS — all inner page blank space removed
+   ============================================================ */
+
+/* Inner page heroes — no excessive height */
+.hero[style*="min-height: 50vh"],
+.hero[style*="min-height: auto"] {
+    min-height: auto !important;
+    padding-top: 7rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* Kill all body::before / body::after orb overflow on inner pages */
+body::before, body::after { display: none; }
+
+/* Sections — tight padding everywhere */
+.section { padding: 3rem 0 !important; }
+
+/* Remove map-wrapper space entirely */
+.map-wrapper { display: none !important; }
+
+/* Services filter — tight */
+#services-category-filters { margin-bottom: 1.5rem !important; }
+
+/* About grid tight */
+#about-mission-section { padding-top: 1.5rem !important; }
+
+/* No top margin on section tags */
+.section-tag { margin-bottom: 0.5rem; }
+
+/* Remove any stray margin from hero-glow on inner pages */
+.hero-glow { display: none !important; }
+
+/* About values section tight */
+#about-values-section { padding-top: 2rem !important; }
+#about-certifications-section { padding-top: 2rem !important; }
+
+/* AMC features list tight */
+#amc-features-list { padding-top: 2rem !important; }
