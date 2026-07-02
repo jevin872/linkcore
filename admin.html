@@ -218,7 +218,7 @@
                     <h1 style="font-size: 2.25rem;">Control Center</h1>
                 </div>
                 <div style="display:flex; gap:1rem; align-items:center;">
-                    <span id="server-status-led" class="status-badge status-processed" style="font-size:0.7rem;"><i class="fa-solid fa-circle-nodes"></i> SERVER ONLINE</span>
+                    <span id="server-status-led" class="status-badge status-processed" style="font-size:0.7rem;"><i class="fa-solid fa-video"></i> NVR ONLINE</span>
                     <a href="index.html" class="btn btn-secondary" style="padding:0.5rem 1rem; font-size:0.85rem;"><i class="fa-solid fa-globe"></i> View Site</a>
                 </div>
             </div>
@@ -245,11 +245,11 @@
                     </div>
                 </div>
 
-                <!-- Live Chat/Network Event Log Simulator -->
-                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-terminal" style="color:var(--secondary);"></i> Live Network Console Logs</h3>
+                <!-- Live CCTV Monitoring Console -->
+                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-terminal" style="color:var(--secondary);"></i> Live CCTV Monitoring Console</h3>
                 <div class="console-logs-box" id="admin-console-box">
-                    <div class="log-entry"><span class="log-time">[20:15:33]</span> <span class="log-msg">Linkcore Control Center Daemon initialized.</span></div>
-                    <div class="log-entry"><span class="log-time">[20:15:34]</span> <span class="log-msg">Loading JSON database.json flatfile store... Success.</span></div>
+                    <div class="log-entry"><span class="log-time">[20:15:33]</span> <span class="log-msg">Linkcore CCTV Control Center initialized.</span></div>
+                    <div class="log-entry"><span class="log-time">[20:15:34]</span> <span class="log-msg">Loading camera database... Success. All systems operational.</span></div>
                 </div>
             </div>
 
@@ -352,8 +352,8 @@
             <!-- SECTION: SUPPORT TICKETS -->
             <div class="admin-content-section" id="tickets-sect">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
-                    <h3>IT Support Tickets Board</h3>
-                    <button class="btn btn-primary" onclick="document.getElementById('new-ticket-modal').style.display='flex';" id="btn-raise-ticket-modal"><i class="fa-solid fa-circle-plus"></i> Raise System Ticket</button>
+                    <h3>CCTV Support Tickets Board</h3>
+                    <button class="btn btn-primary" onclick="document.getElementById('new-ticket-modal').style.display='flex';" id="btn-raise-ticket-modal"><i class="fa-solid fa-circle-plus"></i> Raise Support Ticket</button>
                 </div>
                 
                 <div id="tickets-board-list">
@@ -368,14 +368,14 @@
     <div class="modal-overlay" id="new-ticket-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="document.getElementById('new-ticket-modal').style.display='none';">&times;</button>
-            <h2 style="margin-bottom:1.5rem; text-align:center;">Raise IT Support Ticket</h2>
-            
+            <h2 style="margin-bottom:1.5rem; text-align:center;">Raise CCTV Support Ticket</h2>
+
             <form id="admin-create-ticket-form" class="contact-form">
                 <div class="form-group">
                     <label class="form-label" for="ticket-title">Ticket Issue Title *</label>
-                    <input type="text" id="ticket-title" class="form-input" required placeholder="e.g. SW03 Switch Overheating">
+                    <input type="text" id="ticket-title" class="form-input" required placeholder="e.g. Camera CAM-04 No Video Feed">
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="ticket-priority">Priority Level *</label>
@@ -389,10 +389,10 @@
 
                 <div class="form-group">
                     <label class="form-label" for="ticket-desc">Technical Description *</label>
-                    <textarea id="ticket-desc" class="form-input" required placeholder="Describe switch ports loops, diagnostic codes, or CCTV offline camera IDs..."></textarea>
+                    <textarea id="ticket-desc" class="form-input" required placeholder="Describe camera issues, NVR recording problems, cable faults, or lens cleaning requirements..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" id="ticket-submit-btn"><i class="fa-solid fa-bug"></i> File Ticket</button>
+                <button type="submit" class="btn btn-primary" id="ticket-submit-btn"><i class="fa-solid fa-video"></i> File Ticket</button>
             </form>
         </div>
     </div>
@@ -482,11 +482,14 @@
         // Mock simulation log generator
         function simulateLogs() {
             const logs = [
-                "Switch SW01 interface Gig1/0/1 - Port up state detected.",
-                "SLA check completed for basic AMC configurations: 100% stable.",
-                "Intrusion alarm test: fortigate firewall segment report - 0 threats.",
-                "NAS Backup sync successful: Synology Node 01 synced to AWS.",
-                "VLAN 20 routing QoS limits verified - bandwidth balanced."
+                "Camera CAM-01 motion detection test passed - Recording operational.",
+                "SLA check completed for Professional AMC: All cameras online.",
+                "NVR storage check: 47TB available - Recording at 4K resolution.",
+                "Night vision IR test on CAM-12 to CAM-18: All sensors active.",
+                "Dome camera CAM-05 lens cleaning scheduled for tomorrow AM.",
+                "Motion alert zone updated for warehouse entrance cameras.",
+                "PTZ Camera CAM-09 patrol route verified - Full 360 coverage.",
+                "Backup NVR sync completed - All footage archived successfully."
             ];
             const randomLog = logs[Math.floor(Math.random() * logs.length)];
             addConsoleLog(randomLog);
@@ -661,7 +664,7 @@
         function renderTickets(items) {
             const board = document.getElementById("tickets-board-list");
             if (items.length === 0) {
-                board.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-secondary);">All IT Support Tickets closed. Good job!</div>`;
+                board.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-secondary);">All CCTV Support Tickets closed. Great work!</div>`;
                 return;
             }
             

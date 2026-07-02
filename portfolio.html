@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio & Case Studies | Linkcore Technologies</title>
-    <meta name="description" content="Explore Linkcore's case studies: structured cabling projects, custom rack cabling reorganizations, IP CCTV installations, and enterprise server cluster configurations.">
+    <meta name="description" content="Explore Linkcore's case studies: CCTV surveillance installations, structured cabling projects, IP camera deployments, and professional cable management solutions.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -31,8 +31,8 @@
                     <line x1="80" y1="67.5" x2="63" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
                     <defs>
                         <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3b82f6"/>
-                            <stop offset="100%" stop-color="#06b6d4"/>
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
                         </linearGradient>
                     </defs>
                 </svg>
@@ -45,8 +45,6 @@
                     <li><a href="about.html" class="nav-link" id="link-about">About Us</a></li>
                     <li><a href="services.html" class="nav-link" id="link-services">Services</a></li>
                     <li><a href="amc.html" class="nav-link" id="link-amc">AMC Plans</a></li>
-                    <li><a href="portfolio.html" class="nav-link active" id="link-portfolio">Portfolio</a></li>
-                    <li><a href="careers.html" class="nav-link" id="link-careers">Careers</a></li>
                     <li><a href="contact.html" class="nav-link" id="link-contact">Contact</a></li>
                 </ul>
             </nav>
@@ -56,7 +54,7 @@
                     <i class="fa-solid fa-moon"></i>
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Proposal</a>
+                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Quote</a>
                 <button class="hamburger" id="nav-hamburger" aria-label="Toggle Menu">
                     <span></span>
                     <span></span>
@@ -72,8 +70,8 @@
         <div class="container">
             <div class="hero-content fade-in appear">
                 <span class="hero-tag">Deployment Proof</span>
-                <h1 class="hero-title" style="font-size: 3.5rem;">Recent Case Studies & <span>Deployments</span></h1>
-                <p class="hero-desc" style="max-width: 800px;">Explore vector blueprints and layout overviews representing real server cabinet cleanups, security network mappings, and firewall structures built by our team.</p>
+                <h1 class="hero-title" style="font-size: 3.5rem;">Recent Case Studies & <span>Installations</span></h1>
+                <p class="hero-desc" style="max-width: 800px;">Explore our CCTV surveillance projects and structured cabling deployments across Chennai and Tamil Nadu.</p>
             </div>
         </div>
     </section>
@@ -83,155 +81,445 @@
         <div class="container">
             <!-- Filter Controls -->
             <div class="portfolio-filter fade-in" style="margin-bottom: 4rem;" id="portfolio-category-filters">
-                <button class="filter-btn active" data-filter="all" id="btn-port-all">All Deployments</button>
+                <button class="filter-btn active" data-filter="all" id="btn-port-all">All Projects</button>
+                <button class="filter-btn" data-filter="cctv" id="btn-port-cctv">CCTV Surveillance</button>
                 <button class="filter-btn" data-filter="cabling" id="btn-port-cable">Structured Cabling</button>
-                <button class="filter-btn" data-filter="security" id="btn-port-sec">Surveillance & CCTV</button>
-                <button class="filter-btn" data-filter="systems" id="btn-port-sys">Systems & Servers</button>
             </div>
 
             <!-- Portfolio grid gallery -->
             <div class="portfolio-grid" id="portfolio-master-grid">
-                
-                <!-- 1. Server Cluster -->
-                <div class="portfolio-item glass-card fade-in" data-category="systems" data-tags="Rack cabinet, Hypervisors, SAN storage" data-full-desc="A full high-density server rack room integration featuring clean power routing, patch cabling, hardware installation of Dell PowerEdge nodes, and Hyper-V cluster installations with firewalls." id="port-item-cabinet">
+
+                <!-- 1. Warehouse CCTV -->
+                <div class="portfolio-item glass-card fade-in" data-category="cctv" data-tags="IP Cameras, NVR System, Night Vision" data-full-desc="Installation of 48 IP dome and bullet surveillance cameras across 4 warehouse locations, complete with smart intrusion detection alerts and centralized network video recorders (NVR)." id="port-item-surveillance">
                     <div class="portfolio-img-container">
                         <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ws-bullet-body" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#334155"/>
+                                    <stop offset="100%" stop-color="#1e293b"/>
+                                </linearGradient>
+                                <radialGradient id="ws-lens-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.9"/>
+                                    <stop offset="100%" stop-color="#0891b2" stop-opacity="0.3"/>
+                                </radialGradient>
+                            </defs>
                             <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <g stroke="#1e293b" stroke-width="2">
-                                <line x1="50" y1="20" x2="50" y2="280" />
-                                <line x1="350" y1="20" x2="350" y2="280" />
+                            <!-- Grid lines -->
+                            <g stroke="#1e293b" stroke-width="1" opacity="0.3">
+                                <line x1="0" y1="75" x2="400" y2="75"/>
+                                <line x1="0" y1="150" x2="400" y2="150"/>
+                                <line x1="0" y1="225" x2="400" y2="225"/>
+                                <line x1="100" y1="0" x2="100" y2="300"/>
+                                <line x1="200" y1="0" x2="200" y2="300"/>
+                                <line x1="300" y1="0" x2="300" y2="300"/>
                             </g>
-                            <g stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.4">
-                                <rect x="80" y="40" width="240" height="40" rx="4"/>
-                                <rect x="80" y="95" width="240" height="40" rx="4"/>
-                                <rect x="80" y="150" width="240" height="40" rx="4"/>
-                                <rect x="80" y="205" width="240" height="40" rx="4"/>
+                            <!-- Dome Camera Top Left -->
+                            <ellipse cx="100" cy="80" rx="40" ry="15" fill="#475569"/>
+                            <ellipse cx="100" cy="70" rx="35" ry="25" fill="url(#ws-bullet-body)"/>
+                            <ellipse cx="100" cy="75" rx="25" ry="18" fill="#0f172a" opacity="0.5"/>
+                            <circle cx="100" cy="78" r="12" fill="url(#ws-lens-glow)"/>
+                            <!-- Bullet Camera Center -->
+                            <rect x="160" y="130" width="80" height="40" rx="6" fill="url(#ws-bullet-body)"/>
+                            <circle cx="260" cy="150" r="20" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                            <circle cx="260" cy="150" r="12" fill="url(#ws-lens-glow)"/>
+                            <circle cx="260" cy="150" r="5" fill="#0f172a"/>
+                            <!-- IR LEDs -->
+                            <g fill="#dc2626" opacity="0.8">
+                                <circle cx="245" cy="135" r="2"/>
+                                <circle cx="275" cy="135" r="2"/>
+                                <circle cx="245" cy="165" r="2"/>
+                                <circle cx="275" cy="165" r="2"/>
                             </g>
-                            <circle cx="100" cy="60" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="60" r="4" fill="#10b981"/>
-                            <circle cx="130" cy="60" r="4" fill="#06b6d4"/>
-                            <circle cx="100" cy="115" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="115" r="4" fill="#ef4444" opacity="0.8"/>
-                            <circle cx="130" cy="115" r="4" fill="#10b981"/>
-                            <circle cx="100" cy="170" r="4" fill="#10b981"/>
-                            <circle cx="115" cy="170" r="4" fill="#10b981"/>
-                            <circle cx="100" cy="225" r="4" fill="#06b6d4"/>
-                            <circle cx="115" cy="225" r="4" fill="#10b981"/>
+                            <!-- Pan/Tilt Bottom Right -->
+                            <rect x="290" y="200" width="50" height="30" rx="4" fill="#475569"/>
+                            <ellipse cx="315" cy="210" rx="20" ry="12" fill="url(#ws-bullet-body)"/>
+                            <circle cx="315" cy="215" r="15" fill="#0f172a"/>
+                            <circle cx="315" cy="215" r="8" fill="url(#ws-lens-glow)"/>
+                            <!-- Surveillance scan lines -->
+                            <g stroke="#06b6d4" stroke-width="1" opacity="0.4">
+                                <line x1="100" y1="78" x2="100" y2="250" stroke-dasharray="4,4"/>
+                                <line x1="260" y1="150" x2="260" y2="280" stroke-dasharray="4,4"/>
+                                <line x1="315" y1="215" x2="350" y2="280" stroke-dasharray="4,4"/>
+                            </g>
+                            <!-- Status indicators -->
+                            <g>
+                                <circle cx="80" cy="55" r="3" fill="#22c55e"><animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/></circle>
+                                <circle cx="175" cy="125" r="3" fill="#22c55e"><animate attributeName="opacity" values="1;0.4;1" dur="1.8s" repeatCount="indefinite"/></circle>
+                                <circle cx="295" cy="195" r="3" fill="#22c55e"><animate attributeName="opacity" values="1;0.4;1" dur="2.2s" repeatCount="indefinite"/></circle>
+                            </g>
                         </svg>
                         <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Systems & Servers</span>
-                            <h3 class="portfolio-title">Enterprise Rack Cluster</h3>
-                            <p class="portfolio-desc">High-density computing node setup with custom cooling paths.</p>
+                            <span class="portfolio-cat">CCTV Surveillance</span>
+                            <h3 class="portfolio-title">Warehouse Smart Surveillance</h3>
+                            <p class="portfolio-desc">48-camera IP system with AI motion detection.</p>
                             <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2. Structured Cabling -->
-                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Cat6A, Fluke Testing, Cabinet Sorting" data-full-desc="A full restructuring of corporate headquarter network rack cables. Sorted, labeled, and certified over 300+ ethernet lines using Fluke testing techniques." id="port-item-cable">
+                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Cat6A, Fluke Testing, Cabinet Sorting" data-full-desc="Complete restructuring of corporate office cabling. Sorted, labeled, and certified over 300+ ethernet drops using Fluke testing techniques." id="port-item-cable">
                     <div class="portfolio-img-container">
                         <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="cable-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#3b82f6"/>
+                                    <stop offset="50%" stop-color="#2563eb"/>
+                                    <stop offset="100%" stop-color="#1d4ed8"/>
+                                </linearGradient>
+                                <linearGradient id="cable-cyan" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#06b6d4"/>
+                                    <stop offset="50%" stop-color="#0891b2"/>
+                                    <stop offset="100%" stop-color="#0e7490"/>
+                                </linearGradient>
+                                <linearGradient id="cable-green" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#10b981"/>
+                                    <stop offset="50%" stop-color="#059669"/>
+                                    <stop offset="100%" stop-color="#047857"/>
+                                </linearGradient>
+                            </defs>
                             <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <path d="M 50,50 Q 150,150 200,250" fill="none" stroke="#3b82f6" stroke-width="4"/>
-                            <path d="M 100,50 Q 180,100 250,250" fill="none" stroke="#06b6d4" stroke-width="4"/>
-                            <path d="M 150,50 Q 220,130 300,250" fill="none" stroke="#8b5cf6" stroke-width="4"/>
-                            <path d="M 200,50 Q 260,80 350,150" fill="none" stroke="#10b981" stroke-width="3"/>
-                            <g stroke="#ffffff" stroke-width="1" opacity="0.1">
-                                <line x1="0" y1="50" x2="400" y2="50"/>
-                                <line x1="0" y1="150" x2="400" y2="150"/>
-                                <line x1="0" y1="250" x2="400" y2="250"/>
+                            <!-- Cable Cabinet/Rack -->
+                            <rect x="120" y="20" width="160" height="260" rx="5" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                            <rect x="130" y="30" width="140" height="240" rx="3" fill="#0f172a"/>
+                            <!-- Horizontal cable organizers -->
+                            <g fill="#1e293b" stroke="#334155" stroke-width="1">
+                                <rect x="135" y="50" width="130" height="15" rx="2"/>
+                                <rect x="135" y="100" width="130" height="15" rx="2"/>
+                                <rect x="135" y="150" width="130" height="15" rx="2"/>
+                                <rect x="135" y="200" width="130" height="15" rx="2"/>
+                            </g>
+                            <!-- Cat6 Cables - Blue Group -->
+                            <g stroke="url(#cable-blue)" stroke-width="4" fill="none">
+                                <path d="M 50 55 C 90 55 90 55 135 55"/>
+                                <path d="M 50 70 C 90 70 90 60 135 60"/>
+                                <path d="M 50 85 C 90 85 90 65 135 65"/>
+                            </g>
+                            <!-- Cat6 Cables - Cyan Group -->
+                            <g stroke="url(#cable-cyan)" stroke-width="4" fill="none">
+                                <path d="M 50 105 C 90 105 90 105 135 105"/>
+                                <path d="M 50 120 C 90 120 90 110 135 110"/>
+                                <path d="M 50 135 C 90 135 90 115 135 115"/>
+                            </g>
+                            <!-- Cat6 Cables - Green Group -->
+                            <g stroke="url(#cable-green)" stroke-width="4" fill="none">
+                                <path d="M 50 155 C 90 155 90 155 135 155"/>
+                                <path d="M 50 170 C 90 170 90 160 135 160"/>
+                                <path d="M 50 185 C 90 185 90 165 135 165"/>
+                            </g>
+                            <!-- Patch Panel Ports -->
+                            <g fill="#0f172a" stroke="#475569" stroke-width="1">
+                                <rect x="140" y="52" width="8" height="11" rx="1"/>
+                                <rect x="152" y="52" width="8" height="11" rx="1"/>
+                                <rect x="164" y="52" width="8" height="11" rx="1"/>
+                                <rect x="176" y="52" width="8" height="11" rx="1"/>
+                                <rect x="188" y="52" width="8" height="11" rx="1"/>
+                                <rect x="200" y="52" width="8" height="11" rx="1"/>
+                            </g>
+                            <!-- Port LEDs -->
+                            <g>
+                                <circle cx="144" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="1;0.5;1" dur="0.8s" repeatCount="indefinite"/></circle>
+                                <circle cx="156" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="0.5;1;0.5" dur="0.6s" repeatCount="indefinite"/></circle>
+                                <circle cx="168" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="1;0.5;1" dur="0.7s" repeatCount="indefinite"/></circle>
+                                <circle cx="180" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="0.5;1;0.5" dur="0.9s" repeatCount="indefinite"/></circle>
+                                <circle cx="192" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="1;0.5;1" dur="0.5s" repeatCount="indefinite"/></circle>
+                                <circle cx="204" cy="58" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="0.5;1;0.5" dur="0.75s" repeatCount="indefinite"/></circle>
+                            </g>
+                            <!-- Fluke Tester Icon -->
+                            <g transform="translate(300, 200)">
+                                <rect x="0" y="0" width="70" height="50" rx="5" fill="#334155" stroke="#475569" stroke-width="2"/>
+                                <rect x="10" y="8" width="50" height="25" rx="3" fill="#0f172a"/>
+                                <text x="35" y="25" font-size="10" fill="#22c55e" text-anchor="middle" font-family="monospace">PASS</text>
+                                <circle cx="15" cy="42" r="4" fill="#22c55e"><animate attributeName="fill" values="#22c55e;#16a34a;#22c55e" dur="2s" repeatCount="indefinite"/></circle>
+                                <circle cx="55" cy="42" r="4" fill="#ef4444"/>
                             </g>
                         </svg>
                         <div class="portfolio-overlay">
                             <span class="portfolio-cat">Structured Cabling</span>
-                            <h3 class="portfolio-title">Cat6A Cabling Infrastructure</h3>
-                            <p class="portfolio-desc">Complete reorganization and sorting of 300+ network drops.</p>
+                            <h3 class="portfolio-title">Cat6A Cable Infrastructure</h3>
+                            <p class="portfolio-desc">Complete reorganization of 300+ network drops.</p>
                             <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. Security CCTV -->
-                <div class="portfolio-item glass-card fade-in" data-category="security" data-tags="Hikvision Cameras, NVR Cluster, Remote App" data-full-desc="Integration of 48 IP dome and bullet surveillance cameras across 4 warehouse locations, complete with smart intrusion detection alerts and centralized network video recorders (NVR)." id="port-item-surveillance">
+                <!-- 3. Dome Camera Installation -->
+                <div class="portfolio-item glass-card fade-in" data-category="cctv" data-tags="Dome Cameras, Indoor, 4K Resolution" data-full-desc="Installation of 24 vandal-resistant dome cameras across a 3-floor commercial office building with NVR recording and mobile app monitoring." id="port-item-dome">
                     <div class="portfolio-img-container">
                         <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="dome-glass" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.3"/>
+                                    <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#0f172a" stop-opacity="0.4"/>
+                                </radialGradient>
+                                <linearGradient id="dome-body" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#475569"/>
+                                    <stop offset="100%" stop-color="#1e293b"/>
+                                </linearGradient>
+                            </defs>
                             <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <circle cx="200" cy="150" r="60" fill="none" stroke="#1e293b" stroke-width="6"/>
-                            <circle cx="200" cy="150" r="40" fill="none" stroke="#06b6d4" stroke-width="4"/>
-                            <path d="M 200,90 A 60,60 0 0,1 260,150" fill="none" stroke="#3b82f6" stroke-width="6"/>
-                            <line x1="200" y1="40" x2="200" y2="260" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
-                            <line x1="90" y1="150" x2="310" y2="150" stroke="#ef4444" stroke-width="1" opacity="0.6" stroke-dasharray="5,5"/>
+                            <!-- Ceiling grid pattern -->
+                            <g stroke="#1e293b" stroke-width="1" opacity="0.4">
+                                <line x1="0" y1="30" x2="400" y2="30"/>
+                                <line x1="100" y1="0" x2="100" y2="300"/>
+                                <line x1="200" y1="0" x2="200" y2="300"/>
+                                <line x1="300" y1="0" x2="300" y2="300"/>
+                            </g>
+                            <!-- Main Dome Camera -->
+                            <ellipse cx="200" cy="50" rx="50" ry="18" fill="#64748b"/>
+                            <ellipse cx="200" cy="60" rx="75" ry="30" fill="url(#dome-body)"/>
+                            <ellipse cx="200" cy="65" rx="65" ry="45" fill="url(#dome-glass)" stroke="#475569" stroke-width="2"/>
+                            <circle cx="200" cy="75" r="25" fill="#0f172a"/>
+                            <circle cx="200" cy="75" r="15" fill="#06b6d4" opacity="0.8"/>
+                            <circle cx="200" cy="75" r="7" fill="#0f172a"/>
+                            <!-- Lens reflection -->
+                            <ellipse cx="193" cy="72" rx="4" ry="2" fill="#fff" opacity="0.4"/>
+                            <!-- Status LED -->
+                            <circle cx="260" cy="45" r="4" fill="#22c55e"><animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/></circle>
+                            <!-- Secondary Dome Camera -->
+                            <g transform="translate(60, 150) scale(0.6)">
+                                <ellipse cx="100" cy="30" rx="40" ry="14" fill="#64748b"/>
+                                <ellipse cx="100" cy="38" rx="60" ry="24" fill="url(#dome-body)"/>
+                                <ellipse cx="100" cy="42" rx="52" ry="36" fill="url(#dome-glass)" stroke="#475569" stroke-width="2"/>
+                                <circle cx="100" cy="50" r="18" fill="#0f172a"/>
+                                <circle cx="100" cy="50" r="11" fill="#06b6d4" opacity="0.7"/>
+                                <circle cx="100" cy="50" r="5" fill="#0f172a"/>
+                            </g>
+                            <!-- Third Dome Camera -->
+                            <g transform="translate(230, 160) scale(0.55)">
+                                <ellipse cx="100" cy="30" rx="40" ry="14" fill="#64748b"/>
+                                <ellipse cx="100" cy="38" rx="60" ry="24" fill="url(#dome-body)"/>
+                                <ellipse cx="100" cy="42" rx="52" ry="36" fill="url(#dome-glass)" stroke="#475569" stroke-width="2"/>
+                                <circle cx="100" cy="50" r="18" fill="#0f172a"/>
+                                <circle cx="100" cy="50" r="11" fill="#06b6d4" opacity="0.7"/>
+                                <circle cx="100" cy="50" r="5" fill="#0f172a"/>
+                            </g>
+                            <!-- Coverage cones -->
+                            <g fill="url(#dome-glass)" opacity="0.15">
+                                <polygon points="200,75 150,250 250,250"/>
+                                <polygon points="120,190 80,290 160,290"/>
+                                <polygon points="285,200 245,290 325,290"/>
+                            </g>
                         </svg>
                         <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Surveillance & CCTV</span>
-                            <h3 class="portfolio-title">Warehouse Smart Surveillance</h3>
-                            <p class="portfolio-desc">High-def IP cameras with intelligent movement warning systems.</p>
+                            <span class="portfolio-cat">CCTV Surveillance</span>
+                            <h3 class="portfolio-title">Dome Camera Network</h3>
+                            <p class="portfolio-desc">24-dome 4K system for commercial office.</p>
                             <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 4. WiFi Heatmap -->
-                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Access Points, Signal Heatmap, Ubiquiti" data-full-desc="Complete design and deployment of an enterprise wireless network across a 3-floor workspace. Installed 14 Ubiquiti UniFi Access Points with guest portal rules." id="port-item-wifi">
+                <!-- 4. Bullet Camera Perimeter -->
+                <div class="portfolio-item glass-card fade-in" data-category="cctv" data-tags="Bullet Cameras, Outdoor, IR Night Vision" data-full-desc="Long-range bullet camera installation for warehouse perimeter security with 100m IR night vision and weatherproof IP67 housing." id="port-item-bullet">
                     <div class="portfolio-img-container">
                         <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="bullet-metal" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#475569"/>
+                                    <stop offset="50%" stop-color="#334155"/>
+                                    <stop offset="100%" stop-color="#1e293b"/>
+                                </linearGradient>
+                                <radialGradient id="bullet-lens" cx="70%" cy="30%" r="60%">
+                                    <stop offset="0%" stop-color="#67e8f9"/>
+                                    <stop offset="40%" stop-color="#06b6d4"/>
+                                    <stop offset="100%" stop-color="#0891b2"/>
+                                </radialGradient>
+                            </defs>
                             <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <g fill="none" stroke-width="2">
-                                <circle cx="200" cy="150" r="40" stroke="#3b82f6" opacity="0.8"/>
-                                <circle cx="200" cy="150" r="80" stroke="#06b6d4" opacity="0.5"/>
-                                <circle cx="200" cy="150" r="120" stroke="#8b5cf6" opacity="0.2"/>
+                            <!-- Building/Wall Background -->
+                            <rect x="0" y="0" width="80" height="300" fill="#1e293b"/>
+                            <g stroke="#334155" stroke-width="1">
+                                <line x1="0" y1="50" x2="80" y2="50"/>
+                                <line x1="0" y1="100" x2="80" y2="100"/>
+                                <line x1="0" y1="150" x2="80" y2="150"/>
+                                <line x1="0" y1="200" x2="80" y2="200"/>
+                                <line x1="0" y1="250" x2="80" y2="250"/>
                             </g>
-                            <circle cx="200" cy="150" r="8" fill="#ffffff" stroke="#3b82f6" stroke-width="3"/>
-                            <!-- Architectural lines mockup -->
-                            <rect x="50" y="50" width="300" height="200" fill="none" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,4"/>
+                            <!-- Wall Mount Bracket -->
+                            <rect x="70" y="120" width="30" height="20" rx="3" fill="#64748b"/>
+                            <circle cx="85" cy="130" r="6" fill="#475569"/>
+                            <!-- Bullet Camera Body -->
+                            <rect x="100" y="110" width="140" height="40" rx="8" fill="url(#bullet-metal)"/>
+                            <rect x="110" y="120" width="50" height="20" rx="3" fill="#0f172a" opacity="0.5"/>
+                            <!-- Lens Housing -->
+                            <circle cx="260" cy="130" r="30" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+                            <circle cx="260" cy="130" r="22" fill="#0f172a"/>
+                            <circle cx="260" cy="130" r="16" fill="url(#bullet-lens)"/>
+                            <circle cx="260" cy="130" r="8" fill="#0f172a"/>
+                            <!-- IR LEDs Ring -->
+                            <g fill="#dc2626">
+                                <circle cx="243" cy="107" r="3"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/></circle>
+                                <circle cx="277" cy="107" r="3"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" begin="0.5s"/></circle>
+                                <circle cx="243" cy="153" r="3"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" begin="1s"/></circle>
+                                <circle cx="277" cy="153" r="3"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" begin="1.5s"/></circle>
+                            </g>
+                            <!-- Status LED -->
+                            <circle cx="115" cy="118" r="3" fill="#22c55e"><animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/></circle>
+                            <!-- Weatherproof rating label -->
+                            <text x="160" y="140" font-size="8" fill="#64748b" font-family="monospace">IP67</text>
+                            <!-- Night vision beams -->
+                            <g stroke="#dc2626" stroke-width="1" opacity="0.2">
+                                <line x1="260" y1="130" x2="390" y2="50"/>
+                                <line x1="260" y1="130" x2="390" y2="100"/>
+                                <line x1="260" y1="130" x2="390" y2="130"/>
+                                <line x1="260" y1="130" x2="390" y2="160"/>
+                                <line x1="260" y1="130" x2="390" y2="210"/>
+                            </g>
+                            <!-- Second bullet camera (smaller) -->
+                            <g transform="translate(100, 220) scale(0.6)">
+                                <rect x="70" y="0" width="15" height="10" rx="2" fill="#64748b"/>
+                                <rect x="85" y="-5" width="70" height="20" rx="4" fill="url(#bullet-metal)"/>
+                                <circle cx="145" cy="5" r="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                                <circle cx="145" cy="5" r="8" fill="url(#bullet-lens)"/>
+                            </g>
+                        </svg>
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-cat">CCTV Surveillance</span>
+                            <h3 class="portfolio-title">Perimeter Bullet Cameras</h3>
+                            <p class="portfolio-desc">Long-range outdoor security with night vision.</p>
+                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Apartment CCTV -->
+                <div class="portfolio-item glass-card fade-in" data-category="cctv" data-tags="Apartment Security, NVR, Remote Access" data-full-desc="Complete surveillance setup for residential apartment complex including entrance monitoring, parking lot cameras, and lobby coverage with mobile app access." id="port-item-apartment">
+                    <div class="portfolio-img-container">
+                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apt-building" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#334155"/>
+                                    <stop offset="100%" stop-color="#1e293b"/>
+                                </linearGradient>
+                                <radialGradient id="apt-lens" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#06b6d4"/>
+                                    <stop offset="100%" stop-color="#0891b2"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="100%" height="100%" fill="#0a0f1d"/>
+                            <!-- Building Structure -->
+                            <rect x="100" y="40" width="200" height="220" rx="3" fill="url(#apt-building)" stroke="#475569" stroke-width="2"/>
+                            <!-- Windows Grid -->
+                            <g fill="#0f172a" stroke="#334155" stroke-width="1">
+                                <rect x="120" y="60" width="35" height="25" rx="2"/>
+                                <rect x="170" y="60" width="35" height="25" rx="2"/>
+                                <rect x="220" y="60" width="35" height="25" rx="2"/>
+                                <rect x="270" y="60" width="20" height="25" rx="2"/>
+                                <rect x="120" y="100" width="35" height="25" rx="2"/>
+                                <rect x="170" y="100" width="35" height="25" rx="2"/>
+                                <rect x="220" y="100" width="35" height="25" rx="2"/>
+                                <rect x="270" y="100" width="20" height="25" rx="2"/>
+                                <rect x="120" y="140" width="35" height="25" rx="2"/>
+                                <rect x="170" y="140" width="35" height="25" rx="2"/>
+                                <rect x="220" y="140" width="35" height="25" rx="2"/>
+                                <rect x="270" y="140" width="20" height="25" rx="2"/>
+                            </g>
+                            <!-- Main Entrance -->
+                            <rect x="180" y="200" width="40" height="60" rx="2" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                            <!-- Camera at Entrance -->
+                            <g transform="translate(165, 195)">
+                                <ellipse cx="15" cy="5" rx="12" ry="6" fill="#475569"/>
+                                <ellipse cx="15" cy="10" rx="18" ry="10" fill="#334155"/>
+                                <circle cx="15" cy="12" r="8" fill="url(#apt-lens)"/>
+                                <circle cx="15" cy="12" r="3" fill="#0f172a"/>
+                                <circle cx="28" cy="3" r="2" fill="#22c55e"><animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/></circle>
+                            </g>
+                            <!-- Parking Lot Camera -->
+                            <g transform="translate(30, 220)">
+                                <rect x="0" y="0" width="12" height="8" rx="1" fill="#475569"/>
+                                <rect x="12" y="-3" width="45" height="14" rx="3" fill="#334155"/>
+                                <circle cx="52" cy="4" r="10" fill="#1e293b"/>
+                                <circle cx="52" cy="4" r="6" fill="url(#apt-lens)"/>
+                            </g>
+                            <!-- Side Camera -->
+                            <g transform="translate(320, 150)">
+                                <ellipse cx="15" cy="5" rx="12" ry="6" fill="#475569"/>
+                                <ellipse cx="15" cy="10" rx="18" ry="10" fill="#334155"/>
+                                <circle cx="15" cy="12" r="8" fill="url(#apt-lens)"/>
+                            </g>
+                            <!-- Camera coverage lines -->
+                            <g stroke="#06b6d4" stroke-width="1" opacity="0.25" stroke-dasharray="4,4">
+                                <line x1="180" y1="207" x2="170" y2="280"/>
+                                <line x1="180" y1="207" x2="230" y2="280"/>
+                            </g>
+                            <!-- Mobile App Preview -->
+                            <g transform="translate(320, 20)">
+                                <rect x="0" y="0" width="60" height="100" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+                                <rect x="5" y="10" width="50" height="35" rx="2" fill="#0f172a"/>
+                                <text x="30" y="30" font-size="6" fill="#06b6d4" text-anchor="middle">LIVE</text>
+                                <rect x="5" y="50" width="50" height="8" rx="1" fill="#334155"/>
+                                <rect x="5" y="62" width="50" height="8" rx="1" fill="#334155"/>
+                                <rect x="5" y="74" width="50" height="8" rx="1" fill="#334155"/>
+                                <circle cx="30" cy="92" r="4" fill="#475569"/>
+                            </g>
+                        </svg>
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-cat">CCTV Surveillance</span>
+                            <h3 class="portfolio-title">Residential Complex Security</h3>
+                            <p class="portfolio-desc">Complete apartment surveillance system.</p>
+                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Fiber Optic Cabling -->
+                <div class="portfolio-item glass-card fade-in" data-category="cabling" data-tags="Fiber Optic, High Speed, Long Distance" data-full-desc="Professional fiber optic cable installation for connecting multiple buildings with high-speed data transmission and professional splicing." id="port-item-fiber">
+                    <div class="portfolio-img-container">
+                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="fiber-core" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#06b6d4"/>
+                                    <stop offset="50%" stop-color="#fff"/>
+                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                </linearGradient>
+                                <linearGradient id="fiber-jacket" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#fbbf24"/>
+                                    <stop offset="50%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="#d97706"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="100%" height="100%" fill="#0a0f1d"/>
+                            <!-- Ground/Path -->
+                            <rect x="0" y="220" width="400" height="80" fill="#1e293b" opacity="0.5"/>
+                            <line x1="0" y1="220" x2="400" y2="220" stroke="#334155" stroke-width="2"/>
+                            <!-- Building 1 -->
+                            <rect x="20" y="80" width="80" height="140" rx="3" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <rect x="30" y="100" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="65" y="100" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="30" y="130" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="65" y="130" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="45" y="180" width="30" height="40" rx="2" fill="#0f172a"/>
+                            <!-- Building 2 -->
+                            <rect x="300" y="80" width="80" height="140" rx="3" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <rect x="310" y="100" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="345" y="100" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="310" y="130" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="345" y="130" width="25" height="20" rx="2" fill="#0f172a"/>
+                            <rect x="325" y="180" width="30" height="40" rx="2" fill="#0f172a"/>
+                            <!-- Fiber Optic Cable Path -->
+                            <path d="M 100 180 C 150 180 150 230 200 230 S 250 180 300 180" fill="none" stroke="url(#fiber-jacket)" stroke-width="12"/>
+                            <path d="M 100 180 C 150 180 150 230 200 230 S 250 180 300 180" fill="none" stroke="url(#fiber-core)" stroke-width="4">
+                                <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="stroke-dasharray" values="0,200;100,100;200,0;100,100;0,200" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <!-- Splice Box -->
+                            <rect x="175" y="190" width="50" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <rect x="185" y="198" width="30" height="14" rx="2" fill="#0f172a"/>
+                            <circle cx="192" cy="205" r="3" fill="#06b6d4"><animate attributeName="opacity" values="1;0.3;1" dur="0.5s" repeatCount="indefinite"/></circle>
+                            <circle cx="200" cy="205" r="3" fill="#06b6d4"><animate attributeName="opacity" values="0.3;1;0.3" dur="0.5s" repeatCount="indefinite"/></circle>
+                            <circle cx="208" cy="205" r="3" fill="#06b6d4"><animate attributeName="opacity" values="1;0.3;1" dur="0.5s" repeatCount="indefinite"/></circle>
+                            <!-- Termination points -->
+                            <circle cx="100" cy="180" r="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <circle cx="300" cy="180" r="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <!-- Speed indicator -->
+                            <text x="200" y="270" font-size="12" fill="#f59e0b" text-anchor="middle" font-family="monospace">1 Gbps</text>
                         </svg>
                         <div class="portfolio-overlay">
                             <span class="portfolio-cat">Structured Cabling</span>
-                            <h3 class="portfolio-title">Corporate Multi-AP WiFi</h3>
-                            <p class="portfolio-desc">Seamless wireless network overlay designed with RF analysis tools.</p>
-                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. Firewall Setup -->
-                <div class="portfolio-item glass-card fade-in" data-category="security" data-tags="Fortigate Security, Threat Monitor, LAN Segment" data-full-desc="Installation of dual Fortinet FortiGate firewalls in high-availability mode for a banking back-office. Designed strict security profiles and VLAN routes." id="port-item-firewall">
-                    <div class="portfolio-img-container">
-                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <polygon points="200,40 280,80 280,200 200,260 120,200 120,80" fill="none" stroke="#06b6d4" stroke-width="4"/>
-                            <polygon points="200,60 260,95 260,185 200,235 140,185 140,95" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
-                            <path d="M 160,120 L 190,150 L 240,100" fill="none" stroke="#10b981" stroke-width="4"/>
-                        </svg>
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Surveillance & CCTV</span>
-                            <h3 class="portfolio-title">FortiGate Firewall Cluster</h3>
-                            <p class="portfolio-desc">High-availability perimeter protection with zero traffic loss.</p>
-                            <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Data Center -->
-                <div class="portfolio-item glass-card fade-in" data-category="systems" data-tags="Data Cabinet, Environment Sensors, UPS backup" data-full-desc="Full infrastructure installation of an on-prem data vault center for a retail chain. Structured hot/cold containment aisles and environment sensors." id="port-item-datacenter">
-                    <div class="portfolio-img-container">
-                        <svg class="portfolio-svg-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100%" height="100%" fill="#0a0f1d"/>
-                            <g fill="none" stroke="#1e293b" stroke-width="2">
-                                <rect x="30" y="40" width="80" height="220" rx="4"/>
-                                <rect x="160" y="40" width="80" height="220" rx="4"/>
-                                <rect x="290" y="40" width="80" height="220" rx="4"/>
-                            </g>
-                            <g fill="#06b6d4" opacity="0.3">
-                                <circle cx="70" cy="80" r="4"/><circle cx="70" cy="140" r="4"/><circle cx="70" cy="200" r="4"/>
-                                <circle cx="200" cy="80" r="4"/><circle cx="200" cy="140" r="4"/><circle cx="200" cy="200" r="4"/>
-                                <circle cx="330" cy="80" r="4"/><circle cx="330" cy="140" r="4"/><circle cx="330" cy="200" r="4"/>
-                            </g>
-                        </svg>
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-cat">Systems & Servers</span>
-                            <h3 class="portfolio-title">On-Prem Data Vault Room</h3>
-                            <p class="portfolio-desc">Physical setup of server racks with integrated UPS power backups.</p>
+                            <h3 class="portfolio-title">Fiber Optic Backbone</h3>
+                            <p class="portfolio-desc">High-speed inter-building connectivity.</p>
                             <button class="portfolio-zoom-btn" aria-label="Zoom Image"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         </div>
                     </div>
@@ -252,14 +540,14 @@
                             <circle cx="50" cy="50" r="15" fill="none" stroke="url(#foot-logo-grad)" stroke-width="6"/>
                             <defs>
                                 <linearGradient id="foot-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#3b82f6"/>
-                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                    <stop offset="0%" stop-color="#06b6d4"/>
+                                    <stop offset="100%" stop-color="#3b82f6"/>
                                 </linearGradient>
                             </defs>
                         </svg>
                         <span>LINKCORE</span>
                     </a>
-                    <p class="footer-desc">Enterprise IT solutions, certified structured cabling, security firewalls, and premium CCTV system integrations. Ensuring secure network uptimes for companies worldwide.</p>
+                    <p class="footer-desc">Professional CCTV surveillance installations and certified structured cabling solutions. Protecting businesses and properties across Tamil Nadu.</p>
                     <div class="footer-socials">
                         <a href="https://linkedin.com" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                         <a href="https://twitter.com" class="social-icon" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -269,13 +557,13 @@
                 </div>
 
                 <div class="footer-col">
-                    <h4>Core Services</h4>
+                    <h4>CCTV Services</h4>
                     <ul class="footer-links">
-                        <li><a href="services.html" class="footer-link">Network Cabling</a></li>
-                        <li><a href="services.html" class="footer-link">CCTV Surveillance</a></li>
-                        <li><a href="services.html" class="footer-link">Firewall Protection</a></li>
-                        <li><a href="services.html" class="footer-link">Server Configurations</a></li>
-                        <li><a href="services.html" class="footer-link">IT AMC Contracts</a></li>
+                        <li><a href="services.html" class="footer-link">IP Camera Installation</a></li>
+                        <li><a href="services.html" class="footer-link">Dome Cameras</a></li>
+                        <li><a href="services.html" class="footer-link">Bullet Cameras</a></li>
+                        <li><a href="services.html" class="footer-link">NVR/DVR Systems</a></li>
+                        <li><a href="services.html" class="footer-link">PTZ Cameras</a></li>
                     </ul>
                 </div>
 
@@ -283,8 +571,7 @@
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="about.html" class="footer-link">Our Company</a></li>
-                        <li><a href="portfolio.html" class="footer-link">Case Studies</a></li>
-                        <li><a href="careers.html" class="footer-link">Careers</a></li>
+                        <li><a href="services.html" class="footer-link">Services</a></li>
                         <li><a href="amc.html" class="footer-link">AMC Pricing</a></li>
                         <li><a href="contact.html" class="footer-link">Contact Us</a></li>
                     </ul>
@@ -292,16 +579,16 @@
 
                 <div class="footer-col footer-newsletter">
                     <h4>Newsletter</h4>
-                    <p>Stay informed about cybersecurity updates and network infrastructure solutions.</p>
+                    <p>Stay informed about the latest surveillance technology and security solutions.</p>
                     <form class="newsletter-form" id="newsletter-form">
-                        <input type="email" class="form-input" placeholder="Your work email" required aria-label="Subscribe Newsletter Email">
+                        <input type="email" class="form-input" placeholder="Your email" required aria-label="Subscribe Newsletter Email">
                         <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;" id="newsletter-submit-btn"><i class="fa-solid fa-arrow-right"></i></button>
                     </form>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Connecting Businesses Securely.</p>
+                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Securing Properties Professionally.</p>
                 <div class="footer-bottom-links">
                     <a href="contact.html">Privacy Policy</a>
                     <a href="contact.html">Terms of Service</a>
@@ -325,14 +612,14 @@
                 </div>
                 <div class="lightbox-info-area">
                     <div>
-                        <span class="lightbox-info-cat">Structured Cabling</span>
-                        <h2 class="lightbox-info-title">Server Rack Cleanup</h2>
-                        <p class="lightbox-info-desc">Detailed descriptions of the problem and security solution deployed.</p>
+                        <span class="lightbox-info-cat">CCTV Installation</span>
+                        <h2 class="lightbox-info-title">Surveillance Project</h2>
+                        <p class="lightbox-info-desc">Detailed descriptions of the installation and solution deployed.</p>
                     </div>
                     <div>
                         <div class="lightbox-info-tags">
-                            <span class="lightbox-tag">Network</span>
-                            <span class="lightbox-tag">Cabling</span>
+                            <span class="lightbox-tag">CCTV</span>
+                            <span class="lightbox-tag">Security</span>
                         </div>
                     </div>
                 </div>

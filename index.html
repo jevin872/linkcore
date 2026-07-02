@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Meta Tags -->
-    <title>Linkcore | Smart IT Infrastructure & Security Solutions</title>
-    <meta name="description" content="Linkcore provides enterprise-grade IT infrastructure, structured cabling, IP CCTV setups, network security firewalls, cloud backups, and Annual Maintenance Contracts (AMC).">
-    <meta name="keywords" content="IT Infrastructure, Structured Cabling, CCTV Installation, AMC Contract, Network Security, Server Setup, WiFi Solutions, Router Config, Data Center">
+    <title>Linkcore | Professional CCTV & Structured Cabling Solutions</title>
+    <meta name="description" content="Linkcore provides enterprise-grade CCTV surveillance systems, structured cabling, IP camera installations, and Annual Maintenance Contracts (AMC) for businesses across Chennai.">
+    <meta name="keywords" content="CCTV Installation, IP Cameras, Structured Cabling, Cat6 Cabling, CCTV AMC, Surveillance Systems, NVR Setup, Security Cameras, Network Cabling, Chennai">
     <meta name="author" content="Linkcore Team">
-    
+
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -43,8 +43,8 @@
                     <line x1="80" y1="67.5" x2="63" y2="57.5" stroke="url(#logo-grad)" stroke-width="6"/>
                     <defs>
                         <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#7c3aed"/>
-                            <stop offset="100%" stop-color="#38bdf8"/>
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
                         </linearGradient>
                     </defs>
                 </svg>
@@ -66,7 +66,7 @@
                     <i class="fa-solid fa-moon"></i>
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Proposal</a>
+                <a href="contact.html" class="btn btn-primary" id="header-consultation-btn">Get Quote</a>
                 <button class="hamburger" id="nav-hamburger" aria-label="Toggle Menu">
                     <span></span>
                     <span></span>
@@ -76,28 +76,179 @@
         </div>
     </header>
 
-    <!-- 3. HERO SECTION — Full-viewport Three.js WebGL -->
+    <!-- 3. HERO SECTION — Full-viewport Three.js WebGL with CCTV 3D Scene -->
     <section class="hero" id="hero-section">
         <!-- Three.js WebGL canvas fills entire hero -->
         <canvas id="threejs-canvas"></canvas>
         <!-- Legacy 2D canvas kept for compatibility but hidden -->
         <canvas id="hero-canvas" style="display:none"></canvas>
 
+        <!-- 3D CCTV Camera Floating Illustrations -->
+        <div class="hero-camera-decorations">
+            <!-- Bullet Camera - Left Side -->
+            <div class="floating-camera camera-bullet">
+                <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="bullet-body-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1e293b"/>
+                            <stop offset="50%" stop-color="#334155"/>
+                            <stop offset="100%" stop-color="#1e293b"/>
+                        </linearGradient>
+                        <linearGradient id="lens-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0ea5e9"/>
+                            <stop offset="50%" stop-color="#06b6d4"/>
+                            <stop offset="100%" stop-color="#0891b2"/>
+                        </linearGradient>
+                        <filter id="camera-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.5"/>
+                        </filter>
+                    </defs>
+                    <!-- Mount/Bracket -->
+                    <rect x="10" y="50" width="30" height="20" rx="3" fill="#475569" filter="url(#camera-shadow)"/>
+                    <circle cx="25" cy="60" r="5" fill="#64748b"/>
+                    <!-- Camera Body -->
+                    <rect x="40" y="35" width="120" height="50" rx="8" fill="url(#bullet-body-grad)" filter="url(#camera-shadow)"/>
+                    <rect x="50" y="45" width="40" height="30" rx="4" fill="#0f172a" opacity="0.6"/>
+                    <!-- Lens Housing -->
+                    <circle cx="160" cy="60" r="28" fill="#1e293b" stroke="#475569" stroke-width="3" filter="url(#camera-shadow)"/>
+                    <circle cx="160" cy="60" r="20" fill="#0f172a"/>
+                    <circle cx="160" cy="60" r="14" fill="url(#lens-grad)"/>
+                    <circle cx="160" cy="60" r="8" fill="#0f172a"/>
+                    <!-- IR LEDs Ring -->
+                    <g class="ir-leds" fill="#dc2626" opacity="0.8">
+                        <circle cx="145" cy="42" r="2"/>
+                        <circle cx="175" cy="42" r="2"/>
+                        <circle cx="145" cy="78" r="2"/>
+                        <circle cx="175" cy="78" r="2"/>
+                    </g>
+                    <!-- LED Indicator -->
+                    <circle cx="55" cy="55" r="3" fill="#22c55e" class="power-led">
+                        <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+
+            <!-- Dome Camera - Right Side -->
+            <div class="floating-camera camera-dome">
+                <svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="dome-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#475569"/>
+                            <stop offset="50%" stop-color="#334155"/>
+                            <stop offset="100%" stop-color="#1e293b"/>
+                        </linearGradient>
+                        <radialGradient id="dome-lens-grad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.9"/>
+                            <stop offset="60%" stop-color="#0891b2" stop-opacity="0.7"/>
+                            <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+                        </radialGradient>
+                    </defs>
+                    <!-- Mount Base -->
+                    <ellipse cx="75" cy="30" rx="35" ry="12" fill="#64748b"/>
+                    <!-- Dome Body -->
+                    <ellipse cx="75" cy="70" rx="55" ry="20" fill="url(#dome-body-grad)"/>
+                    <ellipse cx="75" cy="70" rx="55" ry="20" fill="none" stroke="#64748b" stroke-width="2"/>
+                    <!-- Glass Dome -->
+                    <ellipse cx="75" cy="95" rx="45" ry="35" fill="url(#dome-lens-grad)" opacity="0.3"/>
+                    <ellipse cx="75" cy="95" rx="45" ry="35" fill="none" stroke="#475569" stroke-width="2"/>
+                    <!-- Inner Camera Lens -->
+                    <circle cx="75" cy="100" r="20" fill="#0f172a"/>
+                    <circle cx="75" cy="100" r="12" fill="#06b6d4" opacity="0.8"/>
+                    <circle cx="75" cy="100" r="6" fill="#0f172a"/>
+                    <!-- Lens Reflection -->
+                    <ellipse cx="70" cy="96" rx="4" ry="2" fill="#fff" opacity="0.3"/>
+                    <!-- Status LED -->
+                    <circle cx="110" cy="55" r="3" fill="#22c55e" class="power-led">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+
+            <!-- PTZ Camera - Top Right -->
+            <div class="floating-camera camera-ptz">
+                <svg viewBox="0 0 180 140" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="ptz-body-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#475569"/>
+                            <stop offset="100%" stop-color="#1e293b"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Mount Base -->
+                    <rect x="20" y="110" width="40" height="15" rx="3" fill="#64748b"/>
+                    <ellipse cx="40" cy="105" rx="20" ry="8" fill="#475569"/>
+                    <!-- PTZ Arm -->
+                    <rect x="35" y="70" width="10" height="40" rx="2" fill="url(#ptz-body-grad)"/>
+                    <!-- Camera Head -->
+                    <ellipse cx="40" cy="55" rx="30" ry="20" fill="url(#ptz-body-grad)"/>
+                    <!-- Lens -->
+                    <ellipse cx="70" cy="55" rx="18" ry="18" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                    <circle cx="70" cy="55" r="12" fill="#06b6d4" opacity="0.7"/>
+                    <circle cx="70" cy="55" r="6" fill="#0f172a"/>
+                    <!-- Zoom Indicator -->
+                    <rect x="25" y="40" width="8" height="4" rx="1" fill="#06b6d4" opacity="0.8"/>
+                    <!-- IR Ring -->
+                    <g class="ir-leds" fill="#ef4444" opacity="0.7">
+                        <circle cx="55" cy="38" r="2"/>
+                        <circle cx="85" cy="38" r="2"/>
+                        <circle cx="55" cy="72" r="2"/>
+                        <circle cx="85" cy="72" r="2"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- NVR/DVR Illustration - Bottom -->
+            <div class="floating-camera camera-nvr">
+                <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="nvr-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#1e293b"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- NVR Body -->
+                    <rect x="5" y="10" width="190" height="60" rx="5" fill="url(#nvr-body-grad)" stroke="#475569" stroke-width="2"/>
+                    <!-- Drive Bays -->
+                    <g fill="#0f172a" stroke="#334155" stroke-width="1">
+                        <rect x="15" y="20" width="25" height="40" rx="2"/>
+                        <rect x="45" y="20" width="25" height="40" rx="2"/>
+                        <rect x="75" y="20" width="25" height="40" rx="2"/>
+                        <rect x="105" y="20" width="25" height="40" rx="2"/>
+                    </g>
+                    <!-- Drive Activity LEDs -->
+                    <g fill="#22c55e">
+                        <circle cx="27" cy="25" r="2"><animate attributeName="opacity" values="1;0.3;1" dur="0.5s" repeatCount="indefinite"/></circle>
+                        <circle cx="57" cy="25" r="2"><animate attributeName="opacity" values="0.3;1;0.3" dur="0.7s" repeatCount="indefinite"/></circle>
+                        <circle cx="87" cy="25" r="2"><animate attributeName="opacity" values="1;0.5;1" dur="0.4s" repeatCount="indefinite"/></circle>
+                        <circle cx="117" cy="25" r="2"><animate attributeName="opacity" values="0.5;1;0.5" dur="0.6s" repeatCount="indefinite"/></circle>
+                    </g>
+                    <!-- Network Ports -->
+                    <g fill="#06b6d4">
+                        <rect x="140" y="25" width="10" height="8" rx="1"/>
+                        <rect x="155" y="25" width="10" height="8" rx="1"/>
+                    </g>
+                    <!-- Power LED -->
+                    <circle cx="180" cy="55" r="4" fill="#22c55e"><animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/></circle>
+                    <!-- Link Label -->
+                    <text x="147" y="55" font-size="6" fill="#64748b" font-family="monospace">LINK</text>
+                </svg>
+            </div>
+        </div>
+
         <!-- Cinematic hero content — centered, large -->
         <div class="hero-inner">
-            <div class="hero-eyebrow" id="hero-eyebrow">Enterprise IT Infrastructure</div>
+            <div class="hero-eyebrow" id="hero-eyebrow">Professional Surveillance Solutions</div>
             <h1 class="hero-title" id="hero-title">
-                <span class="hero-title-line" id="htl-1">CONNECT.</span>
-                <span class="hero-title-line hero-title-gradient" id="htl-2">SECURE.</span>
-                <span class="hero-title-line" id="htl-3">SCALE.</span>
+                <span class="hero-title-line" id="htl-1">SECURE.</span>
+                <span class="hero-title-line hero-title-gradient" id="htl-2">MONITOR.</span>
+                <span class="hero-title-line" id="htl-3">PROTECT.</span>
             </h1>
-            <p class="hero-desc" id="hero-desc">Smart IT Infrastructure &amp; Security Solutions for modern enterprises.</p>
+            <p class="hero-desc" id="hero-desc">Expert CCTV installation & structured cabling solutions for modern businesses.</p>
             <div class="hero-btns" id="hero-btns">
                 <a href="contact.html" class="btn btn-primary" id="hero-cta-consultation">
-                    <i class="fa-solid fa-calendar-check"></i> Free Consultation
+                    <i class="fa-solid fa-video"></i> Get Free Survey
                 </a>
                 <a href="services.html" class="btn btn-ghost" id="hero-cta-services">
-                    Explore Services <i class="fa-solid fa-arrow-right"></i>
+                    View Services <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -114,23 +265,23 @@
         <div class="container">
             <div class="about-grid">
                 <div class="fade-in">
-                    <span class="section-tag">Enterprise Reliability</span>
-                    <h2 class="section-title">Innovating IT Infrastructure & CCTV Systems</h2>
-                    <p class="section-desc">At Linkcore, we provide end-to-end IT architecture design and security integration. With over a decade of deployment experience, our engineers connect businesses securely through resilient networks, firewalls, and certified surveillance hardware.</p>
-                    
+                    <span class="section-tag">Enterprise Surveillance</span>
+                    <h2 class="section-title">Advanced CCTV & Expert Cabling Solutions</h2>
+                    <p class="section-desc">At Linkcore, we specialize in professional CCTV surveillance installations and certified structured cabling. With over a decade of deployment experience, our engineers deliver crystal-clear surveillance systems and clean, organized cable infrastructure for businesses across Tamil Nadu.</p>
+
                     <div class="about-features">
                         <div class="about-feat-item">
-                            <div class="about-feat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="about-feat-icon"><i class="fa-solid fa-video"></i></div>
                             <div>
-                                <h4 class="about-feat-title">Zero Trust Security</h4>
-                                <p class="about-feat-desc">Advanced firewall provisioning and automated network segmentation policies.</p>
+                                <h4 class="about-feat-title">HD IP Surveillance</h4>
+                                <p class="about-feat-desc">Crystal-clear 4K cameras with AI motion detection, night vision, and mobile app monitoring.</p>
                             </div>
                         </div>
                         <div class="about-feat-item">
-                            <div class="about-feat-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="about-feat-icon"><i class="fa-solid fa-lines-leaning"></i></div>
                             <div>
-                                <h4 class="about-feat-title">Structured Design</h4>
-                                <p class="about-feat-desc">Certified network cabling layouts ensuring clean server room racks.</p>
+                                <h4 class="about-feat-title">Structured Cabling</h4>
+                                <p class="about-feat-desc">Certified Cat6/Cat6A cabling with professional cable management and Fluke testing.</p>
                             </div>
                         </div>
                     </div>
@@ -142,12 +293,12 @@
                 <!-- Decorative Glass Card detailing Vision/Mission -->
                 <div class="glass-card fade-in" id="about-vision-card">
                     <div class="glass-card-inner">
-                        <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-handshake" style="color: var(--secondary); margin-right: 0.5rem;"></i> Dedicated Partnership</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">At Linkcore, we don't just install systems — we build the digital backbone your business runs on. Every cable we lay, every camera we mount, and every firewall we configure is backed by a commitment to precision, reliability, and long-term partnership.</p>
-                        
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-shield-halved" style="color: var(--secondary); margin-right: 0.5rem;"></i> Trusted Security Partner</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">At Linkcore, we don't just install cameras — we design complete surveillance ecosystems. Every camera position is strategically planned, every cable is neatly organized, and every system is backed by our commitment to your safety.</p>
+
                         <div style="border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
                             <blockquote style="font-style: italic; color: var(--text-muted);">
-                                "Technology should never be a barrier — it should be the bridge. At Linkcore, we make sure every business we touch is connected securely, efficiently, and built to last."
+                                "Your security is our priority. We make sure every corner of your property is monitored with precision, clarity, and reliability."
                             </blockquote>
                             <div style="margin-top: 1rem; font-weight: 700; font-size: 0.9rem; color: var(--secondary);">— Saju Raj T, Founder & CEO, Linkcore Technologies</div>
                         </div>
@@ -158,8 +309,8 @@
             <!-- Counters Bar -->
             <div class="counters-bar">
                 <div class="counter-box fade-in" id="counter-projects">
-                    <div class="counter-val" data-target="85" data-suffix="+">0</div>
-                    <div class="counter-label">Projects Completed</div>
+                    <div class="counter-val" data-target="150" data-suffix="+">0</div>
+                    <div class="counter-label">CCTV Installations</div>
                 </div>
                 <div class="counter-box fade-in" id="counter-clients">
                     <div class="counter-val" data-target="98" data-suffix="%">0</div>
@@ -167,11 +318,11 @@
                 </div>
                 <div class="counter-box fade-in" id="counter-support">
                     <div class="counter-val" data-target="24" data-suffix="/7">0</div>
-                    <div class="counter-label">Support Availability</div>
+                    <div class="counter-label">Support Available</div>
                 </div>
                 <div class="counter-box fade-in" id="counter-networks">
-                    <div class="counter-val" data-target="25" data-suffix="+">0</div>
-                    <div class="counter-label">Network Deployments</div>
+                    <div class="counter-val" data-target="500" data-suffix="+">0</div>
+                    <div class="counter-label">Cameras Deployed</div>
                 </div>
             </div>
         </div>
@@ -182,18 +333,18 @@
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-tag">Service Portfolio</span>
-                <h2 class="section-title">Core IT Solutions We Deliver</h2>
-                <p class="section-desc">From clean structured cabling runs to hybrid cloud architectures, we craft systems that scale with enterprise growth.</p>
+                <h2 class="section-title">Core CCTV & Cabling Services</h2>
+                <p class="section-desc">From professional CCTV installations to certified structured cabling, we deliver solutions that protect your business.</p>
             </div>
 
             <div class="services-grid">
-                <!-- Network Installation -->
-                <div class="glass-card service-card fade-in" id="srv-network">
+                <!-- IP CCTV Installation -->
+                <div class="glass-card service-card fade-in" id="srv-cctv">
                     <div class="glass-card-inner">
-                        <div class="service-icon-box"><i class="fa-solid fa-network-wired"></i></div>
-                        <h3 class="service-title">Network Installation</h3>
-                        <p class="service-desc">Architecting robust copper/fiber network configurations, router setups, and corporate switch backbones.</p>
-                        <a href="services.html" class="service-link" id="link-srv-network">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                        <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>
+                        <h3 class="service-title">IP CCTV Installation</h3>
+                        <p class="service-desc">Strategic placement of high-definition IP cameras with NVR recording, mobile monitoring, and AI-powered smart detection.</p>
+                        <a href="services.html" class="service-link" id="link-srv-cctv">Learn More <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
 
@@ -202,54 +353,54 @@
                     <div class="glass-card-inner">
                         <div class="service-icon-box"><i class="fa-solid fa-lines-leaning"></i></div>
                         <h3 class="service-title">Structured Cabling</h3>
-                        <p class="service-desc">Certified Cat6/Cat6A cabling layouts, professional patch panel setups, and complete clean-ups of messy server racks.</p>
+                        <p class="service-desc">Certified Cat6/Cat6A cabling layouts, professional patch panel setups, and complete cable management solutions.</p>
                         <a href="services.html" class="service-link" id="link-srv-cabling">Learn More <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
 
-                <!-- Firewall Configuration -->
-                <div class="glass-card service-card fade-in" id="srv-firewall">
+                <!-- HD Dome Cameras -->
+                <div class="glass-card service-card fade-in" id="srv-dome">
                     <div class="glass-card-inner">
-                        <div class="service-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                        <h3 class="service-title">Firewall & Security</h3>
-                        <p class="service-desc">Installation and policy design for Sophos, Fortinet, and Cisco Meraki firewalls to block external cyberthreats.</p>
-                        <a href="services.html" class="service-link" id="link-srv-firewall">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                        <div class="service-icon-box"><i class="fa-solid fa-circle-dot"></i></div>
+                        <h3 class="service-title">Dome Camera Setup</h3>
+                        <p class="service-desc">Vandal-resistant dome cameras for indoor and outdoor use with wide-angle viewing and infrared night vision.</p>
+                        <a href="services.html" class="service-link" id="link-srv-dome">Learn More <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
 
-                <!-- CCTV Surveillance Setup -->
-                <div class="glass-card service-card fade-in" id="srv-cctv">
+                <!-- Bullet Cameras -->
+                <div class="glass-card service-card fade-in" id="srv-bullet">
                     <div class="glass-card-inner">
-                        <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>
-                        <h3 class="service-title">IP CCTV Systems</h3>
-                        <p class="service-desc">Strategic setup of high-def NVR/IP cameras with remote mobile monitoring access and AI-powered smart security analytics.</p>
-                        <a href="services.html" class="service-link" id="link-srv-cctv">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                        <div class="service-icon-box"><i class="fa-solid fa-eye"></i></div>
+                        <h3 class="service-title">Bullet Camera Setup</h3>
+                        <p class="service-desc">Long-range bullet cameras for perimeter security, parking lots, and outdoor areas with weatherproof housing.</p>
+                        <a href="services.html" class="service-link" id="link-srv-bullet">Learn More <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
 
-                <!-- Server Room Setup -->
-                <div class="glass-card service-card fade-in" id="srv-server">
+                <!-- NVR/DVR Setup -->
+                <div class="glass-card service-card fade-in" id="srv-nvr">
                     <div class="glass-card-inner">
-                        <div class="service-icon-box"><i class="fa-solid fa-server"></i></div>
-                        <h3 class="service-title">Server Setup</h3>
-                        <p class="service-desc">Installation of physical enterprise servers (Dell/HP), hypervisors virtualization setups, and active directory systems.</p>
-                        <a href="services.html" class="service-link" id="link-srv-server">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                        <div class="service-icon-box"><i class="fa-solid fa-hard-drive"></i></div>
+                        <h3 class="service-title">NVR/DVR Recording</h3>
+                        <p class="service-desc">Centralized recording systems with remote viewing apps, motion-triggered alerts, and cloud backup options.</p>
+                        <a href="services.html" class="service-link" id="link-srv-nvr">Learn More <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
 
-                <!-- IT AMC Services -->
+                <!-- AMC Services -->
                 <div class="glass-card service-card fade-in" id="srv-amc">
                     <div class="glass-card-inner">
                         <div class="service-icon-box"><i class="fa-solid fa-handshake-angle"></i></div>
-                        <h3 class="service-title">IT AMC Services</h3>
-                        <p class="service-desc">Corporate Annual Maintenance Contracts providing preventive upkeep, quick remote assistance, and priority on-site support.</p>
-                        <a href="services.html" class="service-link" id="link-srv-amc">Learn More <i class="fa-solid fa-chevron-right"></i></a>
+                        <h3 class="service-title">CCTV AMC Services</h3>
+                        <p class="service-desc">Annual Maintenance Contracts providing regular camera cleaning, system health checks, and priority support.</p>
+                        <a href="amc.html" class="service-link" id="link-srv-amc">View Plans <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 3.5rem;" class="fade-in">
-                <a href="services.html" class="btn btn-primary" id="view-all-services-btn">View All 15 Services <i class="fa-solid fa-th-list"></i></a>
+                <a href="services.html" class="btn btn-primary" id="view-all-services-btn">View All Services <i class="fa-solid fa-th-list"></i></a>
             </div>
         </div>
     </section>
@@ -258,37 +409,39 @@
     <section class="section" id="amc-preview-section">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="section-tag">Proactive Operations</span>
-                <h2 class="section-title">Annual Maintenance Contract (AMC)</h2>
-                <p class="section-desc">Ensure operational runtime. Our custom AMC contracts keep networking hardware updated, server environments monitored, and cameras fully functional.</p>
+                <span class="section-tag">Proactive Maintenance</span>
+                <h2 class="section-title">CCTV Annual Maintenance Contract</h2>
+                <p class="section-desc">Keep your surveillance systems running flawlessly. Our AMC contracts ensure your cameras are always watching.</p>
             </div>
 
             <!-- AMC Key Elements -->
             <div class="amc-benefits">
                 <div class="glass-card benefit-card fade-in" id="amc-pref-preventive">
-                    <div class="benefit-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="benefit-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
                     <div class="benefit-details">
-                        <h4>Preventive Auditing</h4>
-                        <p>Routine onsite checks to inspect cabling integrity, clean servers, and audit device temperatures.</p>
+                        <h4>Camera Maintenance</h4>
+                        <p>Regular lens cleaning, angle adjustments, and system health checks to ensure clear footage.</p>
                     </div>
                 </div>
                 <div class="glass-card benefit-card fade-in" id="amc-pref-monitor">
                     <div class="benefit-icon"><i class="fa-solid fa-gauge-high"></i></div>
                     <div class="benefit-details">
-                        <h4>Network Monitoring</h4>
-                        <p>24/7 scanning of firewalls and switches to catch anomalies before they interrupt business operations.</p>
+                        <h4>System Monitoring</h4>
+                        <p>24/7 health monitoring of NVR/DVR systems and storage capacity alerts.</p>
                     </div>
                 </div>
                 <div class="glass-card benefit-card fade-in" id="amc-pref-priority">
                     <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
                     <div class="benefit-details">
-                        <h4>Priority SLA Support</h4>
-                        <p>On-site engineers dispatched with guaranteed emergency response times under 2 to 4 hours.</p>
+                        <h4>Priority Support</h4>
+                        <p>On-site technicians dispatched with guaranteed response times under 4 hours.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- AMC Calculator removed -->
+            <div style="text-align: center; margin-top: 2rem;" class="fade-in">
+                <a href="amc.html" class="btn btn-primary">View AMC Plans <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
         </div>
     </section>
 
@@ -296,9 +449,9 @@
     <section class="section section-alt" id="industries-section">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="section-tag">Target Ecosystems</span>
-                <h2 class="section-title">Industries We Serve</h2>
-                <p class="section-desc">Custom configurations built to match the regulatory and architectural demands of different workspaces.</p>
+                <span class="section-tag">Target Sectors</span>
+                <h2 class="section-title">Industries We Protect</h2>
+                <p class="section-desc">Custom surveillance solutions built for different property types and security requirements.</p>
             </div>
 
             <div class="industries-grid">
@@ -354,15 +507,13 @@
         </div>
     </section>
 
-    <!-- Portfolio section removed -->
-
     <!-- 9. TESTIMONIALS SLIDER SECTION -->
     <section class="section" style="background: rgba(11, 19, 41, 0.3);" id="testimonials-section">
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-tag">Client Feedback</span>
                 <h2 class="section-title">What Our Clients Say</h2>
-                <p class="section-desc">Read reviews from company owners and CTOs who trust Linkcore with their day-to-day operations.</p>
+                <p class="section-desc">Read reviews from property owners and business managers who trust Linkcore.</p>
             </div>
 
             <div class="testimonials-slider-container fade-in">
@@ -377,11 +528,11 @@
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <p class="testimonial-quote">"The structured cabling team cleaned up our messy IT rack room over a weekend, reducing cable clutter and identifying slow connections. We signed an AMC immediately."</p>
+                            <p class="testimonial-quote">"The cabling team transformed our messy equipment room into a professionally organized setup. The CCTV installation was seamless and the image quality is outstanding."</p>
                             <div class="testimonial-client">
                                 <div class="client-avatar-placeholder">MR</div>
                                 <span class="client-name">Marcus Reynolds</span>
-                                <span class="client-role">IT Manager, Nexus Logistic Hub</span>
+                                <span class="client-role">Facility Manager, Nexus Logistics</span>
                             </div>
                         </div>
                     </div>
@@ -396,11 +547,11 @@
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <p class="testimonial-quote">"Their remote firewall team resolved a security breach in minutes. Linkcore's quick emergency response times and cybersecurity focus are truly top tier."</p>
+                            <p class="testimonial-quote">"We installed 48 IP cameras across our warehouse complex. The mobile app monitoring is a game-changer. Linkcore's team was professional and efficient."</p>
                             <div class="testimonial-client">
-                                <div class="client-avatar-placeholder">SA</div>
-                                <span class="client-name">Sarah Al-Mansoori</span>
-                                <span class="client-role">Director of Operations, Falcon Financial</span>
+                                <div class="client-avatar-placeholder">DK</div>
+                                <span class="client-name">David Kovic</span>
+                                <span class="client-role">Security Director, Apex Warehousing</span>
                             </div>
                         </div>
                     </div>
@@ -415,11 +566,11 @@
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <p class="testimonial-quote">"We deployed IP CCTV surveillance across all four warehouse areas. The remote setup allows us to monitor our storage items directly from our phones with crisp quality."</p>
+                            <p class="testimonial-quote">"Night vision on these cameras is incredible. We can monitor our entire property 24/7. The AMC plan ensures everything stays in perfect condition."</p>
                             <div class="testimonial-client">
-                                <div class="client-avatar-placeholder">DK</div>
-                                <span class="client-name">David Kovic</span>
-                                <span class="client-role">Security Director, Apex Warehousing</span>
+                                <div class="client-avatar-placeholder">SA</div>
+                                <span class="client-name">Sarah Al-Mansoori</span>
+                                <span class="client-role">Property Manager, Coral Residences</span>
                             </div>
                         </div>
                     </div>
@@ -436,8 +587,8 @@
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-tag">Get in Touch</span>
-                <h2 class="section-title">Schedule A Free Consultation</h2>
-                <p class="section-desc">Our networking experts are ready to audit your current systems and design a secure solution.</p>
+                <h2 class="section-title">Schedule A Free Site Survey</h2>
+                <p class="section-desc">Our CCTV experts are ready to assess your property and design the perfect surveillance solution.</p>
             </div>
 
             <div class="contact-grid">
@@ -466,7 +617,7 @@
                             <div class="contact-info-detail">Linkcore, Ruby Street, New Vellanur, Chennai — 600062</div>
                         </div>
                     </div>
-                    
+
                     <button class="btn btn-secondary whatsapp-btn-static" style="width:100%; border-color:#25d366; background: rgba(37,211,102,0.05); color:#25d366;" onclick="document.querySelector('.whatsapp-btn').click();" id="whatsapp-call-btn">
                         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
                     </button>
@@ -486,7 +637,7 @@
                                     <input type="email" id="contact-email" class="form-input" placeholder="e.g. john@company.com" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label class="form-label" for="contact-phone">Phone Number</label>
@@ -494,24 +645,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="contact-interest">Interest Area</label>
-                                    <input type="text" id="contact-interest" class="form-input" placeholder="e.g. Structured Cabling, AMC">
+                                    <input type="text" id="contact-interest" class="form-input" placeholder="e.g. CCTV Installation, Cabling">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label" for="contact-message">Inquiry Details *</label>
-                                <textarea id="contact-message" class="form-input" placeholder="Explain your networking or security requirements..." required></textarea>
+                                <textarea id="contact-message" class="form-input" placeholder="Describe your surveillance or cabling requirements..." required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary" id="contact-form-submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Inquiry</button>
                         </form>
                     </div>
                 </div>
-            </div>
-
-            <!-- Custom Dark Map iframe integration -->
-            <div class="map-wrapper fade-in" id="contact-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.241263496582!2d-73.98656448459371!3d40.74844047932822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1621873155799!5m2!1sen!2sus" allowfullscreen="" loading="lazy" aria-label="Google Map location of Linkcore Office"></iframe>
             </div>
         </div>
     </section>
@@ -527,14 +673,14 @@
                             <circle cx="50" cy="50" r="15" fill="none" stroke="url(#foot-logo-grad)" stroke-width="6"/>
                             <defs>
                                 <linearGradient id="foot-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#3b82f6"/>
-                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                    <stop offset="0%" stop-color="#06b6d4"/>
+                                    <stop offset="100%" stop-color="#3b82f6"/>
                                 </linearGradient>
                             </defs>
                         </svg>
                         <span>LINKCORE</span>
                     </a>
-                    <p class="footer-desc">Enterprise IT solutions, certified structured cabling, security firewalls, and premium CCTV system integrations. Ensuring secure network uptimes for companies worldwide.</p>
+                    <p class="footer-desc">Professional CCTV surveillance installations and certified structured cabling solutions. Protecting businesses and properties across Tamil Nadu with advanced security systems.</p>
                     <div class="footer-socials">
                         <a href="https://linkedin.com" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                         <a href="https://twitter.com" class="social-icon" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -546,11 +692,11 @@
                 <div class="footer-col">
                     <h4>Core Services</h4>
                     <ul class="footer-links">
-                        <li><a href="services.html" class="footer-link">Network Cabling</a></li>
-                        <li><a href="services.html" class="footer-link">CCTV Surveillance</a></li>
-                        <li><a href="services.html" class="footer-link">Firewall Protection</a></li>
-                        <li><a href="services.html" class="footer-link">Server Configurations</a></li>
-                        <li><a href="services.html" class="footer-link">IT AMC Contracts</a></li>
+                        <li><a href="services.html" class="footer-link">IP CCTV Systems</a></li>
+                        <li><a href="services.html" class="footer-link">Structured Cabling</a></li>
+                        <li><a href="services.html" class="footer-link">Dome Cameras</a></li>
+                        <li><a href="services.html" class="footer-link">Bullet Cameras</a></li>
+                        <li><a href="services.html" class="footer-link">NVR/DVR Setup</a></li>
                     </ul>
                 </div>
 
@@ -558,8 +704,7 @@
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="about.html" class="footer-link">Our Company</a></li>
-                        <li><a href="portfolio.html" class="footer-link">Case Studies</a></li>
-                        <li><a href="careers.html" class="footer-link">Careers</a></li>
+                        <li><a href="services.html" class="footer-link">Services</a></li>
                         <li><a href="amc.html" class="footer-link">AMC Pricing</a></li>
                         <li><a href="contact.html" class="footer-link">Contact Us</a></li>
                     </ul>
@@ -567,16 +712,16 @@
 
                 <div class="footer-col footer-newsletter">
                     <h4>Newsletter</h4>
-                    <p>Stay informed about cybersecurity updates and network infrastructure solutions.</p>
+                    <p>Stay informed about the latest surveillance technology and security solutions.</p>
                     <form class="newsletter-form" id="newsletter-form">
-                        <input type="email" class="form-input" placeholder="Your work email" required aria-label="Subscribe Newsletter Email">
+                        <input type="email" class="form-input" placeholder="Your email" required aria-label="Subscribe Newsletter Email">
                         <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;" id="newsletter-submit-btn"><i class="fa-solid fa-arrow-right"></i></button>
                     </form>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Connecting Businesses Securely.</p>
+                <p>&copy; 2026 Linkcore Technologies. All rights reserved. Securing Properties Professionally.</p>
                 <div class="footer-bottom-links">
                     <a href="contact.html">Privacy Policy</a>
                     <a href="contact.html">Terms of Service</a>
@@ -600,14 +745,14 @@
                 </div>
                 <div class="lightbox-info-area">
                     <div>
-                        <span class="lightbox-info-cat">Structured Cabling</span>
-                        <h2 class="lightbox-info-title">Server Rack Cleanup</h2>
-                        <p class="lightbox-info-desc">Detailed descriptions of the problem and security solution deployed.</p>
+                        <span class="lightbox-info-cat">CCTV Installation</span>
+                        <h2 class="lightbox-info-title"> surveillance Project</h2>
+                        <p class="lightbox-info-desc">Detailed descriptions of the installation and solution deployed.</p>
                     </div>
                     <div>
                         <div class="lightbox-info-tags">
-                            <span class="lightbox-tag">Network</span>
-                            <span class="lightbox-tag">Cabling</span>
+                            <span class="lightbox-tag">CCTV</span>
+                            <span class="lightbox-tag">Security</span>
                         </div>
                     </div>
                 </div>
