@@ -28,17 +28,17 @@ const DEFAULT_DB = {
     tickets: [
         {
             id: 1,
-            title: "Switch Port Loop Diagnostics",
-            description: "Nexus Logistics Hub reports VLAN loop bottlenecking on Switch SW02.",
-            priority: "High",
+            title: "Camera Lens Cleaning Required",
+            description: "Warehouse entrance camera CAM-03 has dust buildup affecting video clarity. Lens cleaning and housing maintenance required.",
+            priority: "Medium",
             status: "Open",
             timestamp: new Date().toISOString()
         },
         {
             id: 2,
-            title: "CCTV Angle Readjustment",
-            description: "Apex Warehousing requests angle readjustment for Camera 04 in Aisle B.",
-            priority: "Low",
+            title: "NVR Recording Issue",
+            description: "NVR-01 at Apex Logistics stopped recording on channels 8-12. Hard drive may need replacement or reconfiguration.",
+            priority: "High",
             status: "Open",
             timestamp: new Date().toISOString()
         }

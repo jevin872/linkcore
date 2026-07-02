@@ -572,6 +572,136 @@ body.light-theme .theme-toggle .fa-sun { display: block; }
 
 #hero-canvas { display: none; } /* replaced by Three.js */
 
+/* --- FLOATING 3D CAMERA DECORATIONS --- */
+.hero-camera-decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-camera {
+    position: absolute;
+    opacity: 0;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+    animation: camera-fade-in 1.5s ease forwards;
+}
+
+.floating-camera svg {
+    width: 100%;
+    height: auto;
+}
+
+.camera-bullet {
+    width: 180px;
+    left: 5%;
+    top: 20%;
+    animation-delay: 0.8s;
+    animation-name: camera-fade-in-left;
+}
+
+.camera-dome {
+    width: 140px;
+    right: 8%;
+    top: 15%;
+    animation-delay: 1s;
+    animation-name: camera-fade-in-right;
+}
+
+.camera-ptz {
+    width: 160px;
+    right: 15%;
+    bottom: 25%;
+    animation-delay: 1.2s;
+    animation-name: camera-fade-in-right;
+}
+
+.camera-nvr {
+    width: 220px;
+    left: 10%;
+    bottom: 20%;
+    animation-delay: 1.4s;
+    animation-name: camera-fade-in-left;
+}
+
+@keyframes camera-fade-in {
+    from { opacity: 0; transform: translateY(30px) scale(0.9); }
+    to { opacity: 0.85; transform: translateY(0) scale(1); }
+}
+
+@keyframes camera-fade-in-left {
+    from { opacity: 0; transform: translateX(-40px) translateY(30px) scale(0.9); }
+    to { opacity: 0.85; transform: translateX(0) translateY(0) scale(1); }
+}
+
+@keyframes camera-fade-in-right {
+    from { opacity: 0; transform: translateX(40px) translateY(30px) scale(0.9); }
+    to { opacity: 0.85; transform: translateX(0) translateY(0) scale(1); }
+}
+
+/* Floating animation for cameras */
+.camera-bullet {
+    animation: camera-fade-in-left 1.5s ease forwards, float-horizontal 8s ease-in-out infinite 2s;
+}
+
+.camera-dome {
+    animation: camera-fade-in-right 1.5s ease forwards, float-vertical 7s ease-in-out infinite 2.5s;
+}
+
+.camera-ptz {
+    animation: camera-fade-in-right 1.5s ease forwards, float-pulse 6s ease-in-out infinite 2.7s;
+}
+
+.camera-nvr {
+    animation: camera-fade-in-left 1.5s ease forwards, float-glow 9s ease-in-out infinite 2.9s;
+}
+
+@keyframes float-horizontal {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(-2deg); }
+    50% { transform: translateX(15px) translateY(-10px) rotate(2deg); }
+}
+
+@keyframes float-vertical {
+    0%, 100% { transform: translateY(0) rotate(3deg); }
+    50% { transform: translateY(-15px) rotate(-3deg); }
+}
+
+@keyframes float-pulse {
+    0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.85; }
+    50% { transform: scale(1.05) rotate(1deg); opacity: 1; }
+}
+
+@keyframes float-glow {
+    0%, 100% { transform: translateY(0); filter: drop-shadow(0 20px 40px rgba(6,182,212,0.3)); }
+    50% { transform: translateY(-8px); filter: drop-shadow(0 25px 50px rgba(6,182,212,0.5)); }
+}
+
+/* IR LED pulse effect */
+.floating-camera .ir-leds circle {
+    animation: ir-blink 3s ease-in-out infinite;
+}
+
+@keyframes ir-blink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .camera-bullet { width: 140px; left: 3%; }
+    .camera-dome { width: 110px; right: 3%; }
+    .camera-ptz { width: 130px; right: 8%; bottom: 30%; }
+    .camera-nvr { width: 180px; left: 5%; }
+}
+
+@media (max-width: 768px) {
+    .hero-camera-decorations { display: none; }
+}
+
 /* hero-grid, hero-visual, rack styles removed — replaced by Three.js WebGL scene */
 /* hero-tag replaced by hero-eyebrow */
 /* hero-title handled by new cinematic hero styles above */
@@ -2344,3 +2474,908 @@ body::before, body::after { display: none; }
 
 /* AMC features list tight */
 #amc-features-list { padding-top: 2rem !important; }
+
+/* ============================================================
+   3D CCTV CAMERA DESIGNS — SURVEILLANCE VISUAL SYSTEM
+   ============================================================ */
+
+/* --- 3D CCTV Camera Model (Pure CSS) --- */
+.cctv-3d-wrapper {
+    perspective: 1200px;
+    width: 280px;
+    height: 220px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cctv-camera-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: camera-rotate 20s ease-in-out infinite;
+}
+
+@keyframes camera-rotate {
+    0%, 100% { transform: rotateY(-25deg) rotateX(5deg); }
+    50% { transform: rotateY(25deg) rotateX(-5deg); }
+}
+
+/* Camera body (main housing) */
+.camera-body {
+    position: absolute;
+    width: 120px;
+    height: 70px;
+    transform-style: preserve-3d;
+}
+
+.camera-face {
+    position: absolute;
+    background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow: inset 0 1px 0 rgba(167, 139, 250, 0.15);
+}
+
+.camera-face.front {
+    width: 120px;
+    height: 70px;
+    transform: translateZ(35px);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #16162a 0%, #0a0a14 100%);
+}
+
+.camera-face.back {
+    width: 120px;
+    height: 70px;
+    transform: translateZ(-35px) rotateY(180deg);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #0d0d1a 0%, #050510 100%);
+}
+
+.camera-face.top {
+    width: 120px;
+    height: 70px;
+    transform: rotateX(90deg) translateZ(35px);
+    background: linear-gradient(145deg, #1f1f38 0%, #0f0f1f 100%);
+    border-radius: 8px 8px 0 0;
+}
+
+.camera-face.bottom {
+    width: 120px;
+    height: 70px;
+    transform: rotateX(-90deg) translateZ(35px);
+    background: linear-gradient(145deg, #0a0a12 0%, #050508 100%);
+}
+
+.camera-face.left {
+    width: 70px;
+    height: 70px;
+    left: -35px;
+    transform: rotateY(-90deg) translateZ(60px);
+    background: linear-gradient(145deg, #14142a 0%, #080812 100%);
+}
+
+.camera-face.right {
+    width: 70px;
+    height: 70px;
+    right: -35px;
+    transform: rotateY(90deg) translateZ(60px);
+    background: linear-gradient(145deg, #18183a 0%, #0a0a18 100%);
+}
+
+/* Camera lens (domed cylinder effect) */
+.camera-lens-housing {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateZ(36px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #2a2a4a, #0a0a14 70%);
+    box-shadow:
+        0 0 20px rgba(124, 58, 237, 0.4),
+        inset 0 0 20px rgba(0, 0, 0, 0.8),
+        0 5px 15px rgba(0, 0, 0, 0.6);
+    animation: lens-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes lens-glow {
+    0% {
+        box-shadow:
+            0 0 20px rgba(124, 58, 237, 0.3),
+            inset 0 0 20px rgba(0, 0, 0, 0.8),
+            0 5px 15px rgba(0, 0, 0, 0.6);
+    }
+    100% {
+        box-shadow:
+            0 0 30px rgba(124, 58, 237, 0.6),
+            0 0 60px rgba(56, 189, 248, 0.3),
+            inset 0 0 20px rgba(0, 0, 0, 0.8),
+            0 5px 15px rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Inner lens glass */
+.camera-lens-inner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%,
+        rgba(56, 189, 248, 0.8) 0%,
+        rgba(124, 58, 237, 0.6) 30%,
+        #0a0a14 60%
+    );
+    box-shadow:
+        inset 0 0 10px rgba(56, 189, 248, 0.5),
+        0 0 15px rgba(124, 58, 237, 0.6);
+    animation: lens-active 2s ease-in-out infinite;
+}
+
+@keyframes lens-active {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.8), 0 0 25px rgba(124, 58, 237, 0.8); }
+}
+
+/* Recording LED indicator */
+.camera-led {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    right: 15px;
+    top: 12px;
+    transform: translateZ(37px);
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow: 0 0 10px #ef4444, 0 0 20px rgba(239, 68, 68, 0.5);
+    animation: led-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes led-blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px #ef4444, 0 0 20px rgba(239, 68, 68, 0.5); }
+    50% { opacity: 0.3; box-shadow: 0 0 5px #ef4444; }
+}
+
+/* Camera mount/bracket */
+.camera-bracket {
+    position: absolute;
+    width: 40px;
+    height: 15px;
+    background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 3px;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.camera-bracket::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 12px;
+    background: linear-gradient(180deg, #252545 0%, #15152a 100%);
+    border-radius: 6px;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+/* --- Dome Camera Style --- */
+.cctv-dome-wrapper {
+    perspective: 1000px;
+    width: 180px;
+    height: 160px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cctv-dome-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: dome-rotate 25s ease-in-out infinite;
+}
+
+@keyframes dome-rotate {
+    0%, 100% { transform: rotateY(-15deg) rotateX(10deg); }
+    50% { transform: rotateY(15deg) rotateX(-5deg); }
+}
+
+.dome-base {
+    width: 120px;
+    height: 40px;
+    background: linear-gradient(180deg, #1f1f38 0%, #0a0a14 100%);
+    border-radius: 60px / 20px;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        inset 0 -5px 15px rgba(0, 0, 0, 0.4);
+    transform: rotateX(60deg);
+}
+
+.dome-globe {
+    position: absolute;
+    width: 100px;
+    height: 80px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(-10px);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 30% 30%,
+        rgba(80, 80, 120, 0.3) 0%,
+        rgba(20, 20, 40, 0.8) 50%,
+        rgba(10, 10, 20, 1) 100%
+    );
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(124, 58, 237, 0.2);
+    overflow: hidden;
+}
+
+.dome-globe::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 50%
+    );
+    border-radius: 50%;
+}
+
+.dome-lens {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+        rgba(56, 189, 248, 0.9) 0%,
+        rgba(124, 58, 237, 0.7) 40%,
+        #0a0a14 70%
+    );
+    box-shadow:
+        0 0 15px rgba(56, 189, 248, 0.6),
+        0 0 30px rgba(124, 58, 237, 0.4),
+        inset 0 0 8px rgba(56, 189, 248, 0.5);
+    animation: dome-lens-scan 4s ease-in-out infinite;
+}
+
+@keyframes dome-lens-scan {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(90deg); }
+    50% { transform: translate(-50%, -50%) rotate(180deg); }
+    75% { transform: translate(-50%, -50%) rotate(270deg); }
+}
+
+/* --- Bullet Camera Style --- */
+.cctv-bullet-wrapper {
+    perspective: 1000px;
+    width: 200px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cctv-bullet-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: bullet-rotate 18s ease-in-out infinite;
+}
+
+@keyframes bullet-rotate {
+    0%, 100% { transform: rotateY(-20deg) rotateX(5deg); }
+    50% { transform: rotateY(20deg) rotateX(-5deg); }
+}
+
+.bullet-body {
+    width: 140px;
+    height: 45px;
+    background: linear-gradient(180deg,
+        #2a2a4a 0%,
+        #1a1a2e 30%,
+        #0f0f1a 100%
+    );
+    border-radius: 22px 10px 10px 22px;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(167, 139, 250, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.bullet-body::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 0;
+    background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 100%
+    );
+}
+
+.bullet-lens-area {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+        #252545 0%,
+        #0a0a14 100%
+    );
+    border: 2px solid rgba(124, 58, 237, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(124, 58, 237, 0.3);
+}
+
+.bullet-lens-core {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+        rgba(56, 189, 248, 0.9) 0%,
+        rgba(124, 58, 237, 0.7) 50%,
+        #050510 100%
+    );
+    box-shadow:
+        0 0 10px rgba(56, 189, 248, 0.5),
+        0 0 20px rgba(124, 58, 237, 0.3);
+    animation: bullet-lens-pulse 2s ease-in-out infinite;
+}
+
+@keyframes bullet-lens-pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), 0 0 20px rgba(124, 58, 237, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 30px rgba(124, 58, 237, 0.5); }
+}
+
+.bullet-ir-leds {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 4px;
+}
+
+.bullet-ir-led {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #7c3aed;
+    box-shadow: 0 0 5px rgba(124, 58, 237, 0.6);
+    animation: ir-flicker 0.5s ease-in-out infinite alternate;
+}
+
+.bullet-ir-led:nth-child(2) { animation-delay: 0.1s; }
+.bullet-ir-led:nth-child(3) { animation-delay: 0.2s; }
+.bullet-ir-led:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes ir-flicker {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+.bullet-mount {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 60px;
+    background: linear-gradient(90deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.bullet-mount::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 15px;
+    background: #1f1f38;
+    border-radius: 5px;
+    border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+/* --- PTZ Camera Style --- */
+.cctv-ptz-wrapper {
+    perspective: 1000px;
+    width: 200px;
+    height: 220px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cctv-ptz-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: ptz-rotate 15s ease-in-out infinite;
+}
+
+@keyframes ptz-rotate {
+    0%, 100% { transform: rotateY(-30deg) rotateX(0deg); }
+    25% { transform: rotateY(0deg) rotateX(-10deg); }
+    50% { transform: rotateY(30deg) rotateX(0deg); }
+    75% { transform: rotateY(0deg) rotateX(10deg); }
+}
+
+.ptz-base {
+    width: 80px;
+    height: 25px;
+    background: linear-gradient(180deg, #1f1f38 0%, #0a0a14 100%);
+    border-radius: 40px / 12px;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.ptz-stem {
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -70%);
+    background: linear-gradient(90deg, #1a1a2e 0%, #252545 50%, #1a1a2e 100%);
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.ptz-head {
+    position: absolute;
+    width: 70px;
+    height: 50px;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #252545 0%, #1a1a2e 50%, #0f0f1a 100%);
+    border-radius: 35px 10px 10px 35px;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    animation: ptz-head-move 8s ease-in-out infinite;
+}
+
+@keyframes ptz-head-move {
+    0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
+    25% { transform: translate(-50%, -50%) rotateY(45deg); }
+    50% { transform: translate(-50%, -50%) rotateY(0deg); }
+    75% { transform: translate(-50%, -50%) rotateY(-45deg); }
+}
+
+.ptz-lens-housing {
+    position: absolute;
+    width: 55px;
+    height: 40px;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(180deg, #1f1f38 0%, #0a0a14 100%);
+    border-radius: 20px 5px 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+}
+
+.ptz-lens {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+        rgba(56, 189, 248, 0.9) 0%,
+        rgba(124, 58, 237, 0.7) 40%,
+        #050510 100%
+    );
+    box-shadow:
+        0 0 15px rgba(56, 189, 248, 0.6),
+        0 0 30px rgba(124, 58, 237, 0.4);
+    animation: ptz-lens-zoom 6s ease-in-out infinite;
+}
+
+@keyframes ptz-lens-zoom {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.6), 0 0 30px rgba(124, 58, 237, 0.4); }
+    50% { transform: scale(1.15); box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 50px rgba(124, 58, 237, 0.6); }
+}
+
+/* --- Surveillance Monitor/Grid Effect --- */
+.surveillance-grid {
+    position: relative;
+    overflow: hidden;
+}
+
+.surveillance-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, transparent 98%, rgba(124, 58, 237, 0.1) 100%),
+        linear-gradient(180deg, transparent 98%, rgba(124, 58, 237, 0.1) 100%);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.surveillance-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(56, 189, 248, 0.03) 2px,
+        rgba(56, 189, 248, 0.03) 4px
+    );
+    animation: scanlines 8s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+/* --- Scan Effect Overlay --- */
+.scan-overlay {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(56, 189, 248, 0.3) 20%,
+        rgba(124, 58, 237, 0.6) 50%,
+        rgba(56, 189, 248, 0.3) 80%,
+        transparent 100%
+    );
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 40px rgba(124, 58, 237, 0.3);
+    animation: scan-move 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes scan-move {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* --- Camera Field of View Visualization --- */
+.camera-fov-cone {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(180deg,
+        rgba(124, 58, 237, 0.4) 0%,
+        rgba(56, 189, 248, 0.1) 60%,
+        transparent 100%
+    );
+    transform-origin: top center;
+    animation: fov-pulse 4s ease-in-out infinite;
+}
+
+@keyframes fov-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.6; transform: scaleY(1.1); }
+}
+
+/* --- Surveillance Status HUD --- */
+.surveillance-hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: rgba(56, 189, 248, 0.9);
+    text-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+    line-height: 1.4;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.surveillance-hud .hud-timestamp {
+    animation: hud-blink 1s step-end infinite;
+}
+
+@keyframes hud-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.surveillance-hud .hud-rec {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    margin-right: 4px;
+    animation: rec-pulse 1s ease-in-out infinite;
+    box-shadow: 0 0 8px #ef4444;
+}
+
+@keyframes rec-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+/* --- Service Card Camera Icon Enhancements --- */
+.service-icon-camera::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 2px dashed rgba(124, 58, 237, 0.3);
+    border-radius: inherit;
+    animation: camera-target-rotate 10s linear infinite;
+}
+
+@keyframes camera-target-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- Camera Detection Grid Lines --- */
+.detection-lines {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, transparent 49%, rgba(124, 58, 237, 0.15) 49%, rgba(124, 58, 237, 0.15) 51%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, rgba(56, 189, 248, 0.15) 49%, rgba(56, 189, 248, 0.15) 51%, transparent 51%);
+    background-size: 60px 60px;
+    animation: detection-pulse 5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes detection-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* --- Motion Detection Highlight --- */
+.motion-highlight {
+    position: absolute;
+    border: 2px solid rgba(56, 189, 248, 0.8);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), inset 0 0 10px rgba(56, 189, 248, 0.2);
+    animation: motion-box 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes motion-box {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.02); }
+}
+
+/* --- Night Vision Effect --- */
+.night-vision-overlay {
+    position: relative;
+}
+
+.night-vision-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+        rgba(34, 197, 94, 0.1) 0%,
+        rgba(34, 197, 94, 0.05) 50%,
+        transparent 100%
+    );
+    pointer-events: none;
+    animation: nv-flicker 0.1s step-end infinite;
+}
+
+@keyframes nv-flicker {
+    0%, 90% { opacity: 1; }
+    95% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
+
+/* --- IR Glow Effect --- */
+.ir-glow {
+    position: relative;
+}
+
+.ir-glow::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse at center,
+        rgba(124, 58, 237, 0.15) 0%,
+        transparent 70%
+    );
+    filter: blur(10px);
+    animation: ir-pulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ir-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* --- Cable/Wire Trail Animation --- */
+.cable-trail {
+    position: relative;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(124, 58, 237, 0.3) 20%,
+        rgba(124, 58, 237, 0.8) 50%,
+        rgba(124, 58, 237, 0.3) 80%,
+        transparent 100%
+    );
+    animation: cable-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes cable-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+.cable-trail::before,
+.cable-trail::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gradient-vivid);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cable-trail::before { left: 0; animation: cable-node-left 3s ease-in-out infinite; }
+.cable-trail::after { right: 0; animation: cable-node-right 3s ease-in-out infinite; }
+
+@keyframes cable-node-left {
+    0%, 100% { left: 0; box-shadow: 0 0 5px rgba(124, 58, 237, 0.5); }
+    50% { left: 50%; box-shadow: 0 0 15px rgba(124, 58, 237, 0.8); }
+}
+
+@keyframes cable-node-right {
+    0%, 100% { right: 0; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
+    50% { right: 50%; box-shadow: 0 0 15px rgba(56, 189, 248, 0.8); }
+}
+
+/* --- Connection Status Indicator --- */
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    color: var(--secondary);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+    animation: status-pulse 1.5s ease-in-out infinite;
+}
+
+.status-dot.offline {
+    background: var(--danger);
+    box-shadow: 0 0 8px var(--danger);
+    animation: none;
+}
+
+.status-dot.warning {
+    background: #eab308;
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+}
+
+@keyframes status-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* LIVE feed badge animation */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ef4444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.live-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ef4444;
+    animation: live-dot 1s ease-in-out infinite;
+    box-shadow: 0 0 6px #ef4444;
+}
+
+@keyframes live-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* --- Hero Camera Scene Integration --- */
+.hero-camera-scene {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 280px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@media (max-width: 1024px) {
+    .hero-camera-scene {
+        display: none;
+    }
+}
+
+/* --- Camera icon inside service cards --- */
+.service-icon-camera {
+    position: relative;
+}
+
+.service-icon-camera .camera-mini {
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.service-icon-camera .camera-mini::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    right: -2px;
+    top: -2px;
+    animation: mini-cam-dot 1s ease-in-out infinite;
+    box-shadow: 0 0 4px var(--accent);
+}
+
+@keyframes mini-cam-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+}
