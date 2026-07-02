@@ -748,6 +748,99 @@ body.light-theme .theme-toggle .fa-sun { display: block; }
     color: var(--text-secondary);
 }
 
+/* --- 3D IMAGE SHOWCASE --- */
+.image-3d-stage {
+    perspective: 1400px;
+    transform-style: preserve-3d;
+    transition: transform 0.45s ease;
+    margin-top: 2rem;
+}
+.image-3d-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+.image-3d-item {
+    perspective: 1100px;
+    transform-style: preserve-3d;
+}
+.image-3d-card {
+    position: relative;
+    background: rgba(7, 4, 26, 0.95);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease, border-color 0.45s ease;
+}
+.image-3d-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: translateZ(30px);
+    transition: transform 0.45s ease;
+}
+.image-card-label {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(7, 4, 26, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+.image-3d-item-1 {
+    transform: rotateY(-12deg) rotateX(4deg) translateZ(0);
+}
+.image-3d-item-2 {
+    transform: rotateY(10deg) rotateX(-3deg) translateZ(0);
+}
+.image-3d-item-3 {
+    transform: rotateY(8deg) rotateX(6deg) translateZ(0);
+}
+.image-3d-item-4 {
+    transform: rotateY(-8deg) rotateX(-5deg) translateZ(0);
+}
+.image-3d-card:hover {
+    transform: scale(1.035) translateZ(24px);
+    border-color: rgba(167, 139, 250, 0.65);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 45px rgba(124, 58, 237, 0.16);
+}
+.image-3d-card:hover img {
+    transform: scale(1.05) translateZ(40px);
+}
+@media (max-width: 980px) {
+    .image-3d-grid {
+        grid-template-columns: 1fr;
+    }
+    .image-3d-item {
+        transform: none !important;
+    }
+    .image-3d-card {
+        min-height: 260px;
+    }
+}
+@media (max-width: 640px) {
+    .image-card-label {
+        bottom: 0.8rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        font-size: 0.95rem;
+    }
+}
+
 /* --- SERVICES GRID --- */
 .services-grid {
     display: grid;
@@ -1729,14 +1822,20 @@ body.light-theme .footer-bottom {
 }
 
 /* --- ANIMATION HELPER CLASSES --- */
+/* Elements are VISIBLE by default — GSAP enhances, never hides */
 .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .fade-in.appear {
     opacity: 1;
     transform: translateY(0);
+}
+/* Only hide when JS has run and GSAP is confirmed available */
+body.gsap-ready .fade-in:not(.appear) {
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 /* --- RESPONSIVE RESPONSIVENESS (MEDIA QUERIES) --- */

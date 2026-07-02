@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 6. 3D CARD TILT EFFECT (MOUSEMOVE INTERACTION)
     init3dTiltEffect();
 
+    // 6.5. 3D IMAGE SHOWCASE INTERACTION
+    init3dImageGallery();
+
     // 7. SCROLL-BASED IN-VIEW ANIMATIONS
     initScrollAnimations();
 
@@ -373,6 +376,22 @@ function init3dTiltEffect() {
         card.addEventListener("mouseenter", () => {
             card.style.transition = "transform 0.08s ease, box-shadow 0.2s ease, border-color 0.2s ease";
         });
+    });
+}
+
+function init3dImageGallery() {
+    const stage = document.getElementById("image-3d-stage");
+    if (!stage) return;
+
+    stage.addEventListener("mousemove", (event) => {
+        const rect = stage.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
+        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -12;
+        stage.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+    });
+
+    stage.addEventListener("mouseleave", () => {
+        stage.style.transform = "rotateX(0deg) rotateY(0deg)";
     });
 }
 
@@ -790,7 +809,7 @@ function initModalsAndForms() {
     const waBtn = document.querySelector(".whatsapp-btn");
     if (waBtn) {
         waBtn.addEventListener("click", () => {
-            const phoneNumber = "919999999999"; 
+            const phoneNumber = "919611724319";
             const message = encodeURIComponent("Hello Linkcore! I visited your website and would like to get a quote/consultation on IT Services & Security Setup.");
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
         });
