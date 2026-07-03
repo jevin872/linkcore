@@ -111,215 +111,389 @@ document.addEventListener("DOMContentLoaded", () => {
     // 13. FLOATING HERO PARTICLES & 3D ORB
     initFloatingParticles();
     // inject3dOrbs() — handled by Three.js scene now
+
+    // 14. PRODUCT CARD 3D TILT
+    initProductCardTilt();
 });
 
 /* ========================================================
-   5. THREE.JS WEBGL HERO SCENE — Immersive 3D Network
+   5. THREE.JS CINEMATIC CCTV CAMERA HERO SCENE
+   Cameras fly in from deep space, orbit, shoot scan beams,
+   tunnel through lens, and perform dramatic flybys.
    ======================================================== */
 function initHeroNetworkCanvas() {
     const canvas = document.getElementById("threejs-canvas");
     if (!canvas || typeof THREE === 'undefined') return;
 
-    // --- Scene setup ---
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 0, 28);
+    const camFOV = 65;
+    const threeCamera = new THREE.PerspectiveCamera(camFOV, window.innerWidth / window.innerHeight, 0.1, 2000);
+    threeCamera.position.set(0, 0, 22);
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
 
     window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+        threeCamera.aspect = window.innerWidth / window.innerHeight;
+        threeCamera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- Color palette ---
-    const PALETTE = [0x7c3aed, 0xa78bfa, 0x38bdf8, 0xe879f9, 0x6366f1];
+    // ── LIGHTS ──────────────────────────────────────────────
+    scene.add(new THREE.AmbientLight(0x001a00, 1.2));
+    const keyLight = new THREE.PointLight(0x00ff41, 4, 60);
+    keyLight.position.set(8, 8, 10);
+    scene.add(keyLight);
+    const fillLight = new THREE.PointLight(0x39ff14, 2, 50);
+    fillLight.position.set(-8, -5, 8);
+    scene.add(fillLight);
+    const rimLight = new THREE.SpotLight(0x00cc33, 5, 80, Math.PI / 6);
+    rimLight.position.set(0, 15, -10);
+    scene.add(rimLight);
 
-    // --- Floating 3D nodes ---
-    const NODE_COUNT = window.innerWidth < 768 ? 30 : 60;
-    const nodes = [];
-    const nodeGroup = new THREE.Group();
-    scene.add(nodeGroup);
+    // ── BACKGROUND GRID (ground plane extending into depth) ─
+    const gridHelper = new THREE.GridHelper(200, 40, 0x00ff41, 0x003311);
+    gridHelper.position.y = -12;
+    gridHelper.material.transparent = true;
+    gridHelper.material.opacity = 0.25;
+    scene.add(gridHelper);
 
-    const geoms = [
-        new THREE.IcosahedronGeometry(0.18, 0),
-        new THREE.OctahedronGeometry(0.22, 0),
-        new THREE.TetrahedronGeometry(0.2, 0),
-        new THREE.SphereGeometry(0.14, 8, 8),
-    ];
+    // ── BACKGROUND WIREFRAME DOME ────────────────────────────
+    const dome = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(30, 2),
+        new THREE.MeshBasicMaterial({ color: 0x00ff41, wireframe: true, transparent: true, opacity: 0.025 })
+    );
+    scene.add(dome);
 
-    for (let i = 0; i < NODE_COUNT; i++) {
-        const geom = geoms[Math.floor(Math.random() * geoms.length)];
-        const color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-        const mat = new THREE.MeshPhongMaterial({
-            color,
-            emissive: color,
-            emissiveIntensity: 0.4,
-            transparent: true,
-            opacity: 0.75 + Math.random() * 0.25,
-            wireframe: Math.random() < 0.35,
-        });
-        const mesh = new THREE.Mesh(geom, mat);
+    // ── FLOATING PARTICLE STARS ──────────────────────────────
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 800;
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount * 3; i++) starPos[i] = (Math.random() - 0.5) * 200;
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x00ff41, size: 0.08, transparent: true, opacity: 0.5 }));
+    scene.add(stars);
 
-        const spread = 22;
-        mesh.position.set(
-            (Math.random() - 0.5) * spread,
-            (Math.random() - 0.5) * spread * 0.7,
-            (Math.random() - 0.5) * spread * 0.5
-        );
-        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+    // ── BUILD A 3D CCTV BULLET CAMERA ────────────────────────
+    function buildBulletCamera(scale = 1, color = 0x1a1a1a) {
+        const group = new THREE.Group();
 
-        const speed = {
-            x: (Math.random() - 0.5) * 0.004,
-            y: (Math.random() - 0.5) * 0.004,
-            z: (Math.random() - 0.5) * 0.003,
-            rx: (Math.random() - 0.5) * 0.012,
-            ry: (Math.random() - 0.5) * 0.012,
-        };
-        nodes.push({ mesh, speed, basePos: mesh.position.clone(), phase: Math.random() * Math.PI * 2 });
-        nodeGroup.add(mesh);
-    }
+        // Main body
+        const bodyGeo = new THREE.CylinderGeometry(0.35 * scale, 0.28 * scale, 1.4 * scale, 16);
+        const bodyMat = new THREE.MeshPhongMaterial({ color, specular: 0x00ff41, shininess: 80 });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        body.rotation.z = Math.PI / 2;
+        group.add(body);
 
-    // --- Connection lines between nearby nodes ---
-    const linesMat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.25 });
-    let linesGeom = new THREE.BufferGeometry();
-    const linesObj = new THREE.LineSegments(linesGeom, linesMat);
-    scene.add(linesObj);
+        // Lens housing
+        const houseGeo = new THREE.CylinderGeometry(0.28 * scale, 0.32 * scale, 0.4 * scale, 16);
+        const house = new THREE.Mesh(houseGeo, new THREE.MeshPhongMaterial({ color: 0x111111, specular: 0x00ff41, shininess: 120 }));
+        house.rotation.z = Math.PI / 2;
+        house.position.x = 0.9 * scale;
+        group.add(house);
 
-    function updateLines() {
-        const positions = [];
-        const colors = [];
-        const CONNECT_DIST = 7;
+        // Lens glass — glowing green circle
+        const lensGeo = new THREE.CircleGeometry(0.22 * scale, 32);
+        const lensMat = new THREE.MeshBasicMaterial({ color: 0x00ff41, transparent: true, opacity: 0.9 });
+        const lens = new THREE.Mesh(lensGeo, lensMat);
+        lens.position.x = 1.12 * scale;
+        lens.rotation.y = -Math.PI / 2;
+        group.add(lens);
 
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const d = nodes[i].mesh.position.distanceTo(nodes[j].mesh.position);
-                if (d < CONNECT_DIST) {
-                    const alpha = 1 - d / CONNECT_DIST;
-                    const c1 = new THREE.Color(nodes[i].mesh.material.color);
-                    const c2 = new THREE.Color(nodes[j].mesh.material.color);
-                    positions.push(...nodes[i].mesh.position.toArray(), ...nodes[j].mesh.position.toArray());
-                    colors.push(c1.r * alpha, c1.g * alpha, c1.b * alpha, c2.r * alpha, c2.g * alpha, c2.b * alpha);
-                }
-            }
+        // Lens inner dark
+        const innerGeo = new THREE.CircleGeometry(0.12 * scale, 32);
+        const inner = new THREE.Mesh(innerGeo, new THREE.MeshBasicMaterial({ color: 0x001100 }));
+        inner.position.x = 1.13 * scale;
+        inner.rotation.y = -Math.PI / 2;
+        group.add(inner);
+
+        // IR LED ring dots
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 8) * Math.PI * 2;
+            const led = new THREE.Mesh(
+                new THREE.SphereGeometry(0.04 * scale, 6, 6),
+                new THREE.MeshBasicMaterial({ color: 0x00ff41 })
+            );
+            led.position.set(1.1 * scale, Math.sin(angle) * 0.2 * scale, Math.cos(angle) * 0.2 * scale);
+            group.add(led);
         }
 
-        linesGeom.dispose();
-        linesGeom = new THREE.BufferGeometry();
-        linesGeom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        linesGeom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        linesObj.geometry = linesGeom;
+        // Mount bracket
+        const mountGeo = new THREE.BoxGeometry(0.15 * scale, 0.6 * scale, 0.5 * scale);
+        const mount = new THREE.Mesh(mountGeo, new THREE.MeshPhongMaterial({ color: 0x222222 }));
+        mount.position.set(0, -0.55 * scale, 0);
+        group.add(mount);
+
+        return group;
     }
 
-    // --- Large background wireframe sphere ---
-    const bgSphere = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(18, 2),
-        new THREE.MeshBasicMaterial({ color: 0x7c3aed, wireframe: true, transparent: true, opacity: 0.04 })
+    // ── BUILD A 3D DOME CAMERA ────────────────────────────────
+    function buildDomeCamera(scale = 1) {
+        const group = new THREE.Group();
+
+        // Dome shell
+        const domeGeo = new THREE.SphereGeometry(0.55 * scale, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2);
+        const domeMat = new THREE.MeshPhongMaterial({ color: 0x0d0d0d, specular: 0x00ff41, shininess: 100, side: THREE.DoubleSide });
+        group.add(new THREE.Mesh(domeGeo, domeMat));
+
+        // Base plate
+        const baseGeo = new THREE.CylinderGeometry(0.58 * scale, 0.6 * scale, 0.1 * scale, 24);
+        group.add(new THREE.Mesh(baseGeo, new THREE.MeshPhongMaterial({ color: 0x1a1a1a })));
+
+        // Inner lens glow
+        const lg = new THREE.Mesh(new THREE.SphereGeometry(0.2 * scale, 16, 16), new THREE.MeshBasicMaterial({ color: 0x00ff41, transparent: true, opacity: 0.8 }));
+        lg.position.y = -0.15 * scale;
+        group.add(lg);
+
+        return group;
+    }
+
+    // ── SCAN BEAM (sweeping laser line from lens) ─────────────
+    function createScanBeam() {
+        const points = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(18, 0, 0)];
+        const geo = new THREE.BufferGeometry().setFromPoints(points);
+        const mat = new THREE.LineBasicMaterial({ color: 0x00ff41, transparent: true, opacity: 0.6 });
+        return new THREE.Line(geo, mat);
+    }
+
+    // ── LENS TUNNEL RINGS (fly-through effect) ────────────────
+    function createTunnelRings(count = 30) {
+        const group = new THREE.Group();
+        for (let i = 0; i < count; i++) {
+            const r = new THREE.Mesh(
+                new THREE.TorusGeometry(0.8 + i * 0.25, 0.018, 8, 60),
+                new THREE.MeshBasicMaterial({ color: 0x00ff41, transparent: true, opacity: Math.max(0.02, 0.35 - i * 0.012) })
+            );
+            r.position.z = -i * 1.2;
+            group.add(r);
+        }
+        return group;
+    }
+
+    // ── SPAWN CAMERAS ─────────────────────────────────────────
+    const NUM_CAMS = window.innerWidth < 768 ? 3 : 6;
+    const camObjects = [];
+
+    for (let i = 0; i < NUM_CAMS; i++) {
+        const isDome = i % 2 === 0;
+        const scale = 0.8 + Math.random() * 0.6;
+        const mesh = isDome ? buildDomeCamera(scale) : buildBulletCamera(scale);
+
+        // Each camera gets a scan beam
+        const beam = createScanBeam();
+        beam.visible = false;
+        mesh.add(beam);
+
+        // Random orbit parameters
+        const orbitR   = 5 + Math.random() * 9;
+        const orbitSpeed = 0.003 + Math.random() * 0.004;
+        const orbitTilt = (Math.random() - 0.5) * 1.2;
+        const phaseOff  = (i / NUM_CAMS) * Math.PI * 2;
+        const flyDepth  = -60 - Math.random() * 80; // start far back
+
+        // State machine: 'flying-in' | 'orbiting' | 'flying-out' | 'tunnel'
+        const obj = {
+            mesh, beam, isDome, scale,
+            orbitR, orbitSpeed, orbitTilt, phaseOff,
+            state: 'flying-in',
+            stateTimer: 0,
+            flyDepth,
+            flyTarget: new THREE.Vector3(
+                (Math.random() - 0.5) * 16,
+                (Math.random() - 0.5) * 8,
+                (Math.random() - 0.5) * 4
+            ),
+            flyDelay: i * 90,  // stagger entry
+            orbitAngle: phaseOff,
+            beamPulse: 0,
+        };
+
+        mesh.position.set(0, 0, flyDepth);
+        scene.add(mesh);
+        camObjects.push(obj);
+    }
+
+    // ── LENS TUNNEL (triggered periodically) ─────────────────
+    const tunnel = createTunnelRings(30);
+    tunnel.visible = false;
+    tunnel.position.set(0, 0, 0);
+    scene.add(tunnel);
+    let tunnelActive = false;
+    let tunnelTimer = 0;
+    const TUNNEL_INTERVAL = 380; // frames between tunnel events
+
+    // ── GLITCH FLASH PLANE ────────────────────────────────────
+    const flashPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(60, 40),
+        new THREE.MeshBasicMaterial({ color: 0x00ff41, transparent: true, opacity: 0, side: THREE.DoubleSide })
     );
-    scene.add(bgSphere);
+    flashPlane.position.z = 5;
+    scene.add(flashPlane);
 
-    // --- Central glowing core ---
-    const coreMat = new THREE.MeshPhongMaterial({
-        color: 0xa78bfa, emissive: 0x7c3aed, emissiveIntensity: 1,
-        transparent: true, opacity: 0.9, wireframe: false
-    });
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), coreMat);
-    scene.add(core);
-
-    // Core glow rings
-    const ringColors = [0x7c3aed, 0x38bdf8, 0xe879f9];
-    const rings = ringColors.map((c, i) => {
-        const r = new THREE.Mesh(
-            new THREE.TorusGeometry(2.2 + i * 0.9, 0.025, 8, 80),
-            new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.5 - i * 0.1 })
-        );
-        r.rotation.x = Math.PI / 2 + i * 0.5;
-        scene.add(r);
-        return r;
-    });
-
-    // --- Lights ---
-    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-    const pLight1 = new THREE.PointLight(0x7c3aed, 2, 40);
-    pLight1.position.set(5, 5, 5);
-    scene.add(pLight1);
-    const pLight2 = new THREE.PointLight(0x38bdf8, 1.5, 40);
-    pLight2.position.set(-5, -5, 5);
-    scene.add(pLight2);
-    const pLight3 = new THREE.PointLight(0xe879f9, 1, 30);
-    pLight3.position.set(0, 8, -5);
-    scene.add(pLight3);
-
-    // --- Mouse parallax ---
+    // ── MOUSE PARALLAX ────────────────────────────────────────
     const mouse = { x: 0, y: 0 };
-    const targetRot = { x: 0, y: 0 };
-    window.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', e => {
         mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
         mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
     });
 
-    // --- Scroll-based camera zoom ---
     let scrollY = 0;
     window.addEventListener('scroll', () => { scrollY = window.scrollY; });
 
-    // --- Animation loop ---
+    // ── ANIMATION LOOP ────────────────────────────────────────
     let frame = 0;
+    const targetCamRot = { x: 0, y: 0 };
+
     function animate() {
         requestAnimationFrame(animate);
         frame++;
-
         const t = frame * 0.01;
 
-        // Smooth mouse parallax on scene
-        targetRot.x += (mouse.y * 0.15 - targetRot.x) * 0.05;
-        targetRot.y += (mouse.x * 0.25 - targetRot.y) * 0.05;
-        nodeGroup.rotation.x = targetRot.x;
-        nodeGroup.rotation.y = targetRot.y;
+        // Slow camera parallax from mouse
+        targetCamRot.x += (mouse.y * 0.08 - targetCamRot.x) * 0.04;
+        targetCamRot.y += (mouse.x * 0.12 - targetCamRot.y) * 0.04;
+        threeCamera.rotation.x = targetCamRot.x;
+        threeCamera.rotation.y = targetCamRot.y;
+        threeCamera.position.z = 22 + scrollY * 0.01;
 
-        // Camera scroll parallax
-        camera.position.z = 28 + scrollY * 0.015;
-        camera.position.y = -scrollY * 0.005;
+        // Rotate background
+        dome.rotation.y += 0.0005;
+        stars.rotation.y += 0.0003;
+        keyLight.intensity = 3.5 + Math.sin(t * 2) * 0.8;
 
-        // Animate nodes
-        nodes.forEach((n, i) => {
-            n.mesh.rotation.x += n.speed.rx;
-            n.mesh.rotation.y += n.speed.ry;
-            n.mesh.position.x = n.basePos.x + Math.sin(t + n.phase) * 0.8;
-            n.mesh.position.y = n.basePos.y + Math.cos(t * 0.7 + n.phase) * 0.6;
-            n.mesh.position.z = n.basePos.z + Math.sin(t * 0.5 + n.phase) * 0.4;
+        // Grid drift
+        gridHelper.position.z = (frame * 0.04) % 5;
+
+        // ── Per-camera logic ──────────────────────────────────
+        camObjects.forEach(obj => {
+            const { mesh, beam } = obj;
+
+            if (frame < obj.flyDelay) return; // stagger
+
+            obj.stateTimer++;
+
+            if (obj.state === 'flying-in') {
+                // Rush toward scene from far z
+                mesh.position.z += (obj.flyTarget.z - mesh.position.z) * 0.025;
+                mesh.position.x += (obj.flyTarget.x - mesh.position.x) * 0.025;
+                mesh.position.y += (obj.flyTarget.y - mesh.position.y) * 0.025;
+                mesh.rotation.y += 0.06;
+
+                if (obj.stateTimer > 140) {
+                    obj.state = 'orbiting';
+                    obj.stateTimer = 0;
+                    beam.visible = true;
+                }
+            }
+
+            else if (obj.state === 'orbiting') {
+                obj.orbitAngle += obj.orbitSpeed;
+                mesh.position.x = Math.cos(obj.orbitAngle) * obj.orbitR;
+                mesh.position.y = Math.sin(obj.orbitAngle * 0.7) * obj.orbitR * 0.4 + obj.orbitTilt * 2;
+                mesh.position.z = Math.sin(obj.orbitAngle) * obj.orbitR * 0.5;
+
+                // Always face orbit center (look at origin)
+                mesh.lookAt(0, 0, 0);
+
+                // Scan beam pulse
+                obj.beamPulse += 0.05;
+                beam.material.opacity = 0.3 + Math.sin(obj.beamPulse) * 0.3;
+                beam.rotation.z += 0.02;
+
+                // Fly out after a while
+                const orbitDuration = 320 + Math.random() * 200;
+                if (obj.stateTimer > orbitDuration) {
+                    obj.state = 'flying-out';
+                    obj.stateTimer = 0;
+                    beam.visible = false;
+                    // Pick new exit direction — sometimes fly INTO camera (tunnel trigger)
+                    if (Math.random() < 0.3) {
+                        obj.exitTarget = new THREE.Vector3(0, 0, 80); // fly toward viewer
+                        obj.triggerTunnel = true;
+                    } else {
+                        obj.exitTarget = new THREE.Vector3(
+                            (Math.random() - 0.5) * 60,
+                            (Math.random() - 0.5) * 40,
+                            -100
+                        );
+                        obj.triggerTunnel = false;
+                    }
+                }
+            }
+
+            else if (obj.state === 'flying-out') {
+                mesh.position.x += (obj.exitTarget.x - mesh.position.x) * 0.04;
+                mesh.position.y += (obj.exitTarget.y - mesh.position.y) * 0.04;
+                mesh.position.z += (obj.exitTarget.z - mesh.position.z) * 0.04;
+                mesh.rotation.y += 0.08;
+
+                // Trigger lens tunnel when flying at viewer
+                if (obj.triggerTunnel && !tunnelActive && mesh.position.z > 15) {
+                    tunnelActive = true;
+                    tunnelTimer = 0;
+                    tunnel.visible = true;
+                    tunnel.position.set(0, 0, 12);
+                    obj.triggerTunnel = false;
+                }
+
+                if (obj.stateTimer > 100) {
+                    // Reset — fly in again from far
+                    obj.state = 'flying-in';
+                    obj.stateTimer = 0;
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 40,
+                        (Math.random() - 0.5) * 20,
+                        -80 - Math.random() * 60
+                    );
+                    obj.flyTarget = new THREE.Vector3(
+                        (Math.random() - 0.5) * 14,
+                        (Math.random() - 0.5) * 7,
+                        (Math.random() - 0.5) * 4
+                    );
+                }
+            }
+
+            // Body spin while flying
+            if (obj.state !== 'orbiting') {
+                mesh.rotation.x += 0.03;
+            }
         });
 
-        // Update connection lines every 3 frames for perf
-        if (frame % 3 === 0) updateLines();
+        // ── Lens tunnel animation ─────────────────────────────
+        if (tunnelActive) {
+            tunnelTimer++;
+            tunnel.children.forEach((ring, i) => {
+                ring.position.z += 0.8 + i * 0.03; // rush toward viewer
+                ring.material.opacity = Math.max(0, ring.material.opacity - 0.004);
+                if (ring.position.z > 20) ring.position.z = -36 + i * -1.2;
+            });
 
-        // Rotate background sphere slowly
-        bgSphere.rotation.y += 0.0008;
-        bgSphere.rotation.x += 0.0003;
+            // Green flash at peak
+            if (tunnelTimer === 18) {
+                flashPlane.material.opacity = 0.15;
+            }
+            flashPlane.material.opacity *= 0.85;
 
-        // Pulse core
-        const pulse = 1 + Math.sin(t * 2) * 0.08;
-        core.scale.setScalar(pulse);
-        core.rotation.y += 0.008;
-        core.rotation.x += 0.005;
-        coreMat.emissiveIntensity = 0.8 + Math.sin(t * 3) * 0.4;
+            if (tunnelTimer > 80) {
+                tunnelActive = false;
+                tunnel.visible = false;
+                // reset rings
+                tunnel.children.forEach((ring, i) => {
+                    ring.position.z = -i * 1.2;
+                    ring.material.opacity = Math.max(0.02, 0.35 - i * 0.012);
+                });
+            }
+        }
 
-        // Spin rings
-        rings[0].rotation.z += 0.006;
-        rings[1].rotation.x += 0.004;
-        rings[2].rotation.y += 0.005;
-
-        // Pulse lights
-        pLight1.intensity = 2 + Math.sin(t * 2.5) * 0.8;
-        pLight2.intensity = 1.5 + Math.cos(t * 2) * 0.6;
-
-        renderer.render(scene, camera);
+        renderer.render(scene, threeCamera);
     }
+
     animate();
 }
+
 
 /* ========================================================
    6. 3D CARD TILT EFFECT — HOLOGRAPHIC SPECULAR GLOW
@@ -353,15 +527,15 @@ function init3dTiltEffect() {
 
             const gx = (x / rect.width) * 100;
             const gy = (y / rect.height) * 100;
-            shimmer.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(167,139,250,0.22) 0%, rgba(56,189,248,0.1) 40%, transparent 70%)`;
+            shimmer.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(0,255,65,0.15) 0%, rgba(57,255,20,0.06) 40%, transparent 70%)`;
             shimmer.style.opacity = "1";
 
-            card.style.borderColor = `rgba(167,139,250,0.6)`;
+            card.style.borderColor = `rgba(0,255,65,0.5)`;
             card.style.boxShadow = `
-                0 20px 60px rgba(0,0,0,0.6),
-                0 0 30px rgba(124,58,237,0.4),
-                0 0 60px rgba(56,189,248,0.15),
-                inset 0 1px 0 rgba(167,139,250,0.3)
+                0 20px 60px rgba(0,0,0,0.8),
+                0 0 25px rgba(0,255,65,0.35),
+                0 0 50px rgba(57,255,20,0.1),
+                inset 0 1px 0 rgba(0,255,65,0.2)
             `;
         });
 
@@ -399,94 +573,67 @@ function init3dImageGallery() {
    7. GSAP SCROLL ANIMATIONS + HERO ENTRANCE
    ======================================================== */
 function initScrollAnimations() {
-    // --- Hero entrance (GSAP timeline) ---
-    if (typeof gsap !== 'undefined') {
+    // Hero entrance is now pure CSS — no GSAP needed for visibility
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        const heroTl = gsap.timeline({ delay: 0.4 });
-        heroTl
-            .to("#hero-eyebrow",    { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
-            .to("#htl-1",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.3")
-            .to("#htl-2",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
-            .to("#htl-3",           { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
-            .to("#hero-desc",       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-            .to("#hero-btns",       { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
-
-        // --- Section scroll reveals ---
-        // Batch fade-in for cards/grid items
-        ScrollTrigger.batch(".fade-in:not(.appear)", {
-            onEnter: batch => gsap.to(batch, {
-                opacity: 1, y: 0, scale: 1,
-                duration: 0.7, stagger: 0.1, ease: "power3.out",
-                onComplete: () => batch.forEach(el => el.classList.add("appear"))
-            }),
-            start: "top 88%",
-        });
-
-        // Section headers — slide up
+        // Section headers — slide up (additive only, elements already visible)
         document.querySelectorAll(".section-header").forEach(el => {
             gsap.from(el, {
-                scrollTrigger: { trigger: el, start: "top 85%", once: true },
-                opacity: 0, y: 40, duration: 0.8, ease: "power3.out"
+                scrollTrigger: { trigger: el, start: "top 88%", once: true },
+                y: 30, duration: 0.7, ease: "power3.out"
             });
         });
 
-        // About grid — split left/right
-        const aboutLeft = document.querySelector(".about-grid > *:first-child");
-        const aboutRight = document.querySelector(".about-grid > *:last-child");
-        if (aboutLeft) gsap.from(aboutLeft, { scrollTrigger: { trigger: aboutLeft, start: "top 80%", once: true }, opacity: 0, x: -60, duration: 0.9, ease: "power3.out" });
-        if (aboutRight) gsap.from(aboutRight, { scrollTrigger: { trigger: aboutRight, start: "top 80%", once: true }, opacity: 0, x: 60, duration: 0.9, ease: "power3.out" });
+        // Service cards stagger
+        gsap.from(".service-card", {
+            scrollTrigger: { trigger: ".services-grid", start: "top 82%", once: true },
+            y: 40, opacity: 0, duration: 0.5, stagger: 0.08, ease: "power3.out"
+        });
 
-        // Counter boxes — scale in
+        // Counter boxes scale in
         document.querySelectorAll(".counter-box").forEach((el, i) => {
             gsap.from(el, {
-                scrollTrigger: { trigger: el, start: "top 85%", once: true },
-                opacity: 0, scale: 0.8, y: 30,
-                duration: 0.6, delay: i * 0.1, ease: "back.out(1.4)"
+                scrollTrigger: { trigger: el, start: "top 88%", once: true },
+                scale: 0.85, opacity: 0, duration: 0.5, delay: i * 0.08, ease: "back.out(1.4)"
             });
         });
 
-        // Service cards — stagger up
-        gsap.from(".service-card", {
-            scrollTrigger: { trigger: ".services-grid", start: "top 80%", once: true },
-            opacity: 0, y: 50, duration: 0.6, stagger: 0.1, ease: "power3.out"
-        });
-
-        // Portfolio items — stagger scale
+        // Portfolio items
         gsap.from(".portfolio-item", {
-            scrollTrigger: { trigger: ".portfolio-grid", start: "top 80%", once: true },
-            opacity: 0, scale: 0.9, duration: 0.6, stagger: 0.12, ease: "power2.out"
+            scrollTrigger: { trigger: ".portfolio-grid", start: "top 82%", once: true },
+            y: 30, opacity: 0, duration: 0.5, stagger: 0.1, ease: "power2.out"
         });
 
-        // Industry cards — stagger
+        // Industry cards
         gsap.from(".industry-card", {
-            scrollTrigger: { trigger: ".industries-grid", start: "top 80%", once: true },
-            opacity: 0, y: 30, duration: 0.5, stagger: 0.08, ease: "power2.out"
+            scrollTrigger: { trigger: ".industries-grid", start: "top 85%", once: true },
+            y: 20, opacity: 0, duration: 0.4, stagger: 0.06, ease: "power2.out"
         });
 
-        // Navbar parallax tint on scroll
-        ScrollTrigger.create({
-            start: "top -80",
-            onUpdate: self => {
-                const nav = document.querySelector(".navbar");
-                if (nav) nav.classList.toggle("sticky", self.progress > 0);
-            }
-        });
+        // About grid split
+        const aboutLeft = document.querySelector(".about-grid > *:first-child");
+        const aboutRight = document.querySelector(".about-grid > *:last-child");
+        if (aboutLeft) gsap.from(aboutLeft, { scrollTrigger: { trigger: aboutLeft, start: "top 82%", once: true }, x: -40, opacity: 0, duration: 0.8, ease: "power3.out" });
+        if (aboutRight) gsap.from(aboutRight, { scrollTrigger: { trigger: aboutRight, start: "top 82%", once: true }, x: 40, opacity: 0, duration: 0.8, ease: "power3.out" });
 
     } else {
-        // Fallback: IntersectionObserver if GSAP not loaded
-        const obs = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("appear");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-        document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
+        // GSAP not available — everything is already visible via CSS, nothing to do
+        console.log("GSAP not loaded — static display active");
     }
-}
 
+    // Always run IntersectionObserver for .appear class (used by counters etc.)
+    const obs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("appear");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
+}
 /* ========================================================
    8. NUMERICAL INCREMENT COUNTERS
    ======================================================== */
@@ -809,7 +956,7 @@ function initModalsAndForms() {
     const waBtn = document.querySelector(".whatsapp-btn");
     if (waBtn) {
         waBtn.addEventListener("click", () => {
-            const phoneNumber = "919611724319";
+            const phoneNumber = "918105051643";
             const message = encodeURIComponent("Hello Linkcore! I visited your website and would like to get a quote/consultation on IT Services & Security Setup.");
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
         });
@@ -1058,4 +1205,33 @@ function buildOrb(size = "260px") {
         </div>
     `;
     return wrapper;
+}
+
+/* ========================================================
+   14. PRODUCT CARD 3D TILT — Green neon specular
+   ======================================================== */
+function initProductCardTilt() {
+    const cards = document.querySelectorAll(".product-3d-card");
+
+    cards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotX = ((cy - y) / cy) * 16;
+            const rotY = ((x - cx) / cx) * 16;
+            card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.04,1.04,1.04)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transition = "transform 0.5s cubic-bezier(0.25,0.8,0.25,1)";
+            card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
+        });
+
+        card.addEventListener("mouseenter", () => {
+            card.style.transition = "transform 0.08s ease";
+        });
+    });
 }
